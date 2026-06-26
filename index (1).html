@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Professor Paws — a patient homework coach for kids who learn differently</title>
+<meta name="description" content="Professor Paws is an AI homework coach for kids ages 8–13 who learn differently. It teaches the method, step by step — not just the answer. Built to be safe and private for children." />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Professor Paws — homework that ends in 'oh, I get it'" />
+<meta property="og:description" content="A patient AI coach that teaches your child how to solve it, step by step. Built for kids 8–13 who think differently." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://playprofessorpaws.com" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Hanken+Grotesque:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --paper:      #F6F2E9;
+    --paper-2:    #FFFEFA;
+    --ink:        #232C26;
+    --ink-soft:   #515C54;
+    --pine:       #2E5C4D;
+    --pine-deep:  #234A3D;
+    --honey:      #E0922A;
+    --honey-soft: #F6D9A8;
+    --sage:       #CFE0D6;
+    --line:       rgba(35, 44, 38, 0.12);
+
+    --display: 'Baloo 2', system-ui, sans-serif;
+    --body: 'Hanken Grotesque', system-ui, sans-serif;
+
+    --maxw: 1080px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 18px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3 { font-family: var(--display); font-weight: 700; line-height: 1.08; margin: 0; letter-spacing: -0.01em; }
+
+  p { margin: 0; }
+
+  a { color: inherit; }
+
+  .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  .eyebrow {
+    font-family: var(--body);
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pine);
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-family: var(--body);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 0.85em 1.5em;
+    border-radius: 999px;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  }
+  .btn-primary {
+    background: var(--pine);
+    color: #fff;
+    box-shadow: 0 8px 20px -10px rgba(46, 92, 77, 0.7);
+  }
+  .btn-primary:hover { transform: translateY(-2px); background: var(--pine-deep); box-shadow: 0 14px 26px -12px rgba(46, 92, 77, 0.85); }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn-ghost:hover { transform: translateY(-2px); border-color: var(--pine); color: var(--pine); }
+
+  a:focus-visible, .btn:focus-visible {
+    outline: 3px solid var(--honey);
+    outline-offset: 3px;
+  }
+
+  /* Nav */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(246, 242, 233, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+  .brand { display: flex; align-items: center; gap: 0.6em; font-family: var(--display); font-weight: 800; font-size: 1.25rem; color: var(--ink); text-decoration: none; }
+  .brand svg { display: block; }
+  .nav .btn { padding: 0.6em 1.2em; }
+
+  /* Hero */
+  .hero { padding: clamp(48px, 8vw, 96px) 0 clamp(40px, 6vw, 72px); }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(24px, 5vw, 56px); align-items: center; }
+  .hero h1 {
+    font-size: clamp(2.4rem, 5.8vw, 4rem);
+    margin: 0.4em 0 0.45em;
+    max-width: 12ch;
+  }
+  .hero h1 .accent { color: var(--pine); }
+  .hero-sub { font-size: clamp(1.05rem, 2vw, 1.22rem); color: var(--ink-soft); max-width: 42ch; margin-bottom: 2em; }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .hero-note { margin-top: 1.6em; font-size: 0.9rem; color: var(--ink-soft); }
+  .hero-note strong { color: var(--ink); font-weight: 600; }
+
+  /* Hero artwork — paw trail */
+  .hero-art { position: relative; min-height: 320px; display: flex; align-items: center; justify-content: center; }
+  .trail-card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    max-width: 380px;
+    background: radial-gradient(120% 120% at 30% 20%, #ffffff 0%, var(--sage) 100%);
+    border-radius: 32px;
+    border: 1px solid var(--line);
+    box-shadow: 0 30px 60px -30px rgba(35, 74, 61, 0.45);
+    overflow: hidden;
+  }
+  .trail-card .label {
+    position: absolute;
+    left: 24px; bottom: 22px;
+    font-family: var(--body);
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--pine-deep);
+    max-width: 70%;
+  }
+  .trail-card .label span { display: block; font-family: var(--display); font-weight: 700; font-size: 1.15rem; color: var(--pine-deep); }
+  .trail-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  .trail-path { fill: none; stroke: var(--pine); stroke-width: 2.5; stroke-dasharray: 7 11; opacity: 0.45; }
+  .paw { opacity: 0; transform-box: fill-box; transform-origin: center; }
+
+  @keyframes drawPath { to { stroke-dashoffset: 0; } }
+  @keyframes popPaw { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: scale(1); } }
+
+  .anim .trail-path { stroke-dasharray: 600; stroke-dashoffset: 600; opacity: 0.5; animation: drawPath 1.4s ease forwards; }
+  .anim .paw { animation: popPaw 0.5s cubic-bezier(.2,.8,.3,1.2) forwards; }
+  .anim .paw:nth-of-type(1) { animation-delay: 0.35s; }
+  .anim .paw:nth-of-type(2) { animation-delay: 0.6s; }
+  .anim .paw:nth-of-type(3) { animation-delay: 0.85s; }
+  .anim .paw:nth-of-type(4) { animation-delay: 1.1s; }
+  .anim .paw:nth-of-type(5) { animation-delay: 1.35s; }
+
+  /* Section scaffolding */
+  section { padding: clamp(56px, 9vw, 104px) 0; }
+  .sec-head { max-width: 60ch; margin-bottom: clamp(36px, 5vw, 56px); }
+  .sec-head h2 { font-size: clamp(1.9rem, 4vw, 2.9rem); margin: 0.35em 0 0.4em; }
+  .sec-head p { color: var(--ink-soft); font-size: 1.08rem; }
+
+  /* Empathy strip */
+  .empathy { background: var(--pine); color: #fff; }
+  .empathy .wrap { display: grid; grid-template-columns: 1fr; gap: 18px; }
+  .empathy h2 { font-size: clamp(1.7rem, 3.6vw, 2.6rem); max-width: 22ch; color: #fff; }
+  .empathy p { color: rgba(255,255,255,0.82); max-width: 56ch; font-size: 1.1rem; }
+  .empathy .eyebrow { color: var(--honey-soft); }
+
+  /* How it teaches — paw steps */
+  .steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .step {
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 30px 28px;
+    position: relative;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .step:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -28px rgba(35, 74, 61, 0.55); }
+  .step .pawmark { width: 40px; height: 40px; margin-bottom: 16px; display: block; }
+  .step .pawmark svg { width: 100%; height: 100%; }
+  .step h3 { font-size: 1.3rem; margin-bottom: 0.5em; }
+  .step p { color: var(--ink-soft); font-size: 1rem; }
+  .step .num { position: absolute; top: 26px; right: 28px; font-family: var(--display); font-weight: 700; font-size: 1rem; color: var(--honey); }
+
+  /* Safe by design */
+  .safe { background: var(--paper-2); }
+  .safe-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .commit {
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 24px 22px;
+    background: var(--paper);
+  }
+  .commit .check { display: inline-flex; width: 26px; height: 26px; border-radius: 50%; background: var(--sage); color: var(--pine-deep); align-items: center; justify-content: center; margin-bottom: 12px; }
+  .commit h3 { font-size: 1.08rem; margin-bottom: 0.35em; }
+  .commit p { font-size: 0.95rem; color: var(--ink-soft); }
+  .safe-links { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 22px; align-items: center; font-weight: 600; }
+  .safe-links a { color: var(--pine); text-decoration: none; border-bottom: 2px solid var(--honey-soft); padding-bottom: 2px; }
+  .safe-links a:hover { border-color: var(--honey); }
+
+  /* Proof — honest placeholder */
+  .proof .panel {
+    border: 2px dashed var(--line);
+    border-radius: 24px;
+    padding: clamp(36px, 6vw, 64px);
+    text-align: center;
+    background: var(--paper-2);
+  }
+  .proof .panel .eyebrow { color: var(--honey); }
+  .proof .panel h2 { font-size: clamp(1.7rem, 3.6vw, 2.5rem); margin: 0.5em auto 0.5em; max-width: 20ch; }
+  .proof .panel p { color: var(--ink-soft); max-width: 52ch; margin: 0 auto; font-size: 1.08rem; }
+
+  /* CTA band */
+  .cta-band { background: var(--pine-deep); color: #fff; text-align: center; }
+  .cta-band h2 { font-size: clamp(2rem, 4.5vw, 3.2rem); color: #fff; max-width: 18ch; margin: 0 auto 0.5em; }
+  .cta-band p { color: rgba(255,255,255,0.78); max-width: 46ch; margin: 0 auto 2em; }
+  .cta-band .btn-primary { background: var(--honey); color: var(--pine-deep); box-shadow: 0 10px 24px -12px rgba(224, 146, 42, 0.9); }
+  .cta-band .btn-primary:hover { background: #efa23a; }
+  .cta-band .pricing { margin-top: 1.8em; font-size: 0.9rem; color: rgba(255,255,255,0.7); }
+
+  /* Footer */
+  footer { background: var(--paper); border-top: 1px solid var(--line); padding: 44px 0; }
+  .foot-inner { display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; align-items: center; }
+  .foot-inner .brand { font-size: 1.1rem; }
+  .foot-meta { color: var(--ink-soft); font-size: 0.9rem; }
+  .foot-links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .foot-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; }
+  .foot-links a:hover { color: var(--pine); }
+
+  /* Responsive */
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-art { order: -1; min-height: 0; }
+    .trail-card { max-width: 320px; margin: 0 auto; }
+    .safe-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .steps { grid-template-columns: 1fr; }
+    .safe-grid { grid-template-columns: 1fr; }
+    .nav .btn span { display: none; }
+    .nav .btn::after { content: 'Early access'; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .anim .trail-path { animation: none; stroke-dashoffset: 0; stroke-dasharray: 7 11; }
+    .anim .paw { animation: none; opacity: 1; transform: none; }
+    .btn, .step { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- paw symbol reused everywhere -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="paw" viewBox="0 0 64 64">
+      <ellipse cx="32" cy="42" rx="15" ry="13" fill="currentColor"/>
+      <ellipse cx="16" cy="24" rx="6" ry="8" fill="currentColor"/>
+      <ellipse cx="48" cy="24" rx="6" ry="8" fill="currentColor"/>
+      <ellipse cx="26" cy="15" rx="5.5" ry="7.5" fill="currentColor"/>
+      <ellipse cx="42" cy="15" rx="5.5" ry="7.5" fill="currentColor"/>
+    </symbol>
+  </svg>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top">
+        <svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true"><use href="#paw" fill="#2E5C4D"/></svg>
+        Professor Paws
+      </a>
+      <a class="btn btn-primary" href="#join"><span>Request early access</span></a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">For kids 8–13 who learn differently</span>
+          <h1>Homework that ends in <span class="accent">"oh, I get it"</span> — not tears.</h1>
+          <p class="hero-sub">Professor Paws is a patient AI coach that teaches your child <em>how</em> to solve it, one step at a time — never just handing over the answer.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#join">Request early access</a>
+            <a class="btn btn-ghost" href="#how">See how it works</a>
+          </div>
+          <p class="hero-note">Built by one dad, tested with <strong>real kids</strong>, for kids who think differently — ADHD, dyslexia, autism, or just their own pace.</p>
+        </div>
+
+        <div class="hero-art">
+          <div class="trail-card anim" id="trailCard">
+            <svg class="trail-svg" viewBox="0 0 380 380" aria-hidden="true">
+              <path class="trail-path" d="M 60 320 C 120 280, 90 210, 160 190 S 270 150, 250 90 S 300 50, 330 60" />
+              <g class="paw" style="color:#2E5C4D"><use href="#paw" x="46" y="298" width="34" height="34"/></g>
+              <g class="paw" style="color:#3A6B59"><use href="#paw" x="128" y="208" width="34" height="34"/></g>
+              <g class="paw" style="color:#41785F"><use href="#paw" x="210" y="158" width="34" height="34"/></g>
+              <g class="paw" style="color:#52876B"><use href="#paw" x="232" y="78" width="34" height="34"/></g>
+              <g class="paw" style="color:#E0922A"><use href="#paw" x="306" y="44" width="34" height="34"/></g>
+            </svg>
+            <div class="label"><span>Step by step.</span>Every problem, one paw at a time.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EMPATHY -->
+    <section class="empathy">
+      <div class="wrap">
+        <span class="eyebrow">Why we built it</span>
+        <h2>You know the look. The pencil goes down, the shoulders slump, and the page wins.</h2>
+        <p>For a kid who learns differently, "just read the problem again" doesn't help. They need someone patient who slows down, shows the method, and makes the moment it clicks feel good — over and over, until it sticks. That's the whole job of Professor Paws.</p>
+      </div>
+    </section>
+
+    <!-- HOW IT TEACHES -->
+    <section id="how">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="eyebrow">How it teaches</span>
+          <h2>A coach, not an answer key.</h2>
+          <p>Professor Paws is built on how kids actually learn — seeing it, doing it with their hands, then proving they remember. Not memorizing, not guessing.</p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <span class="num">01</span>
+            <span class="pawmark"><svg viewBox="0 0 64 64"><use href="#paw" fill="#2E5C4D"/></svg></span>
+            <h3>Snap the homework</h3>
+            <p>Your child photographs the problem or types it in. No account for them to manage — you set everything up.</p>
+          </div>
+          <div class="step">
+            <span class="num">02</span>
+            <span class="pawmark"><svg viewBox="0 0 64 64"><use href="#paw" fill="#2E5C4D"/></svg></span>
+            <h3>Walk the method</h3>
+            <p>Professor Paws guides them through the <em>how</em> in small, calm steps — the same way a good tutor sitting beside them would.</p>
+          </div>
+          <div class="step">
+            <span class="num">03</span>
+            <span class="pawmark"><svg viewBox="0 0 64 64"><use href="#paw" fill="#2E5C4D"/></svg></span>
+            <h3>Learn by doing</h3>
+            <p>Hands-on activities — drag, build, and see the idea — instead of a wall of text. Made for kids who tune out of typing.</p>
+          </div>
+          <div class="step">
+            <span class="num">04</span>
+            <span class="pawmark"><svg viewBox="0 0 64 64"><use href="#paw" fill="#2E5C4D"/></svg></span>
+            <h3>Make it stick</h3>
+            <p>Skills come back at the right time, so what clicked today is still there next week — real learning, not a one-time win.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SAFE BY DESIGN -->
+    <section class="safe">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="eyebrow">Safe by design</span>
+          <h2>A kids' app you don't have to worry about.</h2>
+          <p>This app is for children, so it's built to a children's standard from the ground up — not as an afterthought. Here's exactly where we stand.</p>
+        </div>
+        <div class="safe-grid">
+          <div class="commit">
+            <span class="check" aria-hidden="true">✓</span>
+            <h3>A parent sets it up</h3>
+            <p>You create the account and give permission before your child can use it. Kids can't sign up or buy anything.</p>
+          </div>
+          <div class="commit">
+            <span class="check" aria-hidden="true">✓</span>
+            <h3>Never sold</h3>
+            <p>We never sell your child's information. Not to anyone, not ever.</p>
+          </div>
+          <div class="commit">
+            <span class="check" aria-hidden="true">✓</span>
+            <h3>No third-party ads</h3>
+            <p>No ads aimed at your child, and no ad networks tracking them through the app.</p>
+          </div>
+          <div class="commit">
+            <span class="check" aria-hidden="true">✓</span>
+            <h3>Not used to train AI</h3>
+            <p>Your child's homework and data are never used to train AI models.</p>
+          </div>
+          <div class="commit">
+            <span class="check" aria-hidden="true">✓</span>
+            <h3>Honest about AI</h3>
+            <p>The coaching is powered by AI, and we say so plainly. Your child is learning with an AI tutor, not a hidden human.</p>
+          </div>
+          <div class="commit">
+            <span class="check" aria-hidden="true">✓</span>
+            <h3>Built to COPPA</h3>
+            <p>Designed around U.S. children's-privacy law (COPPA). You can review or delete your child's information any time.</p>
+          </div>
+        </div>
+        <div class="safe-links">
+          <a href="privacy.html">Read the Privacy Policy</a>
+          <a href="terms.html">Read the Terms</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROOF — HONEST PLACEHOLDER. Fill after scan + math validation and real parent results. -->
+    <!-- TODO(Phillip): replace this panel with real metrics + real parent quotes once validation is done. Do NOT fabricate. -->
+    <section class="proof">
+      <div class="wrap">
+        <div class="panel">
+          <span class="eyebrow">Earned, not claimed</span>
+          <h2>Real results will live here — once we've earned them.</h2>
+          <p>Professor Paws is in limited early release with a small group of real families right now. When we have honest numbers and real parent stories worth sharing, this is where they'll go — and not a moment before. That's a promise we'd want from anyone handling our own kid's learning.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-band" id="join">
+      <div class="wrap">
+        <h2>Want early access for your child?</h2>
+        <p>We're letting families in a few at a time so every kid gets a real experience. Send a note and we'll be in touch about access.</p>
+        <a class="btn btn-primary" href="mailto:professorpaws.app@gmail.com?subject=Early%20access%20request%20%E2%80%94%20Professor%20Paws&body=Hi%20Professor%20Paws%20team%2C%0A%0AI%27d%20like%20to%20request%20early%20access%20for%20my%20child.%0A%0AMy%20child%27s%20age%2Fgrade%3A%20%0AWhat%20they%20find%20hardest%20about%20homework%3A%20%0A%0AThanks%21">Request early access</a>
+        <p class="pricing">Planned pricing after launch: $14.99/month or $99/year, with a 7-day free trial.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap foot-inner">
+      <a class="brand" href="#top">
+        <svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><use href="#paw" fill="#2E5C4D"/></svg>
+        Professor Paws
+      </a>
+      <div class="foot-links">
+        <a href="#how">How it works</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="mailto:professorpaws.app@gmail.com">Contact</a>
+      </div>
+      <p class="foot-meta">© 2026 Professor Paws</p>
+    </div>
+  </footer>
+
+  <script>
+    // Re-trigger the paw-trail draw when the card scrolls into view (skipped under reduced motion).
+    (function () {
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var card = document.getElementById('trailCard');
+      if (!card || prefersReduced) return;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { card.classList.remove('anim'); void card.offsetWidth; card.classList.add('anim'); }
+        });
+      }, { threshold: 0.4 });
+      io.observe(card);
+    })();
+  </script>
+
+</body>
+</html>
