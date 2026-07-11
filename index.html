@@ -169,6 +169,17 @@
   .paws svg:nth-child(2){ transform:translateY(-6px) rotate(-12deg); }
   .paws svg:nth-child(3){ transform:rotate(10deg); }
 
+  .method-strip { display:flex; gap:12px; justify-content:center; align-items:center; flex-wrap:wrap; }
+  .method-strip span { background:var(--paper); border:1.5px solid var(--orange); border-radius:999px; padding:10px 20px; font-family:var(--display); font-weight:700; color:var(--orange-deep); }
+  .method-strip .arrow { background:none; border:0; padding:0; color:var(--ink-soft); font-weight:400; font-family:var(--body); }
+  .compare { max-width:640px; margin:0 auto; background:var(--paper); border:1px solid var(--line); border-radius:18px; overflow:hidden; }
+  .compare .c-head, .compare .c-row { display:grid; grid-template-columns:1fr 1fr; }
+  .compare .c-head span { font-family:var(--display); font-weight:800; padding:14px 18px; }
+  .compare .c-head span:last-child { color:var(--orange-deep); }
+  .compare .c-row { border-top:1px solid var(--line); }
+  .compare .c-row span { padding:12px 18px; font-size:.96rem; color:var(--ink-soft); }
+  .compare .c-row span:last-child { color:var(--ink); font-weight:600; border-left:1px solid var(--line); }
+  .compare .c-head span:last-child, .compare .c-row span:last-child { background:var(--tint); }
   footer { border-top:1px solid var(--line); padding:38px 0 50px; text-align:center; color:var(--ink-soft); font-size:.95rem; }
   footer .pup { width:60px; height:60px; border-radius:50%; overflow:hidden; margin:0 auto 14px;
     background:var(--paper); border:1px solid var(--line); }
@@ -203,7 +214,7 @@
       <a href="#trust">Safety</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a class="btn" href="#beta">Join the beta</a>
+    <a class="btn" href="#beta">Request beta access</a>
   </div>
 </div>
 
@@ -214,21 +225,20 @@
   <p class="eyebrow">Parent-guided homework help for ages 8–13</p>
   <div class="hero-pup"><img src="/assets/puppy.png" alt="Professor Paws, a friendly golden retriever puppy" /></div>
   <h1>Homework help that teaches — not just answers.</h1>
-  <p class="sub">Professor Paws turns weekly spellings, times tables, reading, and other schoolwork into calm, step-by-step practice for children with ADHD, autism, dyslexia, or homework frustration.</p>
+  <p class="sub">Real schoolwork becomes calm, spoken, step-by-step practice — for children with ADHD, autism, dyslexia, or regular homework frustration.</p>
   <div class="ctas">
-    <a class="btn" href="#beta">Join the beta</a>
-    <a class="btn ghost" href="#how">See how it works</a>
+    <a class="btn" href="#beta">Request beta access</a>
+    <a class="btn ghost" href="#see-it">See it teach</a>
   </div>
-  <p class="quiet">Parents create the account. Children never make purchases. No third-party ads.</p>
+  <p class="quiet">Made for real schoolwork · Guides without giving answers · Parent-controlled · No ads or trackers</p>
 </header>
 
 <!-- PROBLEM -->
 <section class="wrap" id="problem" style="padding-top:30px;">
-  <h2 class="sec-title fade">Homework shouldn't become a nightly battle.</h2>
-  <div class="cards" style="margin-top:26px;">
-    <div class="card fade"><h3>The work feels overwhelming</h3><p>A worksheet that looks simple to an adult can be too many instructions and decisions at once.</p></div>
-    <div class="card fade"><h3>Parents become the teacher</h3><p>Families are expected to explain school methods they were never shown.</p></div>
-    <div class="card fade"><h3>Answer apps skip the learning</h3><p>Getting the answer fast doesn't mean your child can do it again tomorrow.</p></div>
+  <h2 class="sec-title fade">When a ten-minute worksheet turns into an hour of frustration.</h2>
+  <div class="fade" style="max-width:56ch; margin:18px auto 0; color:var(--ink-soft); font-size:1.08rem;">
+    <p>Your child doesn't know where to begin. You repeat the instructions three different ways. They get upset; you become the teacher; and nobody feels good when the homework is finally done.</p>
+    <p style="margin-top:16px; color:var(--ink); font-weight:600;">Professor Paws steps between "I can't do this" and the answer — giving your child the next manageable step.</p>
   </div>
 </section>
 
@@ -244,9 +254,9 @@
       <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-camera"/></svg></span>
         <div><h3>1. Add the schoolwork</h3><p>Enter this week's spellings, the assigned times table, reading, or snap a homework question.</p></div></li>
       <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-speak"/></svg></span>
-        <div><h3>2. The puppy teaches one step at a time</h3><p>Spoken guidance, visuals, manipulatives, handwriting, and hints — without giving the answer away.</p></div></li>
+        <div><h3>2. Your child works with the puppy</h3><p>One spoken or visual instruction at a time — and the step gets smaller when it needs to.</p></div></li>
       <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>
-        <div><h3>3. See how it was completed</h3><p>You see what was practised, what support was used, and what will come back later.</p></div></li>
+        <div><h3>3. You see what helped</h3><p>What was practised, where support was needed, and what will return later.</p></div></li>
     </ol>
   </div>
 </section>
@@ -363,7 +373,7 @@
 
 <!-- WHY CHILDREN KEEP GOING -->
 <section class="wrap" id="motivation">
-  <h2 class="sec-title fade">Encouragement without pressure.</h2>
+  <h2 class="sec-title fade">Encouragement they want to return to.</h2>
   <div class="cards" style="margin-top:26px;">
     <div class="card fade"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-paw"/></svg>
       <h3>A puppy that helps</h3><p>Your child names and cares for their own companion.</p></div>
@@ -376,26 +386,34 @@
   </div>
 </section>
 
-<!-- HOW IT TEACHES -->
+<!-- METHOD + COMPARISON (merged from method/science/answer-box sections) -->
 <section id="teaches" style="background:var(--tint); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
   <div class="wrap">
-    <h2 class="sec-title fade">More than an answer box.</h2>
-    <p class="sec-sub fade">The same objects-first, pictures-next, numbers-last sequence classrooms teach with.</p>
-    <ol class="trail fade">
-      <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-hand"/></svg></span>
-        <div><h3>Show it</h3><p>Objects, groups, arrays, clock hands — models your child can see and move.</p></div></li>
-      <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-steps"/></svg></span>
-        <div><h3>Try it, with support</h3><p>One visual or spoken cue at a time — never a wall of text.</p></div></li>
-      <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-loop"/></svg></span>
-        <div><h3>Fade the help, bring it back</h3><p>Support eases as your child grows independent — and important skills return days later, instead of vanishing after one right answer.</p></div></li>
-    </ol>
+    <h2 class="sec-title fade">The same learning progression children see at school — continued at home.</h2>
+    <div class="method-strip fade" aria-label="Teaching progression">
+      <span>Objects</span><span class="arrow" aria-hidden="true">→</span>
+      <span>Pictures</span><span class="arrow" aria-hidden="true">→</span>
+      <span>Numbers</span><span class="arrow" aria-hidden="true">→</span>
+      <span>On their own</span>
+    </div>
+    <p class="sec-sub fade" style="margin-top:18px;">It starts with something your child can see and move. Support gradually fades as understanding grows — and important skills return days later, so learning sticks.</p>
+
+    <h2 class="sec-title fade" style="margin-top:44px;">More than an answer box.</h2>
+    <div class="compare fade" role="table" aria-label="Typical answer app compared with Professor Paws">
+      <div class="c-head" role="row"><span role="columnheader">A typical answer app</span><span role="columnheader">Professor Paws</span></div>
+      <div class="c-row" role="row"><span role="cell">Solves the question</span><span role="cell">Teaches the next step</span></div>
+      <div class="c-row" role="row"><span role="cell">Starts with a blank chat box</span><span role="cell">Starts with a guided activity</span></div>
+      <div class="c-row" role="row"><span role="cell">Produces long explanations</span><span role="cell">Gives one instruction at a time</span></div>
+      <div class="c-row" role="row"><span role="cell">Rewards fast completion</span><span role="cell">Rewards genuine effort</span></div>
+      <div class="c-row" role="row"><span role="cell">Open-ended AI conversation</span><span role="cell">Controlled teaching interactions</span></div>
+    </div>
   </div>
 </section>
 
 <!-- SAFETY -->
 <section class="trust" id="trust">
   <div class="wrap">
-    <h2 class="sec-title fade">Designed for children. Controlled by parents.</h2>
+    <h2 class="sec-title fade">Built for children. Accountable to parents.</h2>
     <ul class="fade">
       <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg></span>Parent-created accounts — children never make purchases</li>
       <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>No ads, no third-party ad trackers</li>
@@ -411,10 +429,10 @@
 <!-- FOUNDER -->
 <section class="founder wrap" id="why">
   <div class="inner">
-    <h2 class="sec-title fade">Why this exists</h2>
-    <p class="fade">I'm a security engineer. A kid I love — bright, funny, dyslexic — was ending homework in tears, and every app we tried either overwhelmed him or handed him answers. So I built the coach I couldn't find, and I protect his data the way I protect systems at work.</p>
-    <p class="fade">He still asks to play it every day. That's the only metric I trust so far.</p>
-    <p class="sig fade">— Phillip, builder of Professor Paws</p>
+    <h2 class="sec-title fade">Built because homework was ending in tears.</h2>
+    <p class="fade">I'm a security engineer, and a bright, funny, dyslexic child I love was regularly overwhelmed by homework. Every app we tried either added more noise or handed him the answer.</p>
+    <p class="fade">So I built the calm, patient homework coach I couldn't find — and I protect children's data with the same care I bring to security work. He still asks to use it. That's the result that matters most to me.</p>
+    <p class="sig fade">— The founder of Professor Paws</p>
   </div>
 </section>
 
@@ -444,7 +462,7 @@
 <!-- BETA FORM -->
 <section class="wrap" id="beta">
   <form class="beta fade" action="https://formspree.io/f/xlgyqkaq" method="POST" novalidate>
-    <h2>Help shape a calmer way to do homework.</h2>
+    <h2>Help make homework feel possible again.</h2>
     <p class="note">A small private beta for families with children ages 8–13 who experience ADHD, autism, dyslexia, or regular homework frustration. Free during the beta.</p>
 
     <label for="parent-email">Parent email</label>
@@ -471,7 +489,7 @@
 
     <input type="hidden" name="_subject" value="Professor Paws — beta request" />
     <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
-    <button type="submit" class="btn">Join the beta</button>
+    <button type="submit" class="btn">Request beta access</button>
     <p class="form-msg" role="status" aria-live="polite"></p>
   </form>
 </section>
@@ -485,7 +503,7 @@
       <a href="/support.html">Support</a>
       <a href="mailto:hello@playprofessorpaws.com">hello@playprofessorpaws.com</a>
     </nav>
-    <p>Built by a dad-figure and security engineer who watched a kid he loves struggle with homework.</p>
+    <p>Built by a security engineer who watched a child he loves struggle with homework.</p>
   </div>
 </footer>
 
