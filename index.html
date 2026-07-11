@@ -3,15 +3,20 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Professor Paws — calm homework help for kids with ADHD, dyslexia & autism</title>
-<meta name="description" content="Professor Paws is a calm, hands-on homework coach for kids 8–13 with ADHD, dyslexia, and autism. It teaches step by step — spoken aloud, one thing at a time — and never just gives the answer." />
+<title>Professor Paws — homework help that teaches, not just answers</title>
+<meta name="description" content="Professor Paws turns weekly spellings, times tables, reading, and other schoolwork into calm, step-by-step practice for children ages 8–13 with ADHD, autism, dyslexia, or homework frustration." />
 
-<!-- Open Graph -->
-<meta property="og:title" content="Professor Paws — homework doesn't have to end in tears" />
-<meta property="og:description" content="A calm, hands-on homework coach for kids with ADHD, dyslexia, and autism. It teaches step by step, and never just gives the answer." />
+<meta property="og:title" content="Professor Paws — homework help that teaches, not just answers" />
+<meta property="og:description" content="Turns the work school actually sends home into calm, step-by-step practice for children who learn differently." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://playprofessorpaws.com" />
-<meta property="og:image" content="https://playprofessorpaws.com/assets/screen-tracing.png" />
+<!-- TEMP og:image = puppy until real screenshots land -->
+<meta property="og:image" content="https://playprofessorpaws.com/assets/puppy.png" />
+<meta name="twitter:card" content="summary" />
+
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,267 +24,497 @@
 
 <style>
   :root {
-    /* the app's own palette: calm is the brand */
-    --cream:      #FBF8F3;
-    --paper:      #FDFBF5;
-    --band:       #F3EDE0;   /* the app's dim tone — the trust band */
-    --ink:        #2C2C2C;
-    --ink-soft:   #6B665E;
-    --orange:     #EE6F1E;   /* the ONLY accent */
-    --orange-deep:#B4530A;   /* small text on cream needs the darker shade for contrast */
-    --line:       rgba(44, 44, 44, 0.13);
-
-    --display: 'Baloo 2', system-ui, sans-serif;
-    --body: 'Hanken Grotesque', system-ui, -apple-system, sans-serif;
-    --maxw: 1020px;
+    --cream:#FBF8F3; --paper:#FDFBF5; --band:#F3EDE0; --tint:#FDEEE2;
+    --ink:#2C2C2C; --ink-soft:#6B665E;
+    --orange:#EE6F1E; --orange-deep:#B4530A;
+    --line:rgba(44,44,44,.13);
+    --display:'Baloo 2',system-ui,sans-serif;
+    --body:'Hanken Grotesque',system-ui,-apple-system,sans-serif;
+    --maxw:1020px;
   }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; background:var(--cream); color:var(--ink); font-family:var(--body);
+    font-size:18px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  h1,h2,h3 { font-family:var(--display); line-height:1.12; margin:0; letter-spacing:-.01em; }
+  p { margin:0; }
+  a { color:var(--orange-deep); }
+  img,svg { max-width:100%; display:block; }
+  .wrap { width:100%; max-width:var(--maxw); margin:0 auto; padding:0 22px; }
+  section { padding:56px 0; scroll-margin-top:76px; }
+  .sec-title { font-size:clamp(1.5rem,4vw,2.05rem); font-weight:800; text-align:center; margin-bottom:8px; }
+  .sec-sub { text-align:center; color:var(--ink-soft); max-width:54ch; margin:0 auto 30px; }
 
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    background: var(--cream);
-    color: var(--ink);
-    font-family: var(--body);
-    font-size: 18px;
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
-  h1, h2, h3 { font-family: var(--display); line-height: 1.12; margin: 0; letter-spacing: -0.01em; }
-  p { margin: 0; }
-  a { color: var(--orange-deep); }
-  img { max-width: 100%; display: block; }
-  .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
+  .fade { opacity:0; transform:translateY(14px); transition:opacity .6s ease,transform .6s ease; }
+  .fade.in { opacity:1; transform:none; }
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto}
+    .fade{opacity:1;transform:none;transition:none} .hero-pup{animation:none!important} }
 
-  /* subtle scroll fade — the page's only animation; off entirely for reduced motion */
-  .fade { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
-  .fade.in { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .fade { opacity: 1; transform: none; transition: none; }
-  }
+  /* header: sticky, one line, one CTA */
+  .top { position:sticky; top:0; z-index:20; background:var(--cream);
+    border-bottom:1px solid var(--line); }
+  .top .bar { display:flex; align-items:center; gap:20px; max-width:var(--maxw);
+    margin:0 auto; padding:12px 22px; }
+  .brand { display:flex; align-items:center; gap:9px; font-family:var(--display);
+    font-weight:800; font-size:1.15rem; color:var(--ink); text-decoration:none; }
+  .brand svg { width:22px; height:22px; color:var(--orange); }
+  .top nav { display:flex; gap:20px; margin-left:auto; }
+  .top nav a { color:var(--ink-soft); text-decoration:none; font-weight:600; font-size:.95rem; }
+  .top nav a:hover { color:var(--orange-deep); }
+  .btn { display:inline-block; background:var(--orange); color:#fff; text-decoration:none;
+    font-family:var(--display); font-weight:700; border:0; border-radius:14px; cursor:pointer; }
+  .btn:hover { background:var(--orange-deep); }
+  .top .btn { padding:11px 20px; font-size:.98rem; margin-left:8px; }
+  @media (max-width:760px){ .top nav{display:none} .top .btn{margin-left:auto} }
 
-  /* ── 1. hero ── */
-  .hero { padding: 88px 0 64px; text-align: center; }
-  .hero h1 { font-size: clamp(2.1rem, 6.5vw, 3.4rem); font-weight: 800; max-width: 17ch; margin: 0 auto; }
-  .hero .sub { max-width: 42ch; margin: 22px auto 0; font-size: 1.12rem; color: var(--ink-soft); }
-  .cta {
-    display: inline-block; margin-top: 34px;
-    background: var(--orange); color: #fff; text-decoration: none;
-    font-family: var(--display); font-weight: 700; font-size: 1.15rem;
-    padding: 16px 34px; border-radius: 999px;
-  }
-  .cta:hover { background: var(--orange-deep); }
-  .hero .quiet { margin-top: 14px; font-size: .95rem; color: var(--ink-soft); }
+  /* hero */
+  .hero { padding:56px 0 52px; text-align:center; position:relative; overflow:hidden; }
+  .eyebrow { display:inline-block; font-weight:700; font-size:.92rem; color:var(--orange-deep);
+    background:var(--tint); border:1px solid var(--line); border-radius:999px; padding:6px 16px; }
+  .hero-pup { width:150px; height:150px; margin:22px auto 18px; border-radius:50%;
+    background:var(--paper); border:2px solid var(--line); overflow:hidden;
+    box-shadow:0 14px 34px rgba(238,111,30,.16); animation:float 5s ease-in-out infinite; }
+  /* POST-SWEEP: replace .hero-pup with one large real iPad screenshot + two callout chips
+     ("Teaches the method" / "Uses the work school assigned") */
+  .hero-pup img { width:100%; height:100%; object-fit:cover; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  .hero h1 { font-size:clamp(2.05rem,6.3vw,3.2rem); font-weight:800; max-width:18ch; margin:0 auto; }
+  .hero .sub { max-width:50ch; margin:16px auto 0; font-size:1.1rem; color:var(--ink-soft); }
+  .hero .ctas { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:28px; }
+  .hero .btn { padding:15px 32px; font-size:1.12rem; min-height:48px; }
+  .btn.ghost { background:transparent; color:var(--orange-deep); border:2px solid var(--orange); }
+  .btn.ghost:hover { background:var(--tint); }
+  .hero .quiet { margin-top:14px; font-size:.93rem; color:var(--ink-soft); }
+  .bone { position:absolute; color:var(--orange); opacity:.13; }
+  .bone.b1{width:70px;top:14%;left:6%;transform:rotate(-18deg)}
+  .bone.b2{width:50px;top:24%;right:8%;transform:rotate(14deg)}
 
-  /* ── 2. the problem ── */
-  .problem { padding: 34px 0 10px; text-align: center; }
-  .problem p { max-width: 52ch; margin: 0 auto; font-size: 1.18rem; }
-  .problem .k { font-weight: 700; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; }
+  .card { background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:22px 20px; }
+  .card .ic { width:42px; height:42px; color:var(--orange); }
+  .card h3 { font-size:1.08rem; margin:10px 0 4px; font-weight:700; }
+  .card p { color:var(--ink-soft); font-size:.96rem; }
 
-  section { padding: 64px 0; }
-  .sec-title { font-size: clamp(1.5rem, 4vw, 2.1rem); font-weight: 800; text-align: center; margin-bottom: 10px; }
-  .sec-sub { text-align: center; color: var(--ink-soft); max-width: 52ch; margin: 0 auto 36px; }
+  /* schoolwork centerpiece */
+  .panels { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; }
+  .panel { background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:26px 22px; }
+  .panel .ic { width:44px; height:44px; color:var(--orange); margin-bottom:12px; }
+  .panel h3 { font-size:1.16rem; }
+  .panel ul { margin:12px 0 0; padding:0; list-style:none; display:grid; gap:8px; }
+  .panel li { display:flex; gap:9px; align-items:flex-start; color:var(--ink-soft); font-size:.96rem; }
+  .panel li svg { flex:0 0 15px; width:15px; height:15px; margin-top:5px; color:var(--orange-deep); }
 
-  /* ── 3. how it teaches ── */
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
-  .card {
-    background: var(--paper); border: 1px solid var(--line); border-radius: 18px;
-    padding: 24px 22px;
-  }
-  .card .glyph { font-size: 1.7rem; }
-  .card h3 { font-size: 1.12rem; margin: 10px 0 6px; font-weight: 700; }
-  .card p { color: var(--ink-soft); font-size: .99rem; }
+  .shots { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:26px; justify-items:center; }
+  .shot { width:100%; max-width:270px; text-align:center; }
+  .frame { background:var(--ink); border-radius:26px; padding:9px; aspect-ratio:3/4; }
+  .frame img,.frame svg.vig,.frame video { width:100%; height:100%; object-fit:cover; border-radius:18px; background:var(--paper); }
+  .shot figcaption { margin-top:12px; font-size:.95rem; color:var(--ink-soft); }
+  .video-shot { max-width:320px; margin:0 auto 34px; }
 
-  /* ── 4. screenshots ── */
-  .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 26px; justify-items: center; }
-  .shot { width: 100%; max-width: 270px; text-align: center; }
-  .frame {
-    background: var(--ink); border-radius: 26px; padding: 9px;
-    aspect-ratio: 3 / 4; /* iPad portrait — drop in 2048×2732 (or any 3:4) screenshots */
-  }
-  .frame img { width: 100%; height: 100%; object-fit: cover; border-radius: 18px; background: var(--paper); }
-  .shot figcaption { margin-top: 12px; font-size: .95rem; color: var(--ink-soft); }
+  .trail { list-style:none; max-width:600px; margin:0 auto; padding:0; position:relative; display:grid; gap:24px; }
+  .trail::before { content:""; position:absolute; left:25px; top:26px; bottom:26px;
+    border-left:3px dashed var(--orange); opacity:.45; }
+  .trail li { display:grid; grid-template-columns:52px 1fr; gap:16px; align-items:start; position:relative; }
+  .trail .paw { width:52px; height:52px; border-radius:50%; background:var(--paper);
+    border:2px solid var(--orange); display:grid; place-items:center; color:var(--orange-deep); }
+  .trail .paw svg { width:26px; height:26px; }
+  .trail h3 { font-size:1.06rem; margin:10px 0 2px; }
+  .trail p { color:var(--ink-soft); font-size:.96rem; }
 
-  /* ── 5. trust band ── */
-  .trust { background: var(--band); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .trust ul { list-style: none; margin: 0 auto; padding: 0; max-width: 640px; display: grid; gap: 14px; }
-  .trust li { display: flex; gap: 12px; align-items: flex-start; font-size: 1.04rem; }
-  .trust li::before { content: "✓"; color: var(--orange-deep); font-weight: 800; flex: 0 0 auto; }
+  .trust { background:var(--band); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .trust ul { list-style:none; margin:0 auto; padding:0; max-width:760px;
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:14px 26px; }
+  .trust li { display:flex; gap:12px; align-items:center; font-size:1rem; }
+  .trust .chip { flex:0 0 34px; width:34px; height:34px; border-radius:10px; background:var(--paper);
+    border:1px solid var(--line); display:grid; place-items:center; color:var(--orange-deep); }
+  .trust .chip svg { width:18px; height:18px; }
+  .trust .links { text-align:center; margin-top:22px; font-size:.95rem; color:var(--ink-soft); }
 
-  /* ── 6. for parents ── */
-  .parents { text-align: center; }
-  .parents .big { font-size: clamp(1.15rem, 3vw, 1.45rem); font-weight: 600; max-width: 40ch; margin: 0 auto; }
-  .parents .small { margin-top: 16px; color: var(--ink-soft); max-width: 46ch; margin-left: auto; margin-right: auto; }
+  .founder .inner { max-width:560px; margin:0 auto; text-align:center; }
+  .founder p { margin-top:12px; }
+  .founder .sig { margin-top:14px; color:var(--ink-soft); font-size:.95rem; }
 
-  /* ── 7. beta form ── */
-  .beta { background: var(--paper); border: 1px solid var(--line); border-radius: 22px; padding: 38px 26px; max-width: 560px; margin: 0 auto; }
-  .beta h2 { text-align: center; }
-  .beta .note { text-align: center; color: var(--ink-soft); margin: 10px 0 26px; }
-  .beta label { display: block; font-weight: 600; font-size: .95rem; margin: 18px 0 6px; }
-  .beta input[type="text"], .beta input[type="email"], .beta textarea {
-    width: 100%; font: inherit; color: var(--ink);
-    background: var(--cream); border: 1.5px solid var(--line); border-radius: 12px;
-    padding: 13px 14px;
-  }
-  .beta input:focus, .beta textarea:focus { outline: 2px solid var(--orange); outline-offset: 1px; border-color: transparent; }
-  .ages { display: flex; gap: 10px; }
-  .ages label {
-    flex: 1; margin: 0; text-align: center; font-weight: 600; cursor: pointer;
-    background: var(--cream); border: 1.5px solid var(--line); border-radius: 12px; padding: 13px 10px;
-  }
-  .ages input { position: absolute; opacity: 0; }
-  .ages label:has(input:checked) { border-color: var(--orange); background: #FDEEE2; }
-  .ages label:has(input:focus-visible) { outline: 2px solid var(--orange); outline-offset: 1px; }
-  .beta button {
-    width: 100%; margin-top: 26px; cursor: pointer;
-    background: var(--orange); color: #fff; border: 0; border-radius: 999px;
-    font-family: var(--display); font-weight: 700; font-size: 1.1rem; padding: 15px;
-  }
-  .beta button:hover { background: var(--orange-deep); }
-  .beta .fallback { text-align: center; font-size: .92rem; color: var(--ink-soft); margin-top: 16px; }
+  .faq { max-width:640px; margin:0 auto; display:grid; gap:10px; }
+  .faq details { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:2px 18px; }
+  .faq summary { cursor:pointer; font-weight:700; font-size:1rem; padding:12px 0; list-style:none;
+    display:flex; justify-content:space-between; align-items:center; gap:12px; }
+  .faq summary::-webkit-details-marker { display:none; }
+  .faq summary::after { content:"+"; color:var(--orange-deep); font-family:var(--display); font-weight:800; font-size:1.3rem; flex:0 0 auto; }
+  .faq details[open] summary::after { content:"–"; }
+  .faq summary:focus-visible { outline:2px solid var(--orange); outline-offset:2px; border-radius:8px; }
+  .faq details p { color:var(--ink-soft); font-size:.96rem; padding:0 0 14px; }
 
-  /* ── 8. footer ── */
-  footer { border-top: 1px solid var(--line); padding: 44px 0 56px; text-align: center; color: var(--ink-soft); font-size: .95rem; }
-  footer .pup { width: 64px; height: 64px; border-radius: 50%; overflow: hidden; margin: 0 auto 14px; background: var(--paper); border: 1px solid var(--line); }
-  footer .pup img { width: 100%; height: 100%; object-fit: cover; }
-  footer nav { margin-bottom: 12px; display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
-  footer .made { max-width: 46ch; margin: 10px auto 0; }
+  .beta { background:var(--paper); border:1px solid var(--line); border-radius:22px; padding:36px 26px; max-width:560px; margin:0 auto; }
+  .beta h2 { text-align:center; }
+  .beta .note { text-align:center; color:var(--ink-soft); margin:8px 0 22px; }
+  .beta label { display:block; font-weight:600; font-size:.95rem; margin:18px 0 6px; }
+  .beta input[type="email"], .beta select, .beta textarea {
+    width:100%; font:inherit; color:var(--ink); background:var(--cream);
+    border:1.5px solid var(--line); border-radius:12px; padding:13px 14px; }
+  .beta input:focus,.beta select:focus,.beta textarea:focus { outline:2px solid var(--orange); outline-offset:1px; border-color:transparent; }
+  .ages { display:flex; gap:10px; }
+  .ages label { flex:1; margin:0; text-align:center; font-weight:600; cursor:pointer;
+    background:var(--cream); border:1.5px solid var(--line); border-radius:12px; padding:13px 10px; }
+  .ages input { position:absolute; opacity:0; }
+  .ages label:has(input:checked){ border-color:var(--orange); background:var(--tint); }
+  .ages label:has(input:focus-visible){ outline:2px solid var(--orange); outline-offset:1px; }
+  .beta button.btn { width:100%; margin-top:26px; padding:15px; font-size:1.1rem; min-height:48px; }
+  .beta button[disabled] { opacity:.6; cursor:default; }
+  .form-msg { margin-top:16px; text-align:center; font-size:.98rem; display:none; }
+  .form-msg.ok { display:block; color:var(--orange-deep); font-weight:700; }
+  .form-msg.err { display:block; color:#8c2f0d; }
+
+  .paws { display:flex; gap:14px; justify-content:center; padding:6px 0; }
+  .paws svg { width:22px; height:22px; opacity:.35; color:var(--orange); }
+  .paws svg:nth-child(2){ transform:translateY(-6px) rotate(-12deg); }
+  .paws svg:nth-child(3){ transform:rotate(10deg); }
+
+  footer { border-top:1px solid var(--line); padding:38px 0 50px; text-align:center; color:var(--ink-soft); font-size:.95rem; }
+  footer .pup { width:60px; height:60px; border-radius:50%; overflow:hidden; margin:0 auto 14px;
+    background:var(--paper); border:1px solid var(--line); }
+  footer .pup img { width:100%; height:100%; object-fit:cover; }
+  footer nav { margin-bottom:10px; display:flex; gap:18px; justify-content:center; flex-wrap:wrap; }
 </style>
 </head>
 <body>
 
-<!-- 1 · HERO — recognition in 5 seconds -->
-<header class="hero wrap">
-  <h1>Homework doesn't have to end in tears.</h1>
-  <p class="sub">Professor Paws is a calm, hands-on homework coach for kids with ADHD, dyslexia, and autism — it teaches step by step, and never just gives the answer.</p>
-  <a class="cta" href="#beta">Join the early-access families</a>
-  <p class="quiet">Free during early access · for kids 8–13</p>
-</header>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="i-paw"><circle cx="12" cy="14.5" r="4.6" fill="currentColor"/><circle cx="5.6" cy="9.4" r="2.2" fill="currentColor"/><circle cx="10" cy="6.4" r="2.2" fill="currentColor"/><circle cx="14.6" cy="6.6" r="2.2" fill="currentColor"/><circle cx="18.6" cy="10" r="2.2" fill="currentColor"/></g>
+  <g id="i-bone" fill="currentColor"><circle cx="5" cy="8" r="3.4"/><circle cx="8" cy="5" r="3.4"/><circle cx="19" cy="16" r="3.4"/><circle cx="16" cy="19" r="3.4"/><rect x="4.5" y="9" width="15" height="6" rx="3" transform="rotate(45 12 12)"/></g>
+  <g id="i-hand" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 11.5V5.8a1.7 1.7 0 0 1 3.4 0v5"/><path d="M11.4 10.4V4.4a1.7 1.7 0 0 1 3.4 0v6"/><path d="M14.8 11V6.2a1.7 1.7 0 0 1 3.4 0v7.6c0 3.9-2.6 6.4-6.3 6.4-3 0-4.6-1.4-6.2-4.2L4 12.9c-.6-1-.3-2 .6-2.5.9-.5 1.9-.2 2.5.7l.9 1.5"/></g>
+  <g id="i-steps" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 19h5v-4h5v-4h5V6"/></g>
+  <g id="i-loop" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 9a8 8 0 0 1 14-1.5M19.5 15a8 8 0 0 1-14 1.5"/><path d="M18.7 3.6v4h-4M5.3 20.4v-4h4"/></g>
+  <g id="i-check" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.6l4.6 4.6L19.5 6.8"/></g>
+  <g id="i-shield" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 3.4l7 2.8v5.2c0 4.6-3 7.7-7 9.2-4-1.5-7-4.6-7-9.2V6.2z"/><path d="M9 12.2l2.1 2.1 3.9-4.2" stroke-linecap="round"/></g>
+  <g id="i-camera" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="3.4" y="7" width="17.2" height="12" rx="2.6"/><path d="M8.6 7l1.5-2.6h3.8L15.4 7"/><circle cx="12" cy="13" r="3.4"/></g>
+  <g id="i-speak" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4.4 4.4 0 0 1 0 6M18 6.6a8 8 0 0 1 0 10.8"/></g>
+  <g id="i-abc" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l3.2-9 3.2 9M5.2 14h4M14 8.5h3.6a2.2 2.2 0 0 1 0 4.4H14zM14 12.9h4a2.3 2.3 0 0 1 0 4.6h-4z" transform="translate(0 -0.7)"/></g>
+  <g id="i-book" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5C10.5 5 8.4 4.4 4 4.6v13.6c4.4-.2 6.5.4 8 1.9 1.5-1.5 3.6-2.1 8-1.9V4.6c-4.4-.2-6.5.4-8 1.9z"/><path d="M12 6.5v13.6"/></g>
+  <g id="i-times" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="7" cy="7" r="2.1"/><circle cx="17" cy="7" r="2.1"/><circle cx="7" cy="17" r="2.1"/><circle cx="17" cy="17" r="2.1"/></g>
+</defs></svg>
 
-<!-- 2 · THE PROBLEM — recognition, not statistics -->
-<div class="problem wrap fade">
-  <p><span class="k">The nightly homework battle is real.</span> Apps overwhelm. Tutors don't always get how your kid learns. And the fight isn't about the math — it's about how it feels.</p>
+<!-- HEADER -->
+<div class="top">
+  <div class="bar">
+    <a class="brand" href="/"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-paw"/></svg>Professor Paws</a>
+    <nav aria-label="Sections">
+      <a href="#how">How it works</a>
+      <a href="#schoolwork">Real schoolwork</a>
+      <a href="#trust">Safety</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn" href="#beta">Join the beta</a>
+  </div>
 </div>
 
-<!-- 3 · HOW IT TEACHES — the method is the product -->
-<section class="wrap" id="method">
-  <h2 class="sec-title fade">How it teaches</h2>
-  <p class="sec-sub fade">Built on learning-science research for how kids with learning differences actually learn.</p>
-  <div class="cards">
-    <div class="card fade">
-      <div class="glyph" aria-hidden="true">🖐️</div>
-      <h3>Hands-on, not text walls</h3>
-      <p>Kids drag, build, trace, and set — they answer by doing.</p>
-    </div>
-    <div class="card fade">
-      <div class="glyph" aria-hidden="true">🪜</div>
-      <h3>One step at a time</h3>
-      <p>Short instructions, spoken aloud, at a calm pace.</p>
-    </div>
-    <div class="card fade">
-      <div class="glyph" aria-hidden="true">🧭</div>
-      <h3>Never an answer bot</h3>
-      <p>It coaches the process; the child does the thinking.</p>
-    </div>
-    <div class="card fade">
-      <div class="glyph" aria-hidden="true">🔁</div>
-      <h3>Comes back to hard things</h3>
-      <p>Skills return over days so learning sticks.</p>
-    </div>
+<!-- HERO -->
+<header class="hero wrap">
+  <svg class="bone b1" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bone"/></svg>
+  <svg class="bone b2" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bone"/></svg>
+  <p class="eyebrow">Parent-guided homework help for ages 8–13</p>
+  <div class="hero-pup"><img src="/assets/puppy.png" alt="Professor Paws, a friendly golden retriever puppy" /></div>
+  <h1>Homework help that teaches — not just answers.</h1>
+  <p class="sub">Professor Paws turns weekly spellings, times tables, reading, and other schoolwork into calm, step-by-step practice for children with ADHD, autism, dyslexia, or homework frustration.</p>
+  <div class="ctas">
+    <a class="btn" href="#beta">Join the beta</a>
+    <a class="btn ghost" href="#how">See how it works</a>
+  </div>
+  <p class="quiet">Parents create the account. Children never make purchases. No third-party ads.</p>
+</header>
+
+<!-- PROBLEM -->
+<section class="wrap" id="problem" style="padding-top:30px;">
+  <h2 class="sec-title fade">Homework shouldn't become a nightly battle.</h2>
+  <div class="cards" style="margin-top:26px;">
+    <div class="card fade"><h3>The work feels overwhelming</h3><p>A worksheet that looks simple to an adult can be too many instructions and decisions at once.</p></div>
+    <div class="card fade"><h3>Parents become the teacher</h3><p>Families are expected to explain school methods they were never shown.</p></div>
+    <div class="card fade"><h3>Answer apps skip the learning</h3><p>Getting the answer fast doesn't mean your child can do it again tomorrow.</p></div>
   </div>
 </section>
 
-<!-- 4 · SCREENSHOTS — 3:4 portrait frames (drop in 2048×2732 iPad screenshots) -->
+<div class="paws" aria-hidden="true">
+  <svg viewBox="0 0 24 24"><use href="#i-paw"/></svg><svg viewBox="0 0 24 24"><use href="#i-paw"/></svg><svg viewBox="0 0 24 24"><use href="#i-paw"/></svg>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="how" style="background:var(--tint); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <h2 class="sec-title fade">From schoolwork to a calmer plan.</h2>
+    <ol class="trail fade">
+      <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-camera"/></svg></span>
+        <div><h3>1. Add the schoolwork</h3><p>Enter this week's spellings, the assigned times table, reading, or snap a homework question.</p></div></li>
+      <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-speak"/></svg></span>
+        <div><h3>2. The puppy teaches one step at a time</h3><p>Spoken guidance, visuals, manipulatives, handwriting, and hints — without giving the answer away.</p></div></li>
+      <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>
+        <div><h3>3. See how it was completed</h3><p>You see what was practised, what support was used, and what will come back later.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- SEE IT TEACH -->
 <section class="wrap" id="see-it">
   <h2 class="sec-title fade">See it teach</h2>
+  <!-- DEMO VIDEO — uncomment when assets/demo.mp4 + assets/demo-poster.png land
+  <figure class="video-shot fade"><div class="frame">
+    <video controls preload="none" playsinline poster="/assets/demo-poster.png"><source src="/assets/demo.mp4" type="video/mp4" /></video>
+  </div><figcaption style="margin-top:12px;font-size:.95rem;color:var(--ink-soft);">90 seconds of a real lesson</figcaption></figure>
+  -->
   <div class="shots">
-    <figure class="shot fade">
-      <div class="frame"><img src="/assets/screen-division.png" alt="The division activity: dragging bones into bowls to share 8 into 4 groups" loading="lazy" /></div>
-      <figcaption>Sharing 8 bones into 4 bowls</figcaption>
-    </figure>
-    <figure class="shot fade">
-      <div class="frame"><img src="/assets/screen-tracing.png" alt="The spelling canvas: a child's handwriting of a whole word above a writing line" loading="lazy" /></div>
-      <figcaption>Spelling ends with writing the whole word</figcaption>
-    </figure>
-    <figure class="shot fade">
-      <div class="frame"><img src="/assets/screen-clock.png" alt="The guided clock: one hand highlighted, one control active, one spoken instruction" loading="lazy" /></div>
-      <figcaption>One step, one instruction, spoken aloud</figcaption>
-    </figure>
+    <figure class="shot fade"><div class="frame">
+      <!-- swap for <img src="/assets/screen-division.png"> post-sweep -->
+      <svg class="vig" viewBox="0 0 300 400" role="img" aria-label="Illustration of the division activity: dragging bones to share 8 into 4 bowls">
+        <rect width="300" height="400" fill="#FDFBF5"/>
+        <text x="150" y="52" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="800" font-size="24" fill="#2C2C2C">Share 8 bones</text>
+        <text x="150" y="78" text-anchor="middle" font-family="Hanken Grotesque, sans-serif" font-size="15" fill="#6B665E">into 4 bowls</text>
+        <g fill="#EE6F1E">
+          <g transform="translate(58,110) rotate(-14) scale(1.35)"><use href="#i-bone"/></g>
+          <g transform="translate(126,98) rotate(8) scale(1.35)"><use href="#i-bone"/></g>
+          <g transform="translate(194,112) rotate(-6) scale(1.35)"><use href="#i-bone"/></g>
+          <g transform="translate(92,152) rotate(12) scale(1.35)"><use href="#i-bone"/></g>
+          <g transform="translate(162,150) rotate(-10) scale(1.35)"><use href="#i-bone"/></g>
+        </g>
+        <path d="M150 205 v34 m0 0 l-9 -11 m9 11 l9 -11" stroke="#B4530A" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <g fill="none" stroke="#2C2C2C" stroke-width="5" stroke-linecap="round">
+          <path d="M35 292 a34 26 0 0 0 62 0"/><path d="M117 292 a34 26 0 0 0 62 0"/><path d="M199 292 a34 26 0 0 0 62 0"/><path d="M76 352 a34 26 0 0 0 62 0"/>
+        </g>
+        <g fill="#EE6F1E"><g transform="translate(128,330) rotate(20) scale(1.1)"><use href="#i-bone"/></g><g transform="translate(214,272) rotate(-16) scale(1.1)"><use href="#i-bone"/></g></g>
+      </svg>
+    </div><figcaption>Sharing 8 bones into 4 bowls</figcaption></figure>
+
+    <figure class="shot fade"><div class="frame">
+      <!-- swap for <img src="/assets/screen-tracing.png"> post-sweep -->
+      <svg class="vig" viewBox="0 0 300 400" role="img" aria-label="Illustration of the spelling canvas: tracing the whole word dog on a writing line">
+        <rect width="300" height="400" fill="#FDFBF5"/>
+        <text x="150" y="56" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="800" font-size="24" fill="#2C2C2C">Write the word</text>
+        <g transform="translate(0,40)">
+          <line x1="40" y1="230" x2="260" y2="230" stroke="#2C2C2C" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+          <text x="150" y="218" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="800" font-size="96" fill="none" stroke="#EE6F1E" stroke-width="3" stroke-dasharray="1 9" stroke-linecap="round">dog</text>
+          <path d="M95 208 q10 -46 34 -50" fill="none" stroke="#B4530A" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="129" cy="158" r="7" fill="#B4530A"/>
+        </g>
+        <g transform="translate(150,330)" text-anchor="middle">
+          <g transform="translate(-64,-14) scale(1.15)"><use href="#i-speak"/></g>
+          <text x="16" y="6" font-family="Hanken Grotesque, sans-serif" font-size="16" fill="#6B665E">“d… o… g — dog!”</text>
+        </g>
+      </svg>
+    </div><figcaption>Spelling ends with writing the whole word</figcaption></figure>
+
+    <figure class="shot fade"><div class="frame">
+      <!-- swap for <img src="/assets/screen-clock.png"> post-sweep -->
+      <svg class="vig" viewBox="0 0 300 400" role="img" aria-label="Illustration of the guided clock: one hand highlighted, one spoken instruction">
+        <rect width="300" height="400" fill="#FDFBF5"/>
+        <text x="150" y="52" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="800" font-size="24" fill="#2C2C2C">Set the clock</text>
+        <g transform="translate(150,218)">
+          <circle r="104" fill="#FBF8F3" stroke="#2C2C2C" stroke-width="5"/>
+          <g stroke="#2C2C2C" stroke-width="4" stroke-linecap="round"><line y1="-92" y2="-78"/><line y1="78" y2="92"/><line x1="-92" x2="-78"/><line x1="78" x2="92"/></g>
+          <line y2="-52" stroke="#6B665E" stroke-width="7" stroke-linecap="round" transform="rotate(90)"/>
+          <line y2="-74" stroke="#EE6F1E" stroke-width="8" stroke-linecap="round" transform="rotate(-45)"/>
+          <circle r="8" fill="#2C2C2C"/>
+          <path d="M-52 -52 a74 74 0 0 1 22 -16" fill="none" stroke="#EE6F1E" stroke-width="4" stroke-dasharray="2 8" stroke-linecap="round"/>
+        </g>
+        <g transform="translate(150,362)" text-anchor="middle">
+          <g transform="translate(-92,-16) scale(1.05)"><use href="#i-speak"/></g>
+          <text x="12" y="4" font-family="Hanken Grotesque, sans-serif" font-size="15.5" fill="#6B665E">“Move the orange hand…”</text>
+        </g>
+      </svg>
+    </div><figcaption>One step, one instruction, spoken aloud</figcaption></figure>
   </div>
 </section>
 
-<!-- 5 · TRUST & SAFETY — the heavy lifting -->
+<!-- REAL SCHOOLWORK — the centerpiece -->
+<section id="schoolwork" style="background:var(--band); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <h2 class="sec-title fade">Built around the work school actually sends home.</h2>
+    <p class="sec-sub fade">Professor Paws doesn't replace the teacher, the reading book, or the homework sheet. It helps your child understand and practise that work at home.</p>
+    <div class="panels">
+      <div class="panel fade">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-abc"/></svg>
+        <h3>Weekly spellings</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>Add the words school sent home</li>
+          <li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>Hear the whole word, then its sound-spelling parts</li>
+          <li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>Trace and write the complete word</li>
+          <li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>Each word returns over the week so it sticks</li>
+        </ul>
+      </div>
+      <div class="panel fade">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-times"/></svg>
+        <h3>Assigned maths</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>Pick the exact table or skill that was assigned</li>
+          <li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>Teach with objects your child moves</li>
+          <li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>Then pictures and models, then the numbers</li>
+          <li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>Practice stays on the assigned skill</li>
+        </ul>
+      </div>
+      <div class="panel fade">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-book"/></svg>
+        <h3>Home reading</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>The real book stays at the center</li>
+          <li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>The puppy starts the reading routine</li>
+          <li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>A calm check-in when your child marks it done</li>
+          <li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>No screens replacing pages</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHILDREN KEEP GOING -->
+<section class="wrap" id="motivation">
+  <h2 class="sec-title fade">Encouragement without pressure.</h2>
+  <div class="cards" style="margin-top:26px;">
+    <div class="card fade"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-paw"/></svg>
+      <h3>A puppy that helps</h3><p>Your child names and cares for their own companion.</p></div>
+    <div class="card fade"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bone"/></svg>
+      <h3>Rewards tied to learning</h3><p>Bones are earned by real learning — not by time on screen.</p></div>
+    <div class="card fade"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-hand"/></svg>
+      <h3>Help without punishment</h3><p>Using a hint never reduces the reward.</p></div>
+    <div class="card fade"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-loop"/></svg>
+      <h3>No streaks, no leaderboards</h3><p>Coming back is encouraged without shame or competition.</p></div>
+  </div>
+</section>
+
+<!-- HOW IT TEACHES -->
+<section id="teaches" style="background:var(--tint); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <h2 class="sec-title fade">More than an answer box.</h2>
+    <p class="sec-sub fade">The same objects-first, pictures-next, numbers-last sequence classrooms teach with.</p>
+    <ol class="trail fade">
+      <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-hand"/></svg></span>
+        <div><h3>Show it</h3><p>Objects, groups, arrays, clock hands — models your child can see and move.</p></div></li>
+      <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-steps"/></svg></span>
+        <div><h3>Try it, with support</h3><p>One visual or spoken cue at a time — never a wall of text.</p></div></li>
+      <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-loop"/></svg></span>
+        <div><h3>Fade the help, bring it back</h3><p>Support eases as your child grows independent — and important skills return days later, instead of vanishing after one right answer.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- SAFETY -->
 <section class="trust" id="trust">
   <div class="wrap">
-    <h2 class="sec-title fade">Built for trust, from day one.</h2>
+    <h2 class="sec-title fade">Designed for children. Controlled by parents.</h2>
     <ul class="fade">
-      <li>No ads. Ever.</li>
-      <li>Your child's data is never sold and never used to train AI.</li>
-      <li>Built to meet COPPA requirements — verifiable parental consent before any child data is collected.</li>
-      <li>Handwriting practice never leaves the device.</li>
-      <li>You control everything: the words they practice, the topics they read, the reading level.</li>
-      <li>Parents see progress in mastery — never screen-time guilt.</li>
+      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg></span>Parent-created accounts — children never make purchases</li>
+      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>No ads, no third-party ad trackers</li>
+      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg></span>Data never sold, never used to train AI</li>
+      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>Clear data-deletion controls for parents</li>
+      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>Handwriting practice never leaves the device</li>
+      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg></span>AI designed to guide the method — never to hand over answers</li>
     </ul>
+    <p class="links fade"><a href="/privacy.html">Privacy Policy</a> · <a href="/terms.html">Terms</a> · <a href="/support.html">Support &amp; data deletion</a></p>
   </div>
 </section>
 
-<!-- 6 · FOR PARENTS — the payoff -->
-<section class="parents wrap" id="parents">
-  <h2 class="sec-title fade">Made for your week</h2>
-  <p class="big fade">Type in this week's spelling list. Professor Paws turns it into lessons — and tells you when your child is ready for the test.</p>
-  <p class="small fade">Progress insights show mastery and where support helps — not minutes on a screen.</p>
+<!-- FOUNDER -->
+<section class="founder wrap" id="why">
+  <div class="inner">
+    <h2 class="sec-title fade">Why this exists</h2>
+    <p class="fade">I'm a security engineer. A kid I love — bright, funny, dyslexic — was ending homework in tears, and every app we tried either overwhelmed him or handed him answers. So I built the coach I couldn't find, and I protect his data the way I protect systems at work.</p>
+    <p class="fade">He still asks to play it every day. That's the only metric I trust so far.</p>
+    <p class="sig fade">— Phillip, builder of Professor Paws</p>
+  </div>
 </section>
 
-<!-- 7 · BETA CTA — honest scarcity -->
+<!-- FAQ -->
+<section class="wrap" id="faq" style="padding-top:20px;">
+  <h2 class="sec-title fade">Questions parents ask</h2>
+  <div class="faq fade">
+    <details><summary>Does it give children the answer?</summary>
+      <p>No. It guides the method in small steps — visuals, manipulatives, hints — and breaks a step down smaller when your child is stuck, instead of revealing the answer.</p></details>
+    <details><summary>What does the AI actually do?</summary>
+      <p>The AI writes the lesson — pacing, wording, encouragement. The maths is checked by code, not by the AI, and every phonics letter sound is real recorded human speech. There's no open-ended AI chat anywhere in the app.</p></details>
+    <details><summary>What data do you collect about my child?</summary>
+      <p>The minimum a learning coach needs: a parent email, a first name or nickname, and learning progress. Handwriting stays on the device. Nothing is sold, shared for ads, or used to train AI. Details in our <a href="/privacy.html">Privacy Policy</a>.</p></details>
+    <details><summary>What ages and subjects?</summary>
+      <p>Children roughly 8–13, met at the level they're actually working at. The beta covers spellings and phonics, times tables and number work, telling time, handwriting, and home reading.</p></details>
+    <details><summary>Is a diagnosis required?</summary>
+      <p>No. It's for children who learn differently or regularly find homework overwhelming — with or without a formal diagnosis.</p></details>
+    <details><summary>Can my child make purchases?</summary>
+      <p>No. The parent controls the account and any subscription. There is nothing a child can buy.</p></details>
+    <details><summary>What device, and what will it cost?</summary>
+      <p>Designed for iPad. Free during the private beta; a paid subscription at public launch — beta families will always see pricing before paying anything.</p></details>
+    <details><summary>Does it replace school or tutoring?</summary>
+      <p>No — it supports the work your child is already learning, and makes home practice calmer and more accessible.</p></details>
+  </div>
+</section>
+
+<!-- BETA FORM -->
 <section class="wrap" id="beta">
-  <form class="beta fade" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-    <h2>Join the early-access families</h2>
-    <p class="note">We're inviting a small group of early-access families. Free during early access.</p>
+  <form class="beta fade" action="https://formspree.io/f/xlgyqkaq" method="POST" novalidate>
+    <h2>Help shape a calmer way to do homework.</h2>
+    <p class="note">A small private beta for families with children ages 8–13 who experience ADHD, autism, dyslexia, or regular homework frustration. Free during the beta.</p>
 
-    <label for="parent-name">Your name</label>
-    <input id="parent-name" type="text" name="name" required autocomplete="name" />
-
-    <label for="parent-email">Email</label>
+    <label for="parent-email">Parent email</label>
     <input id="parent-email" type="email" name="email" required autocomplete="email" />
 
+    <label for="country">Country</label>
+    <select id="country" name="country" required>
+      <option value="" selected disabled>Choose one</option>
+      <option>United States</option>
+      <option>United Kingdom</option>
+      <option>Other</option>
+    </select>
+
     <fieldset style="border:0; padding:0; margin:0;">
-      <legend style="font-weight:600; font-size:.95rem; margin:18px 0 6px;">Your child's age range</legend>
+      <legend style="font-weight:600; font-size:.95rem; margin:18px 0 6px;">Your child's age range <span style="font-weight:400; color:var(--ink-soft);">(optional)</span></legend>
       <div class="ages">
-        <label><input type="radio" name="age_range" value="8-10" required /> 8–10</label>
+        <label><input type="radio" name="age_range" value="8-10" /> 8–10</label>
         <label><input type="radio" name="age_range" value="11-13" /> 11–13</label>
       </div>
     </fieldset>
 
-    <label for="homework-life">What does homework look like at your house? <span style="font-weight:400; color:var(--ink-soft);">(optional)</span></label>
-    <textarea id="homework-life" name="homework_life" rows="3"></textarea>
+    <label for="homework-life">What's the hardest part of homework right now? <span style="font-weight:400; color:var(--ink-soft);">(optional)</span></label>
+    <textarea id="homework-life" name="homework_challenge" rows="3"></textarea>
 
-    <input type="hidden" name="_subject" value="Professor Paws — early access request" />
-    <button type="submit">Request an invite</button>
-    <p class="fallback">Or email us directly: <a href="mailto:hello@playprofessorpaws.com">hello@playprofessorpaws.com</a></p>
+    <input type="hidden" name="_subject" value="Professor Paws — beta request" />
+    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+    <button type="submit" class="btn">Join the beta</button>
+    <p class="form-msg" role="status" aria-live="polite"></p>
   </form>
 </section>
 
-<!-- 8 · FOOTER -->
 <footer>
   <div class="wrap">
     <div class="pup"><img src="/assets/puppy.png" alt="The Professor Paws puppy" loading="lazy" /></div>
     <nav>
-      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/privacy.html">Privacy</a>
       <a href="/terms.html">Terms</a>
+      <a href="/support.html">Support</a>
       <a href="mailto:hello@playprofessorpaws.com">hello@playprofessorpaws.com</a>
     </nav>
-    <p class="made">Built by a dad-figure and security engineer who watched a kid he loves struggle with homework.</p>
+    <p>Built by a dad-figure and security engineer who watched a kid he loves struggle with homework.</p>
   </div>
 </footer>
 
 <script>
-  // subtle scroll fade — the page's only script; no-ops under reduced motion (CSS wins)
-  const io = new IntersectionObserver((entries) => {
-    for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.fade').forEach(el => io.observe(el));
+  const io = new IntersectionObserver((es)=>{ for (const e of es) if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} },{threshold:.12});
+  document.querySelectorAll('.fade').forEach(el=>io.observe(el));
+
+  // beta form: AJAX submit with loading / success / error, double-submit guard
+  const form = document.querySelector('form.beta');
+  const btn = form.querySelector('button[type="submit"]');
+  const msg = form.querySelector('.form-msg');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (btn.disabled) return;
+    if (!form.reportValidity()) return;
+    btn.disabled = true; const old = btn.textContent; btn.textContent = 'Sending…';
+    msg.className = 'form-msg';
+    try {
+      const r = await fetch(form.action, { method:'POST', body:new FormData(form), headers:{ 'Accept':'application/json' } });
+      if (!r.ok) throw new Error();
+      form.querySelectorAll('label, input, select, textarea, fieldset, button, .note').forEach(el=>el.style.display='none');
+      msg.textContent = "You're on the list. We'll email you when a beta place is available.";
+      msg.className = 'form-msg ok';
+    } catch {
+      msg.textContent = "That didn't send. Please try again, or email hello@playprofessorpaws.com.";
+      msg.className = 'form-msg err';
+      btn.disabled = false; btn.textContent = old;
+    }
+  });
 </script>
 </body>
 </html>
