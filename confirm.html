@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<!--
+  Professor Paws — parental consent confirmation (COPPA "email-plus", step 3 of 5).
+
+  WHY THIS PAGE EXISTS
+  The emailed link used to point straight at the confirm-consent edge function. On *.supabase.co the
+  gateway rewrites GET responses to Content-Type: text/plain plus its own sandbox CSP (platform
+  anti-phishing: edge functions may not serve renderable HTML on the shared domain), so the parent saw
+  raw HTML source with mojibake and no clickable button. This page hosts the GET step on our own domain
+  and POSTs to the function. The function's POST response is NOT rewritten (text/html; charset=utf-8),
+  so the result page renders correctly.
+
+  THE TOKEN LIVES IN THE URL FRAGMENT — this is the whole point of the rework.
+  The emailed link is:
+
+      https://playprofessorpaws.com/confirm.html#token=XXXXXXXX
+
+  NOT "?token=". A fragment is stripped by the browser before the request is made: it is never put in
+  the request line, never sent in any header, and therefore never reaches GitHub Pages (or Fastly, or
+  any future host, or any CDN in between). A query string would have written a LIVE 24-hour consent
+  credential into a third party's access logs — an undisclosed processor holding the one secret that
+  grants consent on a child's account. The fragment closes that.
+
+  What the fragment does NOT protect against, stated plainly so nobody over-trusts it:
+   * It is visible in the address bar and is written to local browser history. That is the parent's own
+     device and is an accepted trade for keeping it off other people's servers.
+   * It is submitted to the edge function as a form field on POST. That is the intended recipient.
+  We deliberately do NOT history.replaceState() the fragment away after reading it: if we did, a page
+  refresh (or a restored tab) would drop the parent onto the "link isn't valid" card with a token they
+  can no longer recover from their own address bar.
+
+  DEPLOYMENT REQUIREMENT — confirm.js MUST ship next to this file at /confirm.js.
+  The script is same-origin and external on purpose (see CSP NOTES). If it is missing or 404s, the page
+  stays on the invalid state and nobody can confirm. Deploy the pair or neither.
+
+  INVARIANTS — do not break these:
+   * INERT ON LOAD. No auto-submit, no timers, no network calls, no side effects. An email security
+     scanner that prefetches this URL must consume nothing — and, with the fragment, such a scanner
+     does not even receive the token. Only a human pressing the button POSTs.
+   * The token is ATTACKER-CONTROLLED (anyone can type any fragment). It is validated against
+     /^[A-Za-z0-9]{1,128}$/ and injected ONLY by assigning to input.value. Never innerHTML /
+     document.write / insertAdjacentHTML with anything URL-derived.
+   * FAIL CLOSED. The default rendered state is the INVALID state. The form is revealed only after the
+     token validates. Missing script, blocked script, malformed token, tampered fragment -> invalid card.
+   * The submit is a PLAIN FORM POST (a full top-level navigation), not fetch/XHR — so there is no CORS
+     dependency and no preflight. default-src 'none' would block fetch anyway.
+
+  WHERE THE TOKEN ACTUALLY IS — the old comment here claimed "the token never appears in the HTML
+  source", which was true only of the served response and misleading about everything else. Precisely:
+   * It is NOT in the bytes GitHub Pages serves for this file (this file is a static constant), and it
+     is NOT in any request GitHub Pages sees. Both true, and this is the part that matters.
+   * It IS in the serialized DOM once revealed. Verified in-browser, not assumed: for
+     <input type="hidden"> the value IDL attribute is in "default" mode, so field.value = token writes
+     through to the value CONTENT attribute. document.getElementById('tokenField').outerHTML comes back
+     as value="<the token>", and it is equally visible in devtools' Inspect / "Edit as HTML".
+     So: "not in the source" is a statement about GitHub's logs and the served file, NOT a property of
+     the running page. Nothing here should ever be built on the token being hidden from the DOM.
+   * The token is likewise in the address bar, in local browser history, and in the POST body. Treat it
+     as a secret on the parent's own device whose real protections are its 24-hour expiry and
+     single-use consumption server-side.
+
+  CSP NOTES
+   * script-src 'self' — there is NO inline script anywhere in this file, deliberately. The previous
+     version pinned a sha256 of an inline block, which meant one byte of whitespace drift (an editor,
+     a minifier, a well-meaning reformat) silently blocked the script and told every parent forever
+     that their link was invalid, with no CI to catch it. An external same-origin file cannot drift out
+     of its own hash.
+   * form-action names the supabase HOST (scheme + host, no path). 'self' would NOT work: the POST
+     target is a different origin, and form-action is what governs it. Verified in-browser: with the
+     host listed the cross-origin POST goes through; with it absent the browser silently refuses to
+     navigate. Left host-scoped rather than path-scoped on purpose -- see the handover notes.
+   * frame-ancestors is INERT in a meta CSP (browsers only honour it as a real header, which GitHub
+     Pages cannot set). It is left here as a statement of intent for whenever the site moves behind a
+     host that can send headers. Clickjacking risk is low regardless: this page has no side effect,
+     and an attacker who could frame it would still need the victim's token, which they do not have.
+   * style-src 'unsafe-inline' is the one relaxation, matching the edge function's own CSP. The page
+     loads no external stylesheet and the CSS never touches URL-derived data.
+-->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; img-src 'self'; form-action https://mlokvzsjrrwlcejjonck.supabase.co; base-uri 'none'; frame-ancestors 'none'" />
+<meta name="referrer" content="no-referrer" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Confirm consent — Professor Paws</title>
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
+<!-- defer: runs after the document is parsed, before DOMContentLoaded, so the reveal happens in the
+     same frame as first paint and there is no flash of the invalid card on a good link. -->
+<script src="/confirm.js" defer></script>
+<style>
+  /* Same visual language as support.html. The webfont <link> is deliberately omitted (see the
+     design notes in the summary): the family names stay first in each stack so the page picks the
+     brand faces up if they are ever self-hosted or installed, and falls back to the system stack
+     otherwise. No third party is contacted from a consent page. */
+  * { box-sizing:border-box; }
+  [hidden] { display:none !important; }
+  body { margin:0; background:#FBF8F3; color:#2C2C2C;
+         font-family:'Hanken Grotesque',system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+         font-size:18px; line-height:1.65; -webkit-font-smoothing:antialiased; }
+  main { max-width:640px; margin:0 auto; padding:40px 22px 72px; }
+  h1 { font-family:'Baloo 2',system-ui,sans-serif; line-height:1.15; font-size:1.75rem; margin:0 0 4px; }
+  p { margin:12px 0 0; }
+  a { color:#B4530A; }
+  .card { background:#FFFFFF; border:1px solid #EDE4D6; border-radius:20px;
+          padding:30px 26px 32px; box-shadow:0 6px 22px rgba(44,44,44,.06); }
+  .paw { font-size:34px; line-height:1; margin-bottom:10px; }
+  ul { margin:14px 0 0; padding-left:22px; }
+  li { margin:8px 0; }
+  .fineprint { margin-top:20px; padding-top:18px; border-top:1px solid #EDE4D6;
+               font-size:16px; color:#5C5449; }
+  form { margin:26px 0 0; }
+  button { display:block; width:100%; min-height:56px; padding:16px 28px;
+           background:#B4530A; color:#FFFFFF; border:none; border-radius:14px;
+           font-family:'Baloo 2',system-ui,sans-serif; font-size:1.125rem; font-weight:700;
+           line-height:1.2; cursor:pointer; }
+  button:hover { background:#9C4708; }
+  button:active { background:#8A3F07; }
+  button:focus-visible { outline:3px solid #2C2C2C; outline-offset:3px; }
+  footer { margin-top:28px; font-size:15px; color:#5C5449; }
+  @media (min-width:520px) {
+    main { padding-top:56px; }
+    button { width:auto; min-width:260px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <!--
+    NO "back to Professor Paws" link above the card, deliberately. This is a one-shot flow whose only
+    credential lives in the fragment: a prominent link as the FIRST focusable element invites a keyboard
+    or screen-reader user to navigate away, and navigating away discards the token with no way back.
+    The footer links are still there, below the action, where they are an exit rather than a detour.
+  -->
+
+  <!--
+    DEFAULT STATE IS THE INVALID STATE — this is deliberate and fail-closed. If the fragment is missing,
+    malformed, or the script is blocked/absent for any reason, the parent lands here rather than on a
+    form that would post nothing. confirm.js hides this and reveals the form only after the token
+    validates.
+  -->
+  <section class="card" id="invalidState">
+    <div class="paw" aria-hidden="true">&#128062;</div>
+    <h1>This link isn&rsquo;t valid</h1>
+    <p>We couldn&rsquo;t read a confirmation code in this link. Usually that means an email app shortened
+       or wrapped the link, or the link came from an older message.</p>
+    <p>Please open the most recent email we sent you and tap the button there. Confirmation links expire
+       24 hours after they are sent, and each one can only be used once.</p>
+    <!-- Self-service recovery FIRST, human help second. Without this the invalid card is a dead end: the
+         parent is told the link is bad but not that they can mint a fresh one themselves. That matters most
+         for the known failure mode of the fragment link — a corporate mail scanner (SafeLinks, Proofpoint,
+         Mimecast) that rewrites the URL and drops the "#" part. -->
+    <p>You can send yourself a new link: open Professor Paws on your device, go back to the consent screen,
+       and tap to send the confirmation email again. The newest link is always the one that works.</p>
+    <p>If it still doesn&rsquo;t work, email
+       <a href="mailto:hello@playprofessorpaws.com">hello@playprofessorpaws.com</a> and a human will reply.</p>
+    <noscript>
+      <p class="fineprint">This page needs JavaScript to read the code in your link. Please turn JavaScript
+         on and open the link again, or email us and we will confirm your consent another way.</p>
+    </noscript>
+  </section>
+
+  <section class="card" id="confirmState" hidden>
+    <div class="paw" aria-hidden="true">&#128062;</div>
+    <h1>Confirm your consent</h1>
+    <p>You are a step away from letting your child use Professor Paws. Tapping the button below confirms
+       two things:</p>
+    <ul>
+      <li>You are the parent or legal guardian of the child on this account.</li>
+      <li>You give your permission for Professor Paws to help that child with their schoolwork, and to
+          handle their information as described in our
+          <a href="/privacy.html">Privacy Policy</a>.</li>
+    </ul>
+
+    <!--
+      Plain form POST to the edge function. No fetch/XHR: a top-level navigation is not subject to CORS,
+      and the default enctype (application/x-www-form-urlencoded) triggers no preflight. The hidden
+      input is filled by property assignment in confirm.js.
+    -->
+    <form method="POST" action="https://mlokvzsjrrwlcejjonck.supabase.co/functions/v1/confirm-consent" autocomplete="off">
+      <input type="hidden" name="token" id="tokenField" value="" />
+      <button type="submit">Confirm consent</button>
+    </form>
+
+    <p class="fineprint">Nothing has happened yet &mdash; opening this page changes nothing. This link can
+       only be used once, and it expires 24 hours after we sent it. If it has already expired, open the
+       app and we will send you a fresh one.</p>
+  </section>
+
+  <footer>
+    <p>Questions? Email <a href="mailto:hello@playprofessorpaws.com">hello@playprofessorpaws.com</a> &middot;
+       <a href="/privacy.html">Privacy Policy</a> &middot; <a href="/terms.html">Terms</a></p>
+  </footer>
+</main>
+</body>
+</html>
