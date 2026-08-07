@@ -140,6 +140,7 @@
   .founder .inner { max-width:560px; margin:0 auto; text-align:center; }
   .founder p { margin-top:12px; }
   .founder .sig { margin-top:14px; color:var(--ink-soft); font-size:.95rem; }
+  .founder .btn { display:inline-block; margin-top:24px; padding:15px 32px; font-size:1.12rem; min-height:48px; }
 
   .faq { max-width:640px; margin:0 auto; display:grid; gap:10px; }
   .faq details { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:2px 18px; }
@@ -246,17 +247,30 @@
   <p>No ads · No third-party tracking · No chat or social features · Parent-controlled accounts · Children's data never sold or used to train AI</p>
 </div>
 
+<!-- TESTIMONIALS — RESERVED, DO NOT UNCOMMENT until real parent quotes exist (v3.3 ruling).
+     No fabricated or paraphrased quotes, ever: each entry must be a real parent's words,
+     used with their permission, attributed only as they agreed to (e.g. "— Sarah, parent
+     of a 9-year-old"). Structure ready so adding the first real quote is a paste.
+<section class="wrap" id="families">
+  <h2 class="sec-title fade">What families tell us</h2>
+  <div class="cards" style="margin-top:26px;">
+    <div class="card fade"><p>"QUOTE"</p><p class="sig">— ATTRIBUTION</p></div>
+  </div>
+</section>
+-->
+
 <!-- FOUNDER — directly under the trust strip (v3.2 structure).
      COPY IS FINAL: the owner's verbatim founder story (paste of 2026-08-07). The opening
      line renders as the section heading; every word below is the owner's, unedited. -->
 <section class="founder wrap" id="why">
   <div class="inner">
     <h2 class="sec-title fade">Professor Paws exists because of one kid.</h2>
-    <p class="fade">He learns differently, and homework was becoming a nightly battle. I work in application security for a living, and I couldn't find a homework app that combined the kind of help he needed with the privacy and control I'd expect for a child. So I started building one in the evenings.</p>
-    <p class="fade">Professor Paws turns real schoolwork into small, manageable steps, with a puppy companion helping along the way. Kids can also practice spelling, times tables, fractions, money, reading, and other skills — then earn rewards, care for their puppy, and explore new worlds through genuine learning.</p>
+    <p class="fade">He learns differently, and homework was becoming a nightly battle.</p>
+    <p class="fade">I work in application security for a living, and I couldn't find a homework app that combined the kind of help he needed with the privacy and control I'd expect for a child.</p>
+    <p class="fade">So I started building one in the evenings. Professor Paws turns real schoolwork into small, manageable steps, with a puppy companion helping along the way.</p>
     <p class="fade">Somewhere along the way, he started opening it without being asked. He even asked me to put his favorite pebble in the app. It's still there.</p>
-    <p class="fade">No ads. No third-party tracking. No chat. Parent-controlled. Children's data is never sold or used to train AI.</p>
     <p class="fade">We're now inviting a small number of families to test Professor Paws for free and help shape what comes next.</p>
+    <a class="btn fade" href="#beta">Request Free Beta Access</a>
   </div>
 </section>
 
@@ -264,7 +278,8 @@
 <section class="wrap" id="problem" style="padding-top:30px;">
   <h2 class="sec-title fade">When a ten-minute worksheet turns into an hour of frustration.</h2>
   <div class="fade" style="max-width:56ch; margin:18px auto 0; color:var(--ink-soft); font-size:1.08rem;">
-    <p>Your child doesn't know where to begin. You repeat the instructions three different ways. They get upset; you become the teacher; and nobody feels good when the homework is finally done.</p>
+    <p>Your child doesn't know where to begin. You repeat the instructions three different ways.</p>
+    <p style="margin-top:12px;">They get upset; you become the teacher; and nobody feels good when the homework is finally done.</p>
     <p style="margin-top:16px; color:var(--ink); font-weight:600;">Professor Paws steps between "I can't do this" and the answer — giving your child the next manageable step.</p>
   </div>
 </section>
@@ -417,11 +432,14 @@
   <h2 class="sec-title fade">Questions parents ask</h2>
   <div class="faq fade">
     <details><summary>Does it give children the answer?</summary>
-      <p>It's designed not to. It guides the method in small steps — visuals, manipulatives, hints — and breaks a step down smaller when your child is stuck, instead of revealing the answer. If you ever see it slip, tell us — there's a report button right in the lesson.</p></details>
+      <p>It's designed not to. It guides the method in small steps — visuals, manipulatives, hints — and breaks a step down smaller when your child is stuck, instead of revealing the answer.</p>
+      <p>If you ever see it slip, tell us — there's a report button right in the lesson.</p></details>
     <details><summary>What does the AI actually do?</summary>
-      <p>The AI writes the lesson — pacing, wording, encouragement. Arithmetic answers are checked by code, not by the AI, and every phonics letter sound is real recorded human speech. There's no open-ended AI chat anywhere in the app.</p></details>
+      <p>The AI writes the lesson — pacing, wording, encouragement.</p>
+      <p>Arithmetic answers are checked by code, not by the AI, and every phonics letter sound is real recorded human speech. There's no open-ended AI chat anywhere in the app.</p></details>
     <details><summary>What data do you collect about my child?</summary>
-      <p>The minimum a learning coach needs: a parent email, a nickname, your child's age, the schoolwork you enter (including any homework photos, which are processed and not stored in their profile), and learning progress. Handwriting stays on the device. Nothing is sold, shared for ads, or used to train AI. Details in our <a href="/privacy.html">Privacy Policy</a>.</p></details>
+      <p>The minimum a learning coach needs: a parent email, a nickname, your child's age, the schoolwork you enter (including any homework photos, which are processed and not stored in their profile), and learning progress.</p>
+      <p>Handwriting stays on the device. Nothing is sold, shared for ads, or used to train AI. Details in our <a href="/privacy.html">Privacy Policy</a>.</p></details>
     <details><summary>What ages and subjects?</summary>
       <p>Children roughly 8–13, met at the level they're actually working at. The beta covers spellings and phonics, times tables and number work, telling time, handwriting, and home reading.</p></details>
     <details><summary>Is a diagnosis required?</summary>
