@@ -41,6 +41,13 @@
   img,svg { max-width:100%; display:block; }
   .wrap { width:100%; max-width:var(--maxw); margin:0 auto; padding:0 22px; }
   section { padding:56px 0; scroll-margin-top:76px; }
+  /* v3.6 mobile-spacing pass: phones get tighter section rhythm so the (now longer)
+     page doesn't feel spread out — desktop spacing unchanged. */
+  @media (max-width:600px){
+    section { padding:40px 0; }
+    .hero { padding:40px 0 36px; }
+    .sec-sub { margin-bottom:22px; }
+  }
   .sec-title { font-size:clamp(1.5rem,4vw,2.05rem); font-weight:800; text-align:center; margin-bottom:8px; }
   .sec-sub { text-align:center; color:var(--ink-soft); max-width:54ch; margin:0 auto 30px; }
 
@@ -544,8 +551,18 @@
     <p class="note" style="margin:12px 0 0; font-size:.9rem;">Free private beta. No payment required. We'll only email about Professor Paws.</p>
     <p class="form-msg" role="status" aria-live="polite"></p>
   </form>
-  <!-- AFTER YOU REQUEST (v3.5, owner-directed copy) — expectations under the form. -->
-  <p class="fade" style="max-width:54ch; margin:22px auto 0; text-align:center; color:var(--ink-soft); font-size:.95rem;">After you request beta access, we'll review requests from parents. If Professor Paws looks like a good fit, we'll email instructions. The private beta is free, no payment is required, and parents can request data deletion at any time.</p>
+  <!-- WHAT HAPPENS NEXT (v3.6) — the after-request expectations as a scannable box.
+       (The free/no-payment and deletion facts live in the button microcopy and the
+       trust list directly above — nothing was lost in the paragraph-to-steps swap.) -->
+  <div class="beta fade" style="margin:22px auto 0; padding:26px;">
+    <h3 style="text-align:center; font-size:1.15rem;">What happens next</h3>
+    <ol style="margin:14px 0 0; padding-left:24px; color:var(--ink-soft); font-size:.96rem; display:grid; gap:8px;">
+      <li>Request free beta access</li>
+      <li>We review parent requests</li>
+      <li>If Professor Paws looks like a good fit, we email setup instructions</li>
+      <li>You test it free and help shape what comes next</li>
+    </ol>
+  </div>
 </section>
 
 <footer>
