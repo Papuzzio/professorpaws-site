@@ -64,6 +64,9 @@
   .brand { display:flex; align-items:center; gap:9px; font-family:var(--display);
     font-weight:800; font-size:1.15rem; color:var(--ink); text-decoration:none; }
   .brand svg { width:22px; height:22px; color:var(--orange); }
+  /* The header lockup shows the APP ICON face (same artwork as the App Store listing
+     and the home screen), at the old glyph's exact height; radius echoes the squircle. */
+  .brand img { width:22px; height:22px; border-radius:5px; display:inline-block; }
   .top nav { display:flex; gap:20px; margin-left:auto; }
   .top nav a { color:var(--ink-soft); text-decoration:none; font-weight:600; font-size:.95rem; }
   .top nav a:hover { color:var(--orange-deep); }
@@ -222,7 +225,7 @@
 <!-- HEADER -->
 <div class="top">
   <div class="bar">
-    <a class="brand" href="/"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-paw"/></svg>Professor Paws</a>
+    <a class="brand" href="/"><img src="/assets/icon-small.png" alt="" width="22" height="22" />Professor Paws</a>
     <nav aria-label="Sections">
       <a href="#how">How it works</a>
       <a href="#schoolwork">Real schoolwork</a>
