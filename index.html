@@ -437,6 +437,7 @@
       <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>Clear data-deletion controls for parents</li>
       <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>Handwriting practice never leaves the device</li>
       <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg></span>AI designed to guide the method — never to hand over answers</li>
+      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>No open-ended AI chat — controlled teaching interactions only</li>
     </ul>
     <p class="links fade"><a href="/privacy.html">Privacy Policy</a> · <a href="/terms.html">Terms</a> · <a href="/support.html">Support &amp; data deletion</a></p>
   </div>
@@ -472,7 +473,7 @@
 <section class="wrap" id="beta">
   <form class="beta fade" action="https://formspree.io/f/xlgyqkaq" method="POST" novalidate>
     <h2>Help make homework feel possible again.</h2>
-    <p class="note">A small private beta for families of children ages 8–13 who find homework hard. The private beta is free.</p>
+    <p class="note">Free private beta for families of children ages 8–13 who find homework hard. No payment required.</p>
 
     <label for="parent-email">Parent email</label>
     <input id="parent-email" type="email" name="email" required autocomplete="email" />
@@ -501,7 +502,9 @@
          never personal data). Empty unless the visitor arrived via a tagged link. -->
     <input type="hidden" name="source" id="beta-source" value="" />
     <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
-    <button type="submit" class="btn">Request beta access</button>
+    <button type="submit" class="btn">Request Free Beta Access</button>
+    <!-- .note so the success handler hides it with the rest of the form chrome -->
+    <p class="note" style="margin:12px 0 0; font-size:.9rem;">Free private beta. No payment required. We'll only email about Professor Paws.</p>
     <p class="form-msg" role="status" aria-live="polite"></p>
   </form>
 </section>
