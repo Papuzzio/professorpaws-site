@@ -122,12 +122,6 @@
   .frame { background:var(--ink); border-radius:26px; padding:9px; aspect-ratio:3/4; }
   .frame img,.frame svg.vig,.frame video { width:100%; height:100%; object-fit:cover; border-radius:18px; background:var(--paper); }
   .shot figcaption { margin-top:12px; font-size:.95rem; color:var(--ink-soft); }
-  /* SITE TONE FIX: labelled placeholder inside the phone frame until the real screenshot lands. */
-  .frame .placeholder { width:100%; height:100%; border-radius:18px; background:var(--paper);
-    border:2px dashed var(--orange); display:flex; flex-direction:column; align-items:center;
-    justify-content:center; gap:6px; padding:16px; text-align:center; color:var(--ink-soft); font-size:.9rem; }
-  .frame .placeholder strong { color:var(--ink); font-size:1rem; }
-  .frame .placeholder code { font-size:.78rem; background:var(--band); padding:2px 6px; border-radius:6px; }
   .video-shot { max-width:320px; margin:0 auto 34px; }
 
   .trail { list-style:none; max-width:600px; margin:0 auto; padding:0; position:relative; display:grid; gap:24px; }
@@ -291,28 +285,23 @@
     <li style="display:flex; gap:10px; align-items:flex-start;"><svg viewBox="0 0 24 24" style="flex:0 0 16px; width:16px; height:16px; margin-top:6px; color:var(--orange-deep);"><use href="#i-check"/></svg>If your child is stuck, the step gets smaller</li>
     <li style="display:flex; gap:10px; align-items:flex-start;"><svg viewBox="0 0 24 24" style="flex:0 0 16px; width:16px; height:16px; margin-top:6px; color:var(--orange-deep);"><use href="#i-check"/></svg>Rewards come from effort and practice, not speed</li>
   </ul>
-  <!-- SITE TONE FIX: three REAL screenshots the owner is capturing (never invented screens),
-       each carrying the 8–13 age the copy states. Until the files land, each frame is a
-       labelled placeholder — REPLACE the placeholder div with an <img> of the named file
-       (PNG, 915×1280 portrait, same as screen-homework.png; no child name visible), then
-       delete the placeholder. DO NOT deploy with a placeholder still on the page. -->
+  <!-- SITE TONE FIX: three REAL screenshots (never invented screens), captured by the owner on
+       the iPad on 2026-08-17, each carrying the 8–13 age the copy states: a fractions lesson with
+       bars, the times-tables array, and Read with Max. -->
   <div class="shots">
     <figure class="shot fade"><div class="frame">
-      <div class="placeholder" role="img" aria-label="Screenshot placeholder: a fractions lesson with bars">
-        <span>Screenshot to come</span><strong>Fractions — with bars</strong><code>assets/screen-fractions.png</code><small>PNG · 915 × 1280</small>
-      </div>
+      <img src="/assets/screen-fractions.png" width="915" height="1280" loading="lazy"
+           alt="A fractions step taught with bars: one half equals how many eighths — the puppy says both numbers change the same way, two bars show the halves and the eighths, and the child picks the top number" />
     </div><figcaption>Fractions, taught with bars your child moves</figcaption></figure>
 
     <figure class="shot fade"><div class="frame">
-      <div class="placeholder" role="img" aria-label="Screenshot placeholder: the times-tables array">
-        <span>Screenshot to come</span><strong>Times tables — the array</strong><code>assets/screen-times.png</code><small>PNG · 915 × 1280</small>
-      </div>
+      <img src="/assets/screen-times.png" width="915" height="1280" loading="lazy"
+           alt="A times-tables drill, 6 times 9: a hint says start with 10 sixes, the child taps to fill 6 rows of 9 on an array, then answers how many altogether" />
     </div><figcaption>Times tables, built as an array</figcaption></figure>
 
     <figure class="shot fade"><div class="frame">
-      <div class="placeholder" role="img" aria-label="Screenshot placeholder: Read with Max">
-        <span>Screenshot to come</span><strong>Reading — Read with Max</strong><code>assets/screen-reading.png</code><small>PNG · 915 × 1280</small>
-      </div>
+      <img src="/assets/screen-reading.png" width="915" height="1280" loading="lazy"
+           alt="Read with Max: a short story read one page at a time with a Read to me button, then a question — what did the judge give Bailey? — with a Not sure? link and Check my answer" />
     </div><figcaption>Home reading, one passage at a time</figcaption></figure>
   </div>
 </section>
