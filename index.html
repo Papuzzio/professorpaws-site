@@ -82,6 +82,13 @@
 
   /* hero */
   .hero { padding:56px 0 52px; text-align:center; position:relative; overflow:hidden; }
+  /* SECOND PASS: desktop = copy left, product right; phones = stacked and centred (below). */
+  @media (min-width:900px){
+    .hero { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr); gap:44px; align-items:center; text-align:left; padding:48px 22px 44px; }
+    .hero h1, .hero .sub, .hero .quiet { margin-left:0; margin-right:0; }
+    .hero .ctas { justify-content:flex-start; }
+    .hero-shot { margin:0 0 0 auto; max-width:340px; }
+  }
   .eyebrow { display:inline-block; font-weight:700; font-size:.92rem; color:var(--orange-deep);
     background:var(--tint); border:1px solid var(--line); border-radius:999px; padding:6px 16px; }
   .hero-pup { width:150px; height:150px; margin:22px auto 18px; border-radius:50%;
@@ -98,9 +105,6 @@
   .btn.ghost { background:transparent; color:var(--orange-deep); border:2px solid var(--orange); }
   .btn.ghost:hover { background:var(--tint); }
   .hero .quiet { margin-top:14px; font-size:.93rem; color:var(--ink-soft); }
-  .bone { position:absolute; color:var(--orange); opacity:.13; }
-  .bone.b1{width:70px;top:14%;left:6%;transform:rotate(-18deg)}
-  .bone.b2{width:50px;top:24%;right:8%;transform:rotate(14deg)}
 
   .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; }
   .card { background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:22px 20px; }
@@ -186,10 +190,6 @@
   .form-msg.ok { display:block; color:var(--orange-deep); font-weight:700; }
   .form-msg.err { display:block; color:#8c2f0d; }
 
-  .paws { display:flex; gap:14px; justify-content:center; padding:6px 0; }
-  .paws svg { width:22px; height:22px; opacity:.35; color:var(--orange); }
-  .paws svg:nth-child(2){ transform:translateY(-6px) rotate(-12deg); }
-  .paws svg:nth-child(3){ transform:rotate(10deg); }
 
   .method-strip { display:flex; gap:12px; justify-content:center; align-items:center; flex-wrap:wrap; }
   .method-strip span { background:var(--paper); border:1.5px solid var(--orange); border-radius:999px; padding:10px 20px; font-family:var(--display); font-weight:700; color:var(--orange-deep); }
@@ -246,16 +246,20 @@
      the CTA (the v3.2 standalone strip folded in here — same claims, no duplication;
      "no third-party tracking" remains in the Safety section list). Every app-behavior
      claim verified against shipped code before publishing (claims-sweep discipline). -->
+<!-- SECOND PASS (owner-directed 2026-08-17): the product sits BESIDE the copy on desktop — the
+     first thing a parent sees is the headline and the iPad together, not words then a scroll.
+     Copy is verbatim from the first pass (headline held by owner ruling). Phones stack, centred.
+     Decorative bones removed (ornament down); semantic icons elsewhere stay. -->
 <header class="hero wrap">
-  <svg class="bone b1" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bone"/></svg>
-  <svg class="bone b2" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bone"/></svg>
-  <h1>Homework help for kids who shut down, rush, or melt down over schoolwork.</h1>
-  <p class="sub">Professor Paws turns the worksheet your child actually brings home into calm, spoken, step-by-step practice — without handing over the answer.</p>
-  <p class="quiet" style="margin-top:16px; font-weight:600;">Free private beta for families of children ages 8–13.</p>
-  <div class="ctas" style="margin-top:18px;">
-    <a class="btn" href="#beta">Request Free Beta Access</a>
+  <div class="hero-copy">
+    <h1>Homework help for kids who shut down, rush, or melt down over schoolwork.</h1>
+    <p class="sub">Professor Paws turns the worksheet your child actually brings home into calm, spoken, step-by-step practice — without handing over the answer.</p>
+    <p class="quiet" style="margin-top:16px; font-weight:600;">Free private beta for families of children ages 8–13.</p>
+    <div class="ctas" style="margin-top:18px;">
+      <a class="btn" href="#beta">Request Free Beta Access</a>
+    </div>
+    <p class="quiet" style="max-width:64ch;">No ads · No chat · No social features · Parent-controlled · Children's data never sold or used to train AI</p>
   </div>
-  <p class="quiet" style="max-width:64ch; margin-left:auto; margin-right:auto;">No ads · No chat · No social features · Parent-controlled · Children's data never sold or used to train AI</p>
   <!-- SITE TONE FIX (owner-directed 2026-08-17): the hero shot is the TYPED-INPUT screen —
        "Calculate 426 × 38", the crayons word problem, the money problems — because it carries
        the same age as the copy (8–13). The letter-tracing shot that was here read as 5–6 and
@@ -306,6 +310,20 @@
   </div>
 </section>
 
+<!-- MORE THAN AN ANSWER BOX — SECOND PASS (owner-directed 2026-08-17): moved up from the
+     teaching-progression section to sit directly after the demo. Table verbatim. -->
+<section class="wrap" id="compare" style="padding-top:8px;">
+  <h2 class="sec-title fade">More than an answer box.</h2>
+  <div class="compare fade" role="table" aria-label="Typical answer app compared with Professor Paws">
+    <div class="c-head" role="row"><span role="columnheader">A typical answer app</span><span role="columnheader">Professor Paws</span></div>
+    <div class="c-row" role="row"><span role="cell">Solves the question</span><span role="cell">Teaches the next step</span></div>
+    <div class="c-row" role="row"><span role="cell">Starts with a blank chat box</span><span role="cell">Starts with a guided activity</span></div>
+    <div class="c-row" role="row"><span role="cell">Gives long explanations</span><span role="cell">Gives one instruction at a time</span></div>
+    <div class="c-row" role="row"><span role="cell">Rewards fast completion</span><span role="cell">Rewards genuine effort</span></div>
+    <div class="c-row" role="row"><span role="cell">Open-ended AI conversation</span><span role="cell">Controlled teaching interactions</span></div>
+  </div>
+</section>
+
 <!-- TESTIMONIALS — RESERVED, DO NOT UNCOMMENT until real parent quotes exist (v3.3 ruling).
      No fabricated or paraphrased quotes, ever: each entry must be a real parent's words,
      used with their permission, attributed only as they agreed to (e.g. "— Sarah, parent
@@ -342,10 +360,6 @@
     <p style="margin-top:16px; color:var(--ink); font-weight:600;">Professor Paws steps between "I can't do this" and the answer — giving your child the next manageable step.</p>
   </div>
 </section>
-
-<div class="paws" aria-hidden="true">
-  <svg viewBox="0 0 24 24"><use href="#i-paw"/></svg><svg viewBox="0 0 24 24"><use href="#i-paw"/></svg><svg viewBox="0 0 24 24"><use href="#i-paw"/></svg>
-</div>
 
 <!-- WHAT CHANGES AT HOMEWORK TIME (v3.4, owner-directed copy) -->
 <section class="wrap" id="what-changes" style="padding-top:20px;">
@@ -452,15 +466,6 @@
          the kid hub render silently today — part of it held on surface-legibility). -->
     <p class="sec-sub fade" style="margin-top:14px;">Designed with ADHD, autism, and dyslexia in mind: one step at a time, no timers, and no penalty for a wrong answer.</p>
 
-    <h2 class="sec-title fade" style="margin-top:44px;">More than an answer box.</h2>
-    <div class="compare fade" role="table" aria-label="Typical answer app compared with Professor Paws">
-      <div class="c-head" role="row"><span role="columnheader">A typical answer app</span><span role="columnheader">Professor Paws</span></div>
-      <div class="c-row" role="row"><span role="cell">Solves the question</span><span role="cell">Teaches the next step</span></div>
-      <div class="c-row" role="row"><span role="cell">Starts with a blank chat box</span><span role="cell">Starts with a guided activity</span></div>
-      <div class="c-row" role="row"><span role="cell">Gives long explanations</span><span role="cell">Gives one instruction at a time</span></div>
-      <div class="c-row" role="row"><span role="cell">Rewards fast completion</span><span role="cell">Rewards genuine effort</span></div>
-      <div class="c-row" role="row"><span role="cell">Open-ended AI conversation</span><span role="cell">Controlled teaching interactions</span></div>
-    </div>
   </div>
 </section>
 
