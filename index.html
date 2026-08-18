@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Professor Paws — homework help that teaches, not just answers</title>
 <meta name="description" content="Professor Paws turns weekly spellings, times tables, reading, and other schoolwork into calm, step-by-step practice — for children ages 8–13 who find homework hard." />
 
@@ -33,7 +33,13 @@
     --heading:'Fraunces','Iowan Old Style','Palatino',Georgia,serif;
     --display:'Hanken Grotesque',system-ui,-apple-system,sans-serif;
     --body:'Hanken Grotesque',system-ui,-apple-system,sans-serif;
-    --maxw:1020px;
+    /* RESPONSIVE SYSTEM (owner-directed 2026-08-18) — ONE gutter scale, ONE measure, safe-area aware.
+       --gutter: phone 20px (floor), tablet ~35–46px, desktop 56px (cap) — a single clamp, not per-device
+       breakpoints. --measure: the max line length for running text (target 60–75 characters). --maxw is
+       the CONTENT box plus two gutters, so desktop content width is unchanged (976px) while gutters scale. */
+    --gutter: clamp(20px, 4.5vw, 56px);
+    --measure: 58ch;   /* CALIBRATED, not guessed: in Hanken Grotesk 1ch ("0") ≈ 1.23 average prose glyphs, so 66ch measured 81 cpl on the footer line; 58ch lands ~71 */
+    --maxw: calc(976px + 2 * var(--gutter));
   }
   * { box-sizing:border-box; }
   html { scroll-behavior:smooth; }
@@ -43,13 +49,25 @@
   p { margin:0; }
   a { color:var(--orange-deep); }
   img,svg { max-width:100%; display:block; }
-  .wrap { width:100%; max-width:var(--maxw); margin:0 auto; padding:0 22px; }
+  /* .wrap = the horizontal system. It sets INLINE padding only, and honours the notch on a
+     viewport-fit=cover phone (env() is 0 everywhere else). NOTE the historic foot-gun this replaces:
+     `.wrap { padding:0 22px }` (a shorthand) zeroed a section's VERTICAL padding too, which is why
+     several `section.wrap`s carry inline padding-top overrides — those stay as they were, and
+     section.wrap's vertical rhythm is made explicit below rather than left to shorthand order. */
+  .wrap { width:100%; max-width:var(--maxw); margin:0 auto;
+    padding-inline: max(var(--gutter), env(safe-area-inset-left)) max(var(--gutter), env(safe-area-inset-right)); }
   section { padding:56px 0; scroll-margin-top:76px; }
+  section.wrap { padding-block:0; }   /* unchanged rhythm, stated explicitly (see the note above) */
+  /* Running text never runs past the measure. Cards, panels, FAQ answers and .sec-sub (54ch) already sit
+     inside the target; the measured offender is the footer line (81 characters at ≥768px). */
+  footer .wrap > p, .founder .inner p { max-width:var(--measure); margin-inline:auto; }
   /* v3.6 mobile-spacing pass: phones get tighter section rhythm so the (now longer)
      page doesn't feel spread out — desktop spacing unchanged. */
   @media (max-width:600px){
     section { padding:40px 0; }
-    .hero { padding:40px 0 36px; }
+    /* padding-block ONLY — the shorthand that used to sit here (`padding:40px 0 36px`) was the SECOND
+       site of the phone gutter defect: it re-zeroed the hero's inline padding on every phone. */
+    .hero { padding-block:40px 36px; }
     .sec-sub { margin-bottom:22px; }
   }
   .sec-title { font-size:clamp(1.5rem,4vw,2.05rem); font-weight:800; text-align:center; margin-bottom:8px; }
@@ -64,9 +82,11 @@
   .top { position:sticky; top:0; z-index:20; background:var(--cream);
     border-bottom:1px solid var(--line); }
   .top .bar { display:flex; align-items:center; gap:20px; max-width:var(--maxw);
-    margin:0 auto; padding:12px 22px; }
+    margin:0 auto; padding-block:12px;
+    padding-inline: max(var(--gutter), env(safe-area-inset-left)) max(var(--gutter), env(safe-area-inset-right)); }
   .brand { display:flex; align-items:center; gap:9px; font-family:var(--display);
-    font-weight:700; font-size:1.1rem; color:var(--ink); text-decoration:none; letter-spacing:.005em; }
+    font-weight:700; font-size:1.1rem; color:var(--ink); text-decoration:none; letter-spacing:.005em;
+    white-space:nowrap; min-height:44px; }   /* never wraps; 44px tap floor */
   .brand svg { width:22px; height:22px; color:var(--orange); }
   /* SITE TONE FIX: the lockup is the ILLUSTRATED puppy (assets/puppy.png), small, beside a
      plain wordmark — the glossy app-icon face read as an emoji. No crop, no squircle. */
@@ -77,14 +97,26 @@
   .btn { display:inline-block; background:var(--orange); color:#fff; text-decoration:none;
     font-family:var(--display); font-weight:700; border:0; border-radius:14px; cursor:pointer; }
   .btn:hover { background:var(--orange-deep); }
-  .top .btn { padding:11px 20px; font-size:.98rem; margin-left:8px; }
-  @media (max-width:760px){ .top nav{display:none} .top .btn{margin-left:auto} }
+  .top .btn { padding:11px 20px; font-size:.98rem; margin-left:8px; white-space:nowrap; min-height:44px; display:inline-flex; align-items:center; }
+  /* The nav needs ~820px to sit on one line with the brand and the button (measured); below that it
+     wraps into a second row, so it hides — a content breakpoint, not a device one. */
+  @media (max-width:899px){ .top nav{display:none} .top .btn{margin-left:auto} }
+  .top .brand { flex-shrink:0; }   /* the brand never gives up width — its nowrap text would only overflow into the gap */
+  /* ≤420: brand (~157px) + gap + button must fit in 375−2×20 = 335px. Measured: brand 1rem + 12px gap +
+     button .88rem/10px = 332px. Below ~350px the two cannot both fit at any legible size and the
+     button rides into the right gutter — see the report; the wordmark or the label would have to give. */
+  @media (max-width:420px){ .top .bar{ gap:12px } .top .btn{ padding:10px 10px; font-size:.88rem } .top .brand{ font-size:1rem } }
 
   /* hero */
-  .hero { padding:56px 0 52px; text-align:center; position:relative; overflow:hidden; }
+  /* THE PHONE DEFECT (measured 2026-08-18): `.hero { padding:56px 0 52px }` — a shorthand declared after
+     .wrap — zeroed the hero's INLINE padding, so on every phone the headline, sub, beta line and trust
+     line ran edge to edge (gutter 0/0 at 375 and 390; the trust line at x=8 on an iPad portrait). The
+     earlier "no overflow" check could never catch that: text can fill the viewport exactly with zero
+     margin. Block padding only, from here on; the gutter comes from .wrap. */
+  .hero { padding-block:56px 52px; text-align:center; position:relative; overflow:hidden; }
   /* SECOND PASS: desktop = copy left, product right; phones = stacked and centred (below). */
   @media (min-width:900px){
-    .hero { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr); gap:44px; align-items:center; text-align:left; padding:48px 22px 44px; }
+    .hero { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr); gap:44px; align-items:center; text-align:left; padding-block:48px 44px; }
     .hero h1, .hero .sub, .hero .quiet { margin-left:0; margin-right:0; }
     .hero .ctas { justify-content:flex-start; }
     .hero-shot { margin:0 0 0 auto; max-width:340px; }
@@ -207,7 +239,8 @@
   footer .pup { width:60px; height:60px; border-radius:50%; overflow:hidden; margin:0 auto 14px;
     background:var(--paper); border:1px solid var(--line); }
   footer .pup img { width:100%; height:100%; object-fit:cover; }
-  footer nav { margin-bottom:10px; display:flex; gap:18px; justify-content:center; flex-wrap:wrap; }
+  footer nav { margin-bottom:10px; display:flex; gap:6px 18px; justify-content:center; flex-wrap:wrap; }
+  footer nav a { display:inline-flex; align-items:center; min-height:44px; padding-inline:4px; }  /* 44px tap floor */
 </style>
 </head>
 <body>
@@ -312,7 +345,7 @@
 
 <!-- MORE THAN AN ANSWER BOX — SECOND PASS (owner-directed 2026-08-17): moved up from the
      teaching-progression section to sit directly after the demo. Table verbatim. -->
-<section class="wrap" id="compare" style="padding:8px 22px 56px;">
+<section class="wrap" id="compare" style="padding-top:8px; padding-bottom:56px;">
   <h2 class="sec-title fade">More than an answer box.</h2>
   <div class="compare fade" role="table" aria-label="Typical answer app compared with Professor Paws">
     <div class="c-head" role="row"><span role="columnheader">A typical answer app</span><span role="columnheader">Professor Paws</span></div>
