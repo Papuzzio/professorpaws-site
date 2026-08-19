@@ -31,3 +31,20 @@
 
 ## 2026-08-19 · launch-audit pass (deployed earlier today, main beab053 → f51e01d)
 Ten owner rulings executed: responsive ship + tablet fixes · metadata/claims/US-English · WebP + self-hosted Fraunces (dead 'Hanken Grotesque' removed) · contrast/forms (--orange-deep buttons) · privacy §15 + processors · first-party site-event counter (fn v2 --no-verify-jwt; migration 20260819000001 applied alone, targeted). Evidence: ~/Documents/site-launch-audit-2026-08-19-evidence.md + per-step diffs in the session scratchpad.
+
+## 2026-08-19 · header fix (branch header-fix-2026-08-19) — phone CTA clipped; mobile logo = B small
+- Defect (measured with CDP, not eyeballed): at 375/390/430 the header's minimum width was 20 + 243.5 (D one-line
+  wordmark at 22px tall = 225.5px wide) + 12 gap + 163.3 CTA + 20 = 458.8px > viewport; `.brand` is flex-shrink:0 and the
+  CTA nowrap, so the visual viewport zoomed to 439/481px and the primary CTA rendered past the right edge
+  (btn.right 438.9 on a 375 layout; `btnClipped:true` at 430).
+- Options measured at 375/390/430 (screenshots: session scratchpad hdr-proto/options-sheet.png):
+  - A — frozen head mark (30×28) + one-line wordmark shrunk to 15px: brand 210.8px → STILL clipped (viewport 406–448).
+  - B — the B primary lockup raster at 150×48: brand 159px → CTA right edge 355/370/410, docScrollWidth == viewport, bar 72px.
+- Owner ruling: OPTION B. ⚠ KNOWINGLY BELOW THE FROZEN SYSTEM'S RULE: the APPROVED_LOCKED README sets B's minimum at
+  ~180px wide (below that: the one-line wordmark or the app icon). The one-line wordmark cannot share a phone bar with
+  this CTA (measurement above), so B is used at 150px (20px under the guideline) ON PHONES ONLY, authorised by the
+  owner on 2026-08-19 with the measurement as justification; the mascot stays visible on mobile, which the owner
+  ruled is the recognition that matters there. Same raster, same bytes (derived from the untouched master
+  6e05d33d…); no new variant was invented.
+- Files: index.html (picture source for phones removed; .brand img.brand-logo phone size 150×48 + comment), docs/LAUNCH_LOG.md.
+- QA: CDP measurements at 375/390/430 (no clip, no overflow), full-page screenshot diff 375/768/1280 vs live fd063b0, live-vs-branch byte compare after deploy.
