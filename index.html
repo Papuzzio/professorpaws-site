@@ -221,6 +221,9 @@
   .trail .paw svg { width:26px; height:26px; }
   .trail h3 { font-size:1.06rem; margin:10px 0 2px; }
   .trail p { color:var(--ink-soft); font-size:.96rem; }
+  .subjects { text-align:center; margin-top:30px; font-family:var(--display); font-weight:700; font-size:1.08rem; color:var(--orange-deep); letter-spacing:.01em; }
+  a.more { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-block; padding-block:8px; }
+  a.more:hover { color:var(--orange-deep); }
 
   /* v3.2: the above-fold kid-view screenshot + the ruled five-item trust strip */
   .hero-shot { margin:30px auto 0; max-width:440px; } /* phones: stacked under the copy at full content width */
@@ -405,98 +408,23 @@
 </section>
 -->
 
-<!-- FOUNDER — directly under the trust strip (v3.2 structure).
-     COPY IS FINAL: the owner's verbatim founder story (paste of 2026-08-07). The opening
-     line renders as the section heading; every word below is the owner's, unedited. -->
-<section class="founder wrap" id="why">
-  <div class="inner">
-    <h2 class="sec-title fade">Professor Paws exists because of one kid.</h2>
-    <p class="fade">He learns differently, and homework was becoming a nightly battle.</p>
-    <p class="fade">I work in application security for a living, and I couldn't find a homework app that combined the kind of help he needed with the privacy and control I'd expect for a child.</p>
-    <p class="fade">So I started building one in the evenings. Professor Paws turns real schoolwork into small, manageable steps, with a puppy companion helping along the way.</p>
-    <p class="fade">Somewhere along the way, he started opening it without being asked. He even asked me to put his favorite pebble in the app. It's still there.</p>
-    <p class="fade">We're now inviting a small number of families to test Professor Paws for free and help shape what comes next.</p>
-    <a class="btn fade" href="#beta" data-cta="founder">Request Free Beta Access</a>
-  </div>
-</section>
-
-<!-- PROBLEM -->
-<section class="wrap" id="problem" style="padding-top:30px;">
-  <h2 class="sec-title fade">When a ten-minute worksheet turns into an hour of frustration.</h2>
-  <div class="fade" style="max-width:56ch; margin:18px auto 0; color:var(--ink-soft); font-size:1.08rem;">
-    <p>Your child doesn't know where to begin. You repeat the instructions three different ways.</p>
-    <p style="margin-top:12px;">They get upset; you become the teacher; and nobody feels good when the homework is finally done.</p>
-    <p style="margin-top:16px; color:var(--ink); font-weight:600;">Professor Paws steps between "I can't do this" and the answer — giving your child the next manageable step.</p>
-  </div>
-</section>
-
-<!-- WHAT CHANGES AT HOMEWORK TIME (v3.4, owner-directed copy) -->
-<section class="wrap" id="what-changes" style="padding-top:20px;">
-  <h2 class="sec-title fade">What changes at homework time</h2>
-  <div class="cards" style="margin-top:26px;">
-    <div class="card fade"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-steps"/></svg>
-      <p style="color:var(--ink); font-weight:600;">One clear step instead of a long explanation.</p></div>
-    <div class="card fade"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-book"/></svg>
-      <p style="color:var(--ink); font-weight:600;">Your child works on the schoolwork they were actually assigned.</p></div>
-    <div class="card fade"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-paw"/></svg>
-      <p style="color:var(--ink); font-weight:600;">The puppy guides the method instead of handing over the answer.</p></div>
-    <div class="card fade"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-hand"/></svg>
-      <p style="color:var(--ink); font-weight:600;">You stop having to become the teacher every night.</p></div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section id="how" style="background:var(--tint); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+<!-- HOW IT WORKS — SIMPLIFICATION PASS (owner-ruled 2026-08-19): three steps + one subject line. Merges the old
+     "When a ten-minute worksheet…", "What changes at homework time", "From schoolwork to a calmer plan" and the three
+     schoolwork cards. The founder story moved to /about (verbatim); the homepage keeps a one-line credit in Trust. -->
+<section id="how" style="background:var(--tint); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding-block:64px;">
   <div class="wrap">
-    <h2 class="sec-title fade">From schoolwork to a calmer plan.</h2>
-    <ol class="trail fade">
-      <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-camera"/></svg></span>
-        <div><h3>1. Add the schoolwork</h3><p>Type or paste the homework your child was assigned. Photographing it is coming soon.</p></div></li>
+    <h2 class="sec-title fade">Real schoolwork. A calmer way through it.</h2>
+    <ol class="trail fade" style="margin-top:34px;">
+      <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-book"/></svg></span>
+        <div><h3>1. Add the work</h3><p>Type or paste what school assigned.</p></div></li>
       <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-speak"/></svg></span>
-        <div><h3>2. Your child works one step at a time</h3><p>The puppy gives one spoken or visual instruction at a time and breaks the step down when needed.</p></div></li>
+        <div><h3>2. Work one step at a time</h3><p>Professor Paws uses visual, spoken and interactive guidance.</p></div></li>
       <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>
-        <div><h3>3. You see what helped</h3><p>You can see what was practiced, where support was needed, and what will return later.</p></div></li>
+        <div><h3>3. See where help was needed</h3><p>Parents can see what was practiced and where support helped.</p></div></li>
     </ol>
-  </div>
-</section>
-
-<!-- REAL SCHOOLWORK — the centerpiece -->
-<section id="schoolwork" style="background:var(--band); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
-  <div class="wrap">
-    <h2 class="sec-title fade">Built around the work school actually sends home.</h2>
-    <p class="sec-sub fade">Professor Paws doesn't replace the teacher, the reading book, or the homework sheet. It helps your child understand and practice that work at home.</p>
-    <div class="panels">
-      <div class="panel fade">
-        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-abc"/></svg>
-        <h3>Weekly spelling words</h3>
-        <ul>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Add the words school sent home</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Hear the whole word, then its sound-spelling parts</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Trace and write the complete word</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Each word returns over the week</li>
-        </ul>
-      </div>
-      <div class="panel fade">
-        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-times"/></svg>
-        <h3>Assigned math</h3>
-        <ul>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Pick the exact table or skill that was assigned</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Teach with objects your child moves</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Then pictures and models, then the numbers</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Practice stays on the assigned skill</li>
-        </ul>
-      </div>
-      <div class="panel fade">
-        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-book"/></svg>
-        <h3>Home reading</h3>
-        <ul>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Short stories on screen, one page at a time</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>The puppy reads aloud when your child asks</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>One question at the end, with a look-back hint — never a memory test</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Your child's own book is still welcome</li>
-        </ul>
-      </div>
-    </div>
+    <!-- Shipped strands only (claims discipline): each word below is a lesson type in the app today. -->
+    <p class="subjects fade">Math · Reading · Spelling · Fractions · Multiplication · Money · Time</p>
+    <p class="fade" style="text-align:center; margin-top:22px;"><a href="/how-it-works" class="more">More about how it works →</a></p>
   </div>
 </section>
 
