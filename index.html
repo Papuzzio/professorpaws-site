@@ -13,14 +13,14 @@
 <meta property="og:url" content="https://playprofessorpaws.com/" />
 <meta property="og:site_name" content="Professor Paws" />
 <meta property="og:locale" content="en_US" />
-<meta property="og:image" content="https://playprofessorpaws.com/assets/screen-homework.png" />
-<meta property="og:image:width" content="915" />
-<meta property="og:image:height" content="1280" />
-<meta property="og:image:alt" content="The Professor Paws iPad app: the puppy asks what we are working on, with skill tiles and this week's typed homework" />
+<meta property="og:image" content="https://playprofessorpaws.com/assets/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Professor Paws — homework help for kids who shut down, rush, or melt down over schoolwork — beside the iPad app's homework screen" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Professor Paws — homework help that teaches, not just answers" />
 <meta name="twitter:description" content="Turns the work school actually sends home into calm, step-by-step practice for children who learn differently." />
-<meta name="twitter:image" content="https://playprofessorpaws.com/assets/screen-homework.png" />
+<meta name="twitter:image" content="https://playprofessorpaws.com/assets/og-image.png" />
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://playprofessorpaws.com/#org","name":"Professor Paws","legalName":"Professor Paws LLC","url":"https://playprofessorpaws.com/","logo":"https://playprofessorpaws.com/assets/apple-touch-icon.png","email":"hello@playprofessorpaws.com","address":{"@type":"PostalAddress","streetAddress":"7901 4th St N Ste 300","addressLocality":"St. Petersburg","addressRegion":"FL","postalCode":"33702","addressCountry":"US"},"contactPoint":{"@type":"ContactPoint","email":"hello@playprofessorpaws.com","contactType":"customer support"}},{"@type":"WebSite","@id":"https://playprofessorpaws.com/#website","url":"https://playprofessorpaws.com/","name":"Professor Paws","description":"Homework help for children ages 8–13 that teaches the next step instead of giving the answer.","publisher":{"@id":"https://playprofessorpaws.com/#org"},"inLanguage":"en-US"}]}
 </script>
@@ -29,9 +29,16 @@
 <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Hanken+Grotesque:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<!-- Fraunces is self-hosted (the same latin variable woff2 Google Fonts served, SIL OFL): no third-party origin, no
+     render-blocking cross-origin CSS, and the font is preloaded so the H1 paints in Fraunces instead of swapping.
+     The body face is the platform UI font by design (the CSS used to name a Google family that does not exist —
+     'Hanken Grotesque' — so system-ui is what every visitor has always seen; the stack now says so). -->
+<link rel="preload" href="/assets/fonts/fraunces-var-latin.woff2" as="font" type="font/woff2" crossorigin />
+<style>
+  @font-face { font-family:'Fraunces'; font-style:normal; font-weight:600 700; font-stretch:normal; font-display:swap; /* 600–700 exactly as Google Fonts declared it: an 800 request clamps to 700, as it always has */
+    src:url('/assets/fonts/fraunces-var-latin.woff2') format('woff2');
+    unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+</style>
 
 <style>
   :root {
@@ -43,14 +50,14 @@
        "learning", the rounded sans read "toy" to two outside parents. Buttons, pills, nav and
        the wordmark stay in the clean sans; body text unchanged; palette unchanged. */
     --heading:'Fraunces','Iowan Old Style','Palatino',Georgia,serif;
-    --display:'Hanken Grotesque',system-ui,-apple-system,sans-serif;
-    --body:'Hanken Grotesque',system-ui,-apple-system,sans-serif;
+    --display:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --body:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
     /* RESPONSIVE SYSTEM (owner-directed 2026-08-18) — ONE gutter scale, ONE measure, safe-area aware.
        --gutter: phone 20px (floor), tablet ~35–46px, desktop 56px (cap) — a single clamp, not per-device
        breakpoints. --measure: the max line length for running text (target 60–75 characters). --maxw is
        the CONTENT box plus two gutters, so desktop content width is unchanged (976px) while gutters scale. */
     --gutter: clamp(20px, 4.5vw, 56px);
-    --measure: 58ch;   /* CALIBRATED, not guessed: in Hanken Grotesk 1ch ("0") ≈ 1.23 average prose glyphs, so 66ch measured 81 cpl on the footer line; 58ch lands ~71 */
+    --measure: 58ch;   /* CALIBRATED, not guessed: in the system UI face 1ch ("0") ≈ 1.23 average prose glyphs, so 66ch measured 81 cpl on the footer line; 58ch lands ~71 */
     --maxw: calc(976px + 2 * var(--gutter));
   }
   * { box-sizing:border-box; }
@@ -174,6 +181,7 @@
   .shots { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:26px; justify-items:center; }
   .shot { width:100%; max-width:270px; text-align:center; }
   .frame { background:var(--ink); border-radius:26px; padding:9px; aspect-ratio:3/4; }
+  .frame picture { display:contents; } /* <picture> is only a format switch — it must not add an inline box */
   .frame img,.frame svg.vig,.frame video { width:100%; height:100%; object-fit:cover; border-radius:18px; background:var(--paper); }
   .shot figcaption { margin-top:12px; font-size:.95rem; color:var(--ink-soft); }
   .video-shot { max-width:320px; margin:0 auto 34px; }
@@ -282,7 +290,7 @@
 <!-- HEADER -->
 <header class="top">
   <div class="bar">
-    <a class="brand" href="/"><img src="/assets/puppy.png" alt="" width="28" height="28" />Professor Paws</a>
+    <a class="brand" href="/"><img src="/assets/puppy-84.png" alt="" width="28" height="28" />Professor Paws</a>
     <nav aria-label="Sections">
       <a href="#how">How it works</a>
       <a href="#schoolwork">Real schoolwork</a>
@@ -318,8 +326,8 @@
        the same age as the copy (8–13). The letter-tracing shot that was here read as 5–6 and
        people believe the images. -->
   <figure class="hero-shot fade in"><div class="frame">
-    <img src="/assets/screen-homework.png" width="915" height="1280"
-         alt="What goes in: the puppy asks what we are working on, with skill tiles and this week's typed homework — Calculate 426 × 38, a word problem about boxes of crayons, and money problems" />
+    <picture><source type="image/webp" srcset="/assets/screen-homework.webp" /><img src="/assets/screen-homework.png" width="915" height="1280" fetchpriority="high"
+         alt="What goes in: the puppy asks what we are working on, with skill tiles and this week's typed homework — Calculate 426 × 38, a word problem about boxes of crayons, and money problems" /></picture>
   </div></figure>
 </section>
 
@@ -347,18 +355,18 @@
        bars, the times-tables array, and Read with Max. -->
   <div class="shots">
     <figure class="shot fade"><div class="frame">
-      <img src="/assets/screen-fractions.png" width="915" height="1280" loading="lazy"
-           alt="A fractions step taught with bars: one half equals how many eighths — the puppy says both numbers change the same way, two bars show the halves and the eighths, and the child picks the top number" />
+      <picture><source type="image/webp" srcset="/assets/screen-fractions.webp" /><img src="/assets/screen-fractions.png" width="915" height="1280" loading="lazy"
+           alt="A fractions step taught with bars: one half equals how many eighths — the puppy says both numbers change the same way, two bars show the halves and the eighths, and the child picks the top number" /></picture>
     </div><figcaption>Fractions, taught with bars your child moves</figcaption></figure>
 
     <figure class="shot fade"><div class="frame">
-      <img src="/assets/screen-times.png" width="915" height="1280" loading="lazy"
-           alt="A times-tables drill, 6 times 9: a hint says start with 10 sixes, the child taps to fill 6 rows of 9 on an array, then answers how many altogether" />
+      <picture><source type="image/webp" srcset="/assets/screen-times.webp" /><img src="/assets/screen-times.png" width="915" height="1280" loading="lazy"
+           alt="A times-tables drill, 6 times 9: a hint says start with 10 sixes, the child taps to fill 6 rows of 9 on an array, then answers how many altogether" /></picture>
     </div><figcaption>Times tables, built as an array</figcaption></figure>
 
     <figure class="shot fade"><div class="frame">
-      <img src="/assets/screen-reading.png" width="915" height="1280" loading="lazy"
-           alt="Read with Max: a short story read one page at a time with a Read to me button, then a question — what did the judge give Bailey? — with a Not sure? link and Check my answer" />
+      <picture><source type="image/webp" srcset="/assets/screen-reading.webp" /><img src="/assets/screen-reading.png" width="915" height="1280" loading="lazy"
+           alt="Read with Max: a short story read one page at a time with a Read to me button, then a question — what did the judge give Bailey? — with a Not sure? link and Check my answer" /></picture>
     </div><figcaption>Home reading, one passage at a time</figcaption></figure>
   </div>
 </section>
@@ -649,7 +657,7 @@
 
 <footer>
   <div class="wrap">
-    <a class="brand" href="/" style="display:inline-flex;"><img src="/assets/puppy.png" alt="" width="28" height="28" loading="lazy" />Professor Paws</a>
+    <a class="brand" href="/" style="display:inline-flex;"><img src="/assets/puppy-84.png" alt="" width="28" height="28" loading="lazy" />Professor Paws</a>
     <nav aria-label="Footer">
       <a href="/privacy.html">Privacy</a>
       <a href="/terms.html">Terms</a>
