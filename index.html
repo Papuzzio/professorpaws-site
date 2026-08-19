@@ -99,6 +99,12 @@
   .skip { position:absolute; left:-9999px; top:8px; background:var(--paper); color:var(--ink); padding:10px 14px; border-radius:8px; z-index:100; font-weight:600; }
   .skip:focus { left:8px; outline:3px solid var(--ink); }
   .top nav a { display:inline-block; padding-block:10px; } /* 44px tap height without changing the visible layout (footer nav already has its 44px floor below) */
+  /* img.brand-logo outranks the legacy `.brand img { width:28px }` rule (which stays for nothing but is left to avoid
+     churn); the frozen lockup must never be crushed into the old 28px slot. */
+  .brand img.brand-logo { display:block; width:187px; height:60px; }               /* B lockup ≥180px wide per the frozen usage rules */
+  @media (max-width:600px){ .brand img.brand-logo { width:auto; height:22px; } }   /* the D one-line master (aspect 10.25:1 → ~226px) */
+  .brand picture { display:contents; }
+  .brand img.brand-logo-footer { display:block; width:140px; height:68px; margin-inline:auto; }
   .beta .hint { display:block; font-weight:400; font-size:.9rem; color:var(--ink-soft); margin-top:4px; }
   @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto}
     .fade{opacity:1;transform:none;transition:none} .hero-pup{animation:none!important} }
@@ -298,7 +304,14 @@
 <!-- HEADER -->
 <header class="top">
   <div class="bar">
-    <a class="brand" href="/"><img src="/assets/puppy-84.png" alt="" width="28" height="28" />Professor Paws</a>
+    <!-- The FROZEN primary lockup (APPROVED_LOCKED_2026-08-18). Desktop/tablet: a 374×120@2x raster rendered from the
+         untouched B master (sha 6e05d33d…, provenance in docs/LAUNCH_LOG.md). Phones (≤600): the approved one-line
+         wordmark master D, per the frozen system's small-size rule. Never retyped, never rebuilt in CSS. -->
+    <a class="brand" href="/" aria-label="Professor Paws — home"><picture>
+      <source media="(max-width:600px)" srcset="/assets/brand/D_wordmark_one_line.svg" />
+      <source type="image/webp" srcset="/assets/brand/B_primary_horizontal_lockup-374w.webp" />
+      <img class="brand-logo" src="/assets/brand/B_primary_horizontal_lockup-374w.png" width="374" height="120" alt="Professor Paws" />
+    </picture></a>
     <nav aria-label="Sections">
       <a href="#how">How it works</a>
       <a href="#schoolwork">Real schoolwork</a>
@@ -665,7 +678,7 @@
 
 <footer>
   <div class="wrap">
-    <a class="brand" href="/" style="display:inline-flex;"><img src="/assets/puppy-84.png" alt="" width="28" height="28" loading="lazy" />Professor Paws</a>
+    <a class="brand" href="/" aria-label="Professor Paws — home"><img class="brand-logo-footer" src="/assets/brand/A_wordmark.svg" width="311" height="152" loading="lazy" alt="Professor Paws" /></a>
     <nav aria-label="Footer">
       <a href="/privacy.html">Privacy</a>
       <a href="/terms.html">Terms</a>
