@@ -1,6 +1,6 @@
-# Homepage simplification — section-by-section spec (DRAFT for owner approval, 2026-08-19)
+# Homepage simplification — section-by-section spec (OWNER-RULED 2026-08-19; implementation plan below)
 
-Status: PROPOSAL. Nothing on the live site changes until the owner approves this document. Written from the owner's
+Status: RULINGS A–E RECEIVED AND FOLDED IN. Implementation on ONE branch, NO intermediate production deploys; ONE deploy after owner review. Written from the owner's
 critique of 2026-08-19 ("radical simplification pass, not another redesign"; "delete sections, don't keep adding
 better-designed sections"; "implement from a precise section-by-section spec").
 
@@ -15,8 +15,8 @@ Target length: ~half of today's page; SIX major sections + footer.
 ---
 
 ## 1. HERO — promise + much bigger product
-- H1 (replaces "Homework help for kids who shut down, rush, or melt down over schoolwork." — **DECISION A**: this
-  overrides the 2026-08-12 "headline held by owner" ruling; the pain language moves lower):
+- H1 (**RULING A — APPROVED**: overrides the 2026-08-12 headline hold; the emotionally specific frustration language
+  moves lower on the page / to secondary pages, never the first brand impression):
   > **Homework help that teaches.**
   > **Not just answers.**
 - Sub (one sentence): *Professor Paws turns schoolwork into calm, step-by-step learning that keeps your child doing the thinking.*
@@ -64,10 +64,11 @@ Merges: "Encouragement without pressure", "Who it's for", Safety checklist, the 
   - **Parent-controlled** — *No open-ended child chat or social features.*
   - **Privacy taken seriously** — *No ads. No third-party ad tracking. Children's data isn't sold or used to train AI.*
 - Founder line beneath (one sentence): *Built by an application security engineer after watching a child he loves struggle with homework.*
-- **DECISION B — the ADHD/autism/dyslexia line.** The owner ruled on 2026-08-19 that the homepage KEEPS "Designed with
-  ADHD, autism, and dyslexia in mind: one step at a time, no timers, and no penalty for a wrong answer." This spec
-  proposes it stays on the homepage as a fifth short line under the four trust points (it is how the audience finds
-  us) — owner to confirm placement, or move it to `/how-it-works`.
+- **RULING B — the explicit ADHD/autism/dyslexia line comes OFF the homepage.** Homepage uses only:
+  *Designed with different ways of learning in mind.* (one short line under the four trust points). The detailed,
+  carefully qualified learning-difference explanation ("Designed with ADHD, autism, and dyslexia in mind: one step at a
+  time, no timers, and no penalty for a wrong answer" + the design principles behind it) moves to `/how-it-works`
+  and the FAQ. No diagnosis, treatment, or outcome claims anywhere.
 - Links: *Privacy Policy · Terms · Safety* (the full safety checklist moves to `/safety`).
 
 ## 6. FAQ + one frictionless conversion
@@ -75,12 +76,12 @@ Merges: "Encouragement without pressure", "Who it's for", Safety checklist, the 
   tutor? · What data do you collect? · What ages and subjects? · Is a diagnosis required? · What device, what cost?).
   The remaining two (purchases; replaces school/tutoring) move to `/faq`.
 - Final CTA H2: **Make homework feel possible again.**
-- **DECISION C — email-only form.** Proposed: one field (parent email) + the button. After success:
-  *"You're on the list. Want to help us find the right beta families?"* → optional second step (country, age range,
-  homework note with the no-name/no-diagnosis microcopy). Operationally: the same Formspree endpoint accepts a
-  second POST with the extra fields (or one POST with only email). Trade-off: the beta-fit signal arrives later and
-  optionally. The success message then truly matches ("on the list"), and "What happens next" collapses to ONE
-  sentence under the button: *We review requests and email beta access when the iPad app is ready to test.*
+- **RULING C — email-first conversion, APPROVED.** Initial form = parent email + **Request Free Beta Access**.
+  After success: *"You're on the list. Want to help us find the right beta families?"* → OPTIONAL second step
+  (country, age range, homework note with the no-name/no-diagnosis microcopy) posted as a second Formspree
+  submission keyed by the same email; the initial conversion never depends on it. One sentence under the button:
+  *We review requests and email beta access when the iPad app is ready to test.* Analytics: `beta_form_submitted`
+  stays a bare count — no email, no free text, ever.
 - Footer unchanged (A wordmark, Privacy · Terms · Support · email, founder line).
 
 ---
@@ -100,7 +101,10 @@ Merges: "Encouragement without pressure", "Who it's for", Safety checklist, the 
 | "What happens next" 4-step box | → one sentence under the form |
 | FAQ items 7–8 | → `/faq` |
 
-## NEW secondary pages (genuine parent value; deeper search intent moves OFF the homepage)
+## NEW secondary pages — RULING D APPROVED (genuine parent value; depth moves OFF the homepage)
+- NOT all four go into the primary nav: top nav stays restrained — *How it works · Safety · FAQ* + the CTA; `/about`
+  is linked from the founder line and the footer. No additional thin SEO landing pages in this pass
+  (`/homework-help`, `/math-help`, `/reading-help` are NOT built now).
 - `/about` — the founder story (verbatim, non-identifying).
 - `/how-it-works` — the 3 steps + learning progression + who it's for + the photo-homework status line.
 - `/safety` — the full checklist + privacy summary + links to policy/terms.
@@ -121,9 +125,29 @@ ADHD line per Decision B · frozen lockups unchanged · claims matrix re-run on 
 accessibility checks re-run (landmarks, contrast, focus, form) · screenshot diff 375/768/1280 · per-step commits ·
 deploy on the owner's word.
 
-## OWNER DECISIONS REQUIRED
-A. Replace the held H1 with "Homework help that teaches. / Not just answers." (yes/no, or alternative wording).
-B. ADHD/autism/dyslexia line: homepage Trust section (proposed) or `/how-it-works`.
-C. Email-only form with optional second step (yes/no).
-D. New pages `/about`, `/how-it-works`, `/safety`, `/faq` — approve the set.
-E. Build order: one branch, six section commits + pages, full QA, then one deploy — or staged deploys.
+## OWNER RULINGS (2026-08-19) — all received
+A. H1 replaced — APPROVED. B. ADHD/autism/dyslexia line OFF the homepage; "different ways of learning" only; detail
+to /how-it-works + FAQ. C. Email-first form + optional second step — APPROVED. D. /about, /how-it-works, /safety,
+/faq — APPROVED; restrained nav; no thin landing pages. E. ONE branch, scoped commits, NO intermediate deploys; QA;
+owner review; ONE production deploy.
+
+## IMPLEMENTATION PLAN (the order the work will follow — one branch `homepage-simplification`)
+1. **Hero** — new H1/sub/CTA/trust line; product image at ~half the desktop hero width (same screenshot). Commit.
+2. **Product proof** — "They don't just watch. They do." + three larger screenshots with three captions. Commit.
+3. **Differentiation** — comparison table cut to the three rows. Commit.
+4. **How it works** — merged three steps + subject line; delete the four redundant sections/cards. Commit.
+5. **Trust** — four points + "different ways of learning" line + one-line founder credit + links. Delete the
+   encouragement grid, who-for cards, the safety checklist, the learning-progression strip from the homepage. Commit.
+6. **FAQ (six) + email-first form** with the optional second step and the one-sentence follow-up; "What happens
+   next" box removed. Commit.
+7. **Secondary pages** — `/about` (founder story verbatim), `/how-it-works` (3 steps, learning progression, who
+   it's for, the qualified learning-difference explanation, photo status), `/safety` (full checklist + privacy
+   summary), `/faq` (all eight+). Each: cream/orange site tokens, the B header, canonical, description, OG,
+   `<main>`, page_view beacon (enum extended server-side in a follow-up function deploy), sitemap entries. Nav:
+   How it works · Safety · FAQ. Commit(s).
+8. **Checks** — claims matrix re-run on every new/moved line; SEO (title/description/H1/H2 per page, sitemap,
+   canonicals, internal links); accessibility (landmarks, contrast, focus, labels, the two-step form's live
+   region/focus); performance (no new third parties; hero image size budget); responsive 375/390/430/768/1280
+   + header measurement; site-event beacon test (page_view per new page, form events). Commit fixes.
+9. **Preview QA** — full-page renders of every page at 375/768/1280 + a before/after sheet vs live → owner review.
+10. **ONE deploy** after approval: fast-forward main, push, live-vs-branch byte compare, launch-log entry.
