@@ -100,7 +100,7 @@
   .top .btn { padding:11px 20px; font-size:.98rem; margin-left:8px; white-space:nowrap; min-height:44px; display:inline-flex; align-items:center; }
   /* The nav needs ~820px to sit on one line with the brand and the button (measured); below that it
      wraps into a second row, so it hides — a content breakpoint, not a device one. */
-  @media (max-width:899px){ .top nav{display:none} .top .btn{margin-left:auto} }
+  @media (max-width:819px){ .top nav{display:none} .top .btn{margin-left:auto} } /* measured: the nav fits on one line at 820 (iPad Air portrait) and wraps at 768 — hide only where it wraps */
   .top .brand { flex-shrink:0; }   /* the brand never gives up width — its nowrap text would only overflow into the gap */
   /* ≤420: brand (~157px) + gap + button must fit in 375−2×20 = 335px. Measured: brand 1rem + 12px gap +
      button .88rem/10px = 332px. Below ~350px the two cannot both fit at any legible size and the
@@ -136,7 +136,7 @@
   .hero .btn { padding:15px 32px; font-size:1.12rem; min-height:48px; }
   .btn.ghost { background:transparent; color:var(--orange-deep); border:2px solid var(--orange); }
   .btn.ghost:hover { background:var(--tint); }
-  .hero .quiet { margin-top:14px; font-size:.93rem; color:var(--ink-soft); }
+  .hero .quiet { margin-top:14px; font-size:.93rem; color:var(--ink-soft); margin-inline:auto; } /* centred in the sub-900 stacked hero (its 64ch box hugged the left edge on tablets); the ≥900 grid rule below resets the side margins */
 
   .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; }
   .card { background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:22px 20px; }
@@ -153,7 +153,9 @@
   .panel li { display:flex; gap:9px; align-items:flex-start; color:var(--ink-soft); font-size:.96rem; }
   .panel li svg { flex:0 0 15px; width:15px; height:15px; margin-top:5px; color:var(--orange-deep); }
 
-  .shots { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:26px; justify-items:center; }
+  /* 200px floor (was 220): with the tablet gutter, 3×220+52 needs 712px but iPad portrait leaves 699px (744px iPad mini: 677px) —
+     the third screenshot dropped to a second row, orphaned left. 3×200+52 = 652 fits both. Shots still cap at 270px elsewhere. */
+  .shots { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:26px; justify-items:center; }
   .shot { width:100%; max-width:270px; text-align:center; }
   .frame { background:var(--ink); border-radius:26px; padding:9px; aspect-ratio:3/4; }
   .frame img,.frame svg.vig,.frame video { width:100%; height:100%; object-fit:cover; border-radius:18px; background:var(--paper); }
