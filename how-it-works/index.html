@@ -3,43 +3,31 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>Professor Paws — homework help that teaches, not just answers</title>
-<meta name="description" content="Professor Paws turns spelling words, times tables, reading, and other schoolwork into calm, step-by-step practice for kids ages 8–13 who find homework hard." />
-
-<meta property="og:title" content="Professor Paws — homework help that teaches, not just answers" />
-<meta property="og:description" content="Turns the work school actually sends home into calm, step-by-step practice for children who learn differently." />
+<title>How Professor Paws works — one step at a time</title>
+<meta name="description" content="How Professor Paws turns real schoolwork into calm, step-by-step practice: add the work, one spoken or visual step at a time, and see where help was needed. Objects → pictures → numbers." />
+<link rel="canonical" href="https://playprofessorpaws.com/how-it-works/" />
+<meta property="og:title" content="How Professor Paws works — one step at a time" />
+<meta property="og:description" content="How Professor Paws turns real schoolwork into calm, step-by-step practice: add the work, one spoken or visual step at a time, and see where help was needed. Objects → pictures → numbers." />
 <meta property="og:type" content="website" />
-<link rel="canonical" href="https://playprofessorpaws.com/" />
-<meta property="og:url" content="https://playprofessorpaws.com/" />
+<meta property="og:url" content="https://playprofessorpaws.com/how-it-works/" />
 <meta property="og:site_name" content="Professor Paws" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:image" content="https://playprofessorpaws.com/assets/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Professor Paws — homework help for kids who shut down, rush, or melt down over schoolwork — beside the iPad app's homework screen" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Professor Paws — homework help that teaches, not just answers" />
-<meta name="twitter:description" content="Turns the work school actually sends home into calm, step-by-step practice for children who learn differently." />
+<meta name="twitter:title" content="How Professor Paws works — one step at a time" />
+<meta name="twitter:description" content="How Professor Paws turns real schoolwork into calm, step-by-step practice: add the work, one spoken or visual step at a time, and see where help was needed. Objects → pictures → numbers." />
 <meta name="twitter:image" content="https://playprofessorpaws.com/assets/og-image.png" />
-<script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://playprofessorpaws.com/#org","name":"Professor Paws","legalName":"Professor Paws LLC","url":"https://playprofessorpaws.com/","logo":"https://playprofessorpaws.com/assets/apple-touch-icon.png","email":"hello@playprofessorpaws.com","address":{"@type":"PostalAddress","streetAddress":"7901 4th St N Ste 300","addressLocality":"St. Petersburg","addressRegion":"FL","postalCode":"33702","addressCountry":"US"},"contactPoint":{"@type":"ContactPoint","email":"hello@playprofessorpaws.com","contactType":"customer support"}},{"@type":"WebSite","@id":"https://playprofessorpaws.com/#website","url":"https://playprofessorpaws.com/","name":"Professor Paws","description":"Homework help for children ages 8–13 that teaches the next step instead of giving the answer.","publisher":{"@id":"https://playprofessorpaws.com/#org"},"inLanguage":"en-US"}]}
-</script>
-
 <link rel="icon" href="/favicon.ico" sizes="48x48" />
 <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
-
-<!-- Fraunces is self-hosted (the same latin variable woff2 Google Fonts served, SIL OFL): no third-party origin, no
-     render-blocking cross-origin CSS, and the font is preloaded so the H1 paints in Fraunces instead of swapping.
-     The body face is the platform UI font by design (the CSS used to name a Google family that does not exist —
-     'Hanken Grotesque' — so system-ui is what every visitor has always seen; the stack now says so). -->
 <link rel="preload" href="/assets/fonts/fraunces-var-latin.woff2" as="font" type="font/woff2" crossorigin />
 <style>
   @font-face { font-family:'Fraunces'; font-style:normal; font-weight:600 700; font-stretch:normal; font-display:swap; /* 600–700 exactly as Google Fonts declared it: an 800 request clamps to 700, as it always has */
     src:url('/assets/fonts/fraunces-var-latin.woff2') format('woff2');
     unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
 </style>
-
 <style>
   :root {
     --cream:#FBF8F3; --paper:#FDFBF5; --band:#F3EDE0; --tint:#FDEEE2;
@@ -311,9 +299,31 @@
   footer nav { margin-bottom:10px; display:flex; gap:6px 18px; justify-content:center; flex-wrap:wrap; }
   footer nav a { display:inline-flex; align-items:center; min-height:44px; padding-inline:4px; }  /* 44px tap floor */
 </style>
+<style>
+  /* page-specific: a reading column for the secondary pages */
+  .page { max-width:720px; margin:0 auto; padding-block:40px 72px; }
+  .page h1 { font-size:clamp(1.9rem,5vw,2.6rem); font-weight:700; font-variation-settings:'opsz' 144; max-width:22ch; }
+  .page .lede { font-size:1.12rem; color:var(--ink-soft); margin-top:14px; max-width:var(--measure); }
+  .page h2 { font-size:1.45rem; margin-top:44px; }
+  .page h3 { font-size:1.1rem; margin-top:22px; }
+  .page p { margin-top:10px; max-width:var(--measure); }
+  .page ul.checks { list-style:none; margin:12px 0 0; padding:0; display:grid; gap:9px; }
+  .page ul.checks li { display:flex; gap:10px; align-items:flex-start; }
+  .page ul.checks svg { flex:0 0 16px; width:16px; height:16px; margin-top:6px; color:var(--orange-deep); }
+  .page .cta-row { margin-top:36px; }
+  .page .cta-row .btn { padding:15px 32px; font-size:1.08rem; min-height:48px; display:inline-block; }
+  .page .back { display:inline-block; margin-top:28px; }
+  .page .trail { margin:22px 0 0; }
+  .page .method-strip { justify-content:flex-start; margin-top:14px; }
+  .page .faq { max-width:none; margin:18px 0 0; }
+  .page .trust-points { margin-top:18px; max-width:none; }
+  .page .chip { flex:0 0 34px; width:34px; height:34px; border-radius:10px; background:var(--paper); border:1px solid var(--line); display:grid; place-items:center; color:var(--orange-deep); }
+  .page .chip svg { width:18px; height:18px; }
+  .page .sig { color:var(--ink-soft); font-size:.96rem; }
+  a.more { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-block; padding-block:8px; }
+</style>
 </head>
 <body>
-
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <g id="i-paw"><circle cx="12" cy="14.5" r="4.6" fill="currentColor"/><circle cx="5.6" cy="9.4" r="2.2" fill="currentColor"/><circle cx="10" cy="6.4" r="2.2" fill="currentColor"/><circle cx="14.6" cy="6.6" r="2.2" fill="currentColor"/><circle cx="18.6" cy="10" r="2.2" fill="currentColor"/></g>
   <g id="i-bone" fill="currentColor"><circle cx="5" cy="8" r="3.4"/><circle cx="8" cy="5" r="3.4"/><circle cx="19" cy="16" r="3.4"/><circle cx="16" cy="19" r="3.4"/><rect x="4.5" y="9" width="15" height="6" rx="3" transform="rotate(45 12 12)"/></g>
@@ -330,7 +340,6 @@
 </defs></svg>
 
 <a class="skip" href="#main">Skip to content</a>
-<!-- HEADER -->
 <header class="top">
   <div class="bar">
     <!-- The FROZEN primary lockup (APPROVED_LOCKED_2026-08-18). Desktop/tablet: a 374×120@2x raster rendered from the
@@ -341,199 +350,101 @@
       <img class="brand-logo" src="/assets/brand/B_primary_horizontal_lockup-374w.png" width="374" height="120" alt="Professor Paws" />
     </picture></a>
     <nav aria-label="Sections">
-      <a href="#how">How it works</a>
-      <a href="#trust">Safety</a>
-      <a href="#faq">FAQ</a>
+      <a href="/how-it-works/">How it works</a>
+      <a href="/safety/">Safety</a>
+      <a href="/faq/">FAQ</a>
     </nav>
-    <a class="btn" href="#beta" data-cta="header">Request beta access</a>
+    <a class="btn" href="/#beta" data-cta="header">Request beta access</a>
   </div>
 </header>
 <main id="main">
+<article class="wrap page">
+<!-- /how-it-works/ — the deeper method page (2026-08-19 simplification, ruling D). Absorbs, from the old homepage:
+     the three steps (full wording), the "See how it helps" bullets, the learning progression, "What changes at homework
+     time", the three schoolwork strands, "Who it's for", and — per RULING B — the qualified learning-difference
+     explanation, which is design intent only: no diagnosis, treatment or outcome claim anywhere. Every app-behaviour
+     line was verified against shipped code before publishing (claims discipline; see docs/LAUNCH_LOG.md). -->
+<h1>How Professor Paws works</h1>
+<p class="lede">Real homework goes in. Your child gets one calm step at a time — and does the thinking themselves.</p>
 
-<!-- HERO — SIMPLIFICATION PASS (owner-ruled 2026-08-19, ruling A): the promise in two short lines, one
-     sentence, one CTA, a three-item trust line, and the SAME typed-input screenshot at roughly half the hero
-     width on desktop (layout change only — the image is untouched). The earlier parent-pain headline and the
-     long trust sentence moved off the first impression (FAQ / Trust / secondary pages). -->
-<section class="hero wrap" aria-labelledby="hero-h1">
-  <div class="hero-copy">
-    <h1 id="hero-h1">Homework help that teaches.<br />Not just answers.</h1>
-    <p class="sub">Professor Paws turns schoolwork into calm, step-by-step learning that keeps your child doing the thinking.</p>
-    <div class="ctas" style="margin-top:22px;">
-      <a class="btn" href="#beta" data-cta="hero">Request Free Beta Access</a>
-    </div>
-    <p class="quiet">Ages 8–13 · No ads · Parent-controlled</p>
-  </div>
-  <!-- The hero shot is the TYPED-INPUT screen — "Calculate 426 × 38", the crayons word problem, the money
-       problems — because it carries the same age as the copy (8–13). Real screen, never restaged. -->
-  <figure class="hero-shot fade in"><div class="frame">
-    <picture><source type="image/webp" srcset="/assets/screen-homework.webp" /><img src="/assets/screen-homework.png" width="915" height="1280" fetchpriority="high"
-         alt="What goes in: the puppy asks what we are working on, with skill tiles and this week's typed homework — Calculate 426 × 38, a word problem about boxes of crayons, and money problems" /></picture>
-  </div></figure>
-</section>
+<h2>Three steps</h2>
+<ol class="trail">
+  <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-book"/></svg></span>
+    <div><h3>1. Add the work</h3><p>Type or paste the homework your child was assigned — spelling words, the assigned math, or a home reading passage. Photographing it is coming soon.</p></div></li>
+  <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-speak"/></svg></span>
+    <div><h3>2. Work one step at a time</h3><p>The puppy gives one spoken or visual instruction at a time. If your child is stuck, the step gets smaller — a hint, a smaller piece, something to move — instead of the answer.</p></div></li>
+  <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>
+    <div><h3>3. See where help was needed</h3><p>You can see what was practiced, where support was needed, and what will return later.</p></div></li>
+</ol>
 
-<!-- PRODUCT PROOF — SIMPLIFICATION PASS (owner-ruled 2026-08-19): the visual centrepiece. Headline + the three
-     REAL screenshots (captured on the iPad 2026-08-17, never invented or restaged), larger, captions only — no
-     bullets, no paragraph. The walkthrough bullets that used to sit here live on /how-it-works. -->
-<section class="wrap" id="proof" style="padding-block:28px 64px;">
-  <h2 class="sec-title fade">They don't just watch. They do.</h2>
-  <div class="shots shots-proof">
-    <figure class="shot fade"><div class="frame">
-      <picture><source type="image/webp" srcset="/assets/screen-fractions.webp" /><img src="/assets/screen-fractions.png" width="915" height="1280" loading="lazy"
-           alt="A fractions step taught with bars: one half equals how many eighths — the puppy says both numbers change the same way, two bars show the halves and the eighths, and the child picks the top number" /></picture>
-    </div><figcaption>Fractions they can move</figcaption></figure>
+<h2>What changes at homework time</h2>
+<ul class="checks">
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>One clear step instead of a long explanation.</li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Your child works on the schoolwork they were actually assigned.</li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>The puppy guides the method instead of handing over the answer.</li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Rewards come from effort and practice, not speed.</li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>You stop having to become the teacher every night.</li>
+</ul>
 
-    <figure class="shot fade"><div class="frame">
-      <picture><source type="image/webp" srcset="/assets/screen-times.webp" /><img src="/assets/screen-times.png" width="915" height="1280" loading="lazy"
-           alt="A times-tables drill, 6 times 9: a hint says start with 10 sixes, the child taps to fill 6 rows of 9 on an array, then answers how many altogether" /></picture>
-    </div><figcaption>Math they can build</figcaption></figure>
+<h2>The learning progression many schools use — continued at home</h2>
+<div class="method-strip" role="list" aria-label="Teaching progression">
+  <span role="listitem">Objects</span><span class="arrow" aria-hidden="true">→</span>
+  <span role="listitem">Pictures</span><span class="arrow" aria-hidden="true">→</span>
+  <span role="listitem">Numbers</span><span class="arrow" aria-hidden="true">→</span>
+  <span role="listitem">On their own</span>
+</div>
+<p>It starts with something your child can see and move. Support gradually fades, and important skills return days later — spaced practice, built into the plan.</p>
 
-    <figure class="shot fade"><div class="frame">
-      <picture><source type="image/webp" srcset="/assets/screen-reading.webp" /><img src="/assets/screen-reading.png" width="915" height="1280" loading="lazy"
-           alt="Read with Max: a short story read one page at a time with a Read to me button, then a question — what did the judge give Bailey? — with a Not sure? link and Check my answer" /></picture>
-    </div><figcaption>Reading one step at a time</figcaption></figure>
-  </div>
-</section>
+<h2>Built around the work school actually sends home</h2>
+<p>Professor Paws doesn't replace the teacher, the reading book, or the homework sheet. It helps your child understand and practice that work at home.</p>
+<h3>Weekly spelling words</h3>
+<ul class="checks">
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Add the words school sent home</li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Hear the whole word, then its sound-spelling parts</li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Trace and write the complete word</li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Each word returns over the week</li>
+</ul>
+<h3>Assigned math</h3>
+<ul class="checks">
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Pick the exact table or skill that was assigned</li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Teach with objects your child moves</li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Then pictures and models, then the numbers</li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Practice stays on the assigned skill</li>
+</ul>
+<h3>Home reading</h3>
+<ul class="checks">
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Short stories on screen, one page at a time</li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>The puppy reads aloud when your child asks</li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>One question at the end, with a look-back hint — never a memory test</li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Your child's own book is still welcome</li>
+</ul>
 
-<!-- DIFFERENTIATION — SIMPLIFICATION PASS (owner-ruled 2026-08-19): one concise comparison, three rows (was five).
-     Column header "Typical homework AI" per the owner's brief. -->
-<section class="wrap" id="compare" style="padding-block:8px 72px;">
-  <h2 class="sec-title fade">More than an answer box.</h2>
-  <div class="compare fade" role="table" aria-label="Typical homework AI compared with Professor Paws">
-    <div class="c-head" role="row"><span role="columnheader">Typical homework AI</span><span role="columnheader">Professor Paws</span></div>
-    <div class="c-row" role="row"><span role="cell">Gives the answer</span><span role="cell">Teaches the next step</span></div>
-    <div class="c-row" role="row"><span role="cell">Starts with a blank chat</span><span role="cell">Starts with guided learning</span></div>
-    <div class="c-row" role="row"><span role="cell">Child watches</span><span role="cell">Child moves, builds &amp; answers</span></div>
-  </div>
-</section>
+<h2>Encouragement without pressure</h2>
+<ul class="checks">
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span><strong>A puppy that helps.</strong> Your child names and cares for their own companion.</span></li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span><strong>Rewards tied to learning.</strong> Bones are earned by real learning — not by time on screen.</span></li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span><strong>Help without punishment.</strong> Using a hint never reduces the reward.</span></li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span><strong>No streaks, no leaderboards.</strong> Coming back is encouraged without shame or competition.</span></li>
+</ul>
 
-<!-- TESTIMONIALS — RESERVED, DO NOT UNCOMMENT until real parent quotes exist (v3.3 ruling).
-     No fabricated or paraphrased quotes, ever: each entry must be a real parent's words,
-     used with their permission, attributed only as they agreed to (e.g. "— Sarah, parent
-     of a 9-year-old"). Structure ready so adding the first real quote is a paste.
-<section class="wrap" id="families">
-  <h2 class="sec-title fade">What families tell us</h2>
-  <div class="cards" style="margin-top:26px;">
-    <div class="card fade"><p>"QUOTE"</p><p class="sig">— ATTRIBUTION</p></div>
-  </div>
-</section>
--->
+<h2>Designed with different ways of learning in mind</h2>
+<p>Professor Paws is designed with ADHD, autism, and dyslexia in mind: one step at a time, no timers, and no penalty for a wrong answer.</p>
+<p>That is a design intent, not a promise. Professor Paws is not a diagnosis tool and not a treatment, and we don't make claims about outcomes — it is a calmer way through the homework your child already has.</p>
 
-<!-- HOW IT WORKS — SIMPLIFICATION PASS (owner-ruled 2026-08-19): three steps + one subject line. Merges the old
-     "When a ten-minute worksheet…", "What changes at homework time", "From schoolwork to a calmer plan" and the three
-     schoolwork cards. The founder story moved to /about (verbatim); the homepage keeps a one-line credit in Trust. -->
-<section id="how" style="background:var(--tint); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding-block:64px;">
-  <div class="wrap">
-    <h2 class="sec-title fade">Real schoolwork. A calmer way through it.</h2>
-    <ol class="trail fade" style="margin-top:34px;">
-      <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-book"/></svg></span>
-        <div><h3>1. Add the work</h3><p>Type or paste what school assigned.</p></div></li>
-      <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-speak"/></svg></span>
-        <div><h3>2. Work one step at a time</h3><p>Professor Paws uses visual, spoken and interactive guidance.</p></div></li>
-      <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>
-        <div><h3>3. See where help was needed</h3><p>Parents can see what was practiced and where support helped.</p></div></li>
-    </ol>
-    <!-- Shipped strands only (claims discipline): each word below is a lesson type in the app today. -->
-    <p class="subjects fade">Math · Reading · Spelling · Fractions · Multiplication · Money · Time</p>
-    <p class="fade" style="text-align:center; margin-top:22px;"><a href="/how-it-works/" class="more">More about how it works →</a></p>
-  </div>
-</section>
+<h2>Who it's for</h2>
+<p>Professor Paws may be a good fit if your child finds homework overwhelming, shuts down before starting, rushes just to be done, or needs instructions broken into smaller steps — with or without a formal diagnosis.</p>
+<h3>What it is not</h3>
+<ul class="checks">
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Not a replacement for school, teachers, reading books, or tutoring</li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Not a diagnosis tool</li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Not an answer generator</li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Not open-ended AI chat</li>
+  <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Not built around streaks, timers, or leaderboards</li>
+</ul>
 
-<!-- TRUST — SIMPLIFICATION PASS (owner-ruled 2026-08-19): one compact section. Merges "Encouragement without
-     pressure", "Who it's for", the safety checklist (full list now on /safety), the learning-difference line and the
-     founder credibility. RULING B: the explicit ADHD/autism/dyslexia sentence is OFF the homepage — only "Designed with
-     different ways of learning in mind." here; the qualified explanation lives on /how-it-works and /faq. Every
-     clause verified against shipped behaviour (claims discipline). -->
-<section class="trust" id="trust" style="padding-block:64px;">
-  <div class="wrap">
-    <h2 class="sec-title fade">Built for learning. Designed for families.</h2>
-    <ul class="trust-points fade">
-      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-steps"/></svg></span><div><strong>No answer machine</strong><p>Guidance gets smaller when your child gets stuck.</p></div></li>
-      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-loop"/></svg></span><div><strong>No pressure mechanics</strong><p>No streaks, timers or leaderboards.</p></div></li>
-      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-hand"/></svg></span><div><strong>Parent-controlled</strong><p>No open-ended child chat or social features.</p></div></li>
-      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg></span><div><strong>Privacy taken seriously</strong><p>No ads. No third-party ad tracking. Children's data isn't sold or used to train AI.</p></div></li>
-    </ul>
-    <p class="trust-line fade">Designed with different ways of learning in mind.</p>
-    <p class="trust-founder fade">Built by an application security engineer after watching a child he loves struggle with homework. <a href="/about/">Read why →</a></p>
-    <p class="links fade"><a href="/privacy.html">Privacy Policy</a> · <a href="/terms.html">Terms</a> · <a href="/safety/">Safety</a></p>
-  </div>
-</section>
-
-<!-- FAQ — SIMPLIFICATION PASS (owner-ruled 2026-08-19): SIX questions on the homepage; the full set lives on /faq. -->
-<section class="wrap" id="faq" style="padding-block:64px 24px;">
-  <h2 class="sec-title fade">Questions parents ask</h2>
-  <div class="faq fade" style="margin-top:26px;">
-    <details><summary>Does it give children the answer?</summary>
-      <p>It's designed not to. It guides the method in small steps — visuals, manipulatives, hints — and breaks a step down smaller when your child is stuck, instead of revealing the answer.</p>
-      <p>If you ever see it slip, tell us — there's a report button right in the lesson.</p></details>
-    <details><summary>Is Professor Paws an AI tutor?</summary>
-      <p>It teaches the next step, checks arithmetic in code, and has no chat. The AI writes the lesson — pacing, wording, encouragement — and every phonics letter sound is real recorded human speech.</p></details>
-    <details><summary>What data do you collect about my child?</summary>
-      <p>The minimum a learning coach needs: a parent email, a nickname, your child's age, the schoolwork you enter, and learning progress. (When homework photos arrive, they are processed to read the task and not stored in your child's profile.)</p>
-      <p>Handwriting stays on the device. Nothing is sold, shared for ads, or used to train AI. Details in our <a href="/privacy.html">Privacy Policy</a>.</p></details>
-    <details><summary>What ages and subjects?</summary>
-      <p>Children roughly 8–13, met at the level they're actually working at. The beta covers spelling and phonics; addition, subtraction, times tables, division, fractions, telling time, and money; and home reading passages.</p></details>
-    <details><summary>Is a diagnosis required?</summary>
-      <p>No. It's for children who learn differently or regularly find homework overwhelming — with or without a formal diagnosis.</p></details>
-    <details><summary>What device, and what will it cost?</summary>
-      <p>Professor Paws is being built as an iPad app planned for the Apple App Store. Private beta families will be invited to test early before public launch.</p>
-      <p>The private beta is free. If we launch a paid subscription, you'll see the price before paying anything.</p></details>
-  </div>
-  <p class="fade" style="text-align:center; margin-top:18px;"><a href="/faq/" class="more">All questions →</a></p>
-</section>
-
-<!-- BETA — SIMPLIFICATION PASS, RULING C (owner, 2026-08-19): EMAIL-FIRST conversion. Step 1 = parent email + one
-     button; the request is complete the moment it sends. Step 2 (country, age range, homework note) is OPTIONAL and
-     only appears after success, posted as a second Formspree submission keyed by the same email. Analytics stay bare
-     counts (beta_form_started / _submitted / _error) — no email, no free text, ever. -->
-<section class="wrap" id="beta" style="padding-block:24px 72px;">
-  <form class="beta fade" action="https://formspree.io/f/xlgyqkaq" method="POST" novalidate aria-labelledby="beta-h2">
-    <h2 id="beta-h2">Make homework feel possible again.</h2>
-    <p class="note">Free private beta for families of children ages 8–13. No payment required.</p>
-
-    <label for="parent-email">Parent email</label>
-    <input id="parent-email" type="email" name="email" required autocomplete="email" />
-
-    <input type="hidden" name="_subject" value="Professor Paws — beta request" />
-    <!-- attribution only — populated from ?src= by the script below (sanitized, never personal data). Empty unless the visitor arrived via a tagged link. -->
-    <input type="hidden" name="source" id="beta-source" value="" />
-    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
-    <button type="submit" class="btn">Request Free Beta Access</button>
-    <p class="note" style="margin:12px 0 0; font-size:.9rem;">We review requests and email beta access when the iPad app is ready to test.</p>
-    <p class="form-msg" role="status" aria-live="polite"></p>
-  </form>
-
-  <!-- OPTIONAL second step — hidden until step 1 succeeds; never required for the request to count. -->
-  <form class="beta beta-2 fade" action="https://formspree.io/f/xlgyqkaq" method="POST" novalidate aria-labelledby="beta2-h3" hidden>
-    <h3 id="beta2-h3" tabindex="-1">Want to help us find the right beta families?</h3>
-    <p class="note">Optional — a few details help us invite a good mix. Skip it if you'd rather not.</p>
-
-    <label for="country">Country</label>
-    <select id="country" name="country">
-      <option value="" selected>Choose one</option>
-      <option>United States</option>
-      <option>United Kingdom</option>
-      <option>Other</option>
-    </select>
-
-    <fieldset style="border:0; padding:0; margin:0;">
-      <legend style="font-weight:600; font-size:.95rem; margin:18px 0 6px;">Your child's age range</legend>
-      <div class="ages">
-        <label><input type="radio" name="age_range" value="8-10" /> 8–10</label>
-        <label><input type="radio" name="age_range" value="11-13" /> 11–13</label>
-      </div>
-    </fieldset>
-
-    <label for="homework-life">What's the hardest part of homework right now?<span class="hint">No need to include your child's name or any diagnosis — a sentence about the homework itself is plenty.</span></label>
-    <textarea id="homework-life" name="homework_challenge" rows="3"></textarea>
-
-    <input type="hidden" name="email" id="beta2-email" value="" />
-    <input type="hidden" name="_subject" value="Professor Paws — beta details" />
-    <input type="hidden" name="source" id="beta2-source" value="" />
-    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
-    <button type="submit" class="btn">Send details</button>
-    <p class="form-msg" role="status" aria-live="polite"></p>
-  </form>
-</section>
+<div class="cta-row"><a class="btn" href="/#beta" data-cta="page">Request Free Beta Access</a></div>
+<p><a class="more" href="/safety/">Safety and privacy →</a> &nbsp; <a class="more" href="/faq/">Questions parents ask →</a></p>
+</article>
 </main>
 
 <footer>
@@ -554,16 +465,7 @@
 </footer>
 
 <script>
-  document.documentElement.classList.add('js'); // gates the .fade hidden state (see CSS): no JS → nothing hidden
-  // v3.2: beta-form attribution — the hidden "source" field carries ?src= (e.g. a flyer
-  // or a school newsletter link). Sanitized to a tight alphabet and capped, because the
-  // query string is attacker-controlled; empty when absent.
-  try {
-    const src = new URLSearchParams(location.search).get('src');
-    if (src) document.getElementById('beta-source').value = src.replace(/[^\w-]/g, '').slice(0, 64);
-  } catch {}
-
-
+  document.documentElement.classList.add('js');
   // ── FIRST-PARTY AGGREGATE COUNTS (privacy policy §15). One tiny text/plain beacon per event to our own Supabase
   // function; the row it increments is (day, event, page, cta, src, ref_host, screen class) → a number. No cookie,
   // no visitor id, no IP/UA stored, no free text. GPC / Do Not Track → nothing is sent at all.
@@ -588,66 +490,6 @@
   ppEvent('page_view');
   document.querySelectorAll('[data-cta]').forEach(a => a.addEventListener('click', () => ppEvent('primary_cta_click', a.dataset.cta)));
   document.querySelectorAll('a[href="/privacy.html"]').forEach(a => a.addEventListener('click', () => ppEvent('privacy_opened')));
-
-  const io = new IntersectionObserver((es)=>{ for (const e of es) if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} },{threshold:.12});
-  document.querySelectorAll('.fade').forEach(el=>io.observe(el));
-
-  // beta form, EMAIL-FIRST (ruling C): step 1 = email + button. On success the step-2 form (optional details) is
-  // revealed and posted separately, keyed by the same email. Loading / success / error states, double-submit guard,
-  // focus landed on the live message. Analytics are bare counts — never the email, never the free text.
-  const form = document.querySelector('form.beta:not(.beta-2)');
-  const form2 = document.querySelector('form.beta-2');
-  const btn = form.querySelector('button[type="submit"]');
-  const msg = form.querySelector('.form-msg');
-  let formStarted = false;
-  form.addEventListener('focusin', () => { if (!formStarted) { formStarted = true; ppEvent('beta_form_started'); } });
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (btn.disabled) return;
-    if (!form.reportValidity()) return;
-    btn.disabled = true; const old = btn.textContent; btn.textContent = 'Sending…';
-    msg.className = 'form-msg';
-    try {
-      const r = await fetch(form.action, { method:'POST', body:new FormData(form), headers:{ 'Accept':'application/json' } });
-      if (!r.ok) throw new Error();
-      form.querySelectorAll('label, input, button, .note').forEach(el=>el.style.display='none');
-      msg.textContent = "You're on the list. We review requests and email beta access when the iPad app is ready to test.";
-      msg.className = 'form-msg ok';
-      msg.setAttribute('tabindex', '-1'); msg.focus();   // the submit button that held focus is now hidden — land focus on the message
-      ppEvent('beta_form_submitted');
-      // optional step 2 — same email travels in a hidden field; the request above already counted
-      document.getElementById('beta2-email').value = form.elements.email.value;
-      document.getElementById('beta2-source').value = document.getElementById('beta-source').value;
-      form2.hidden = false; form2.classList.add('in');
-    } catch {
-      msg.textContent = "That didn't send. Please try again, or email hello@playprofessorpaws.com.";
-      msg.className = 'form-msg err';
-      msg.setAttribute('tabindex', '-1'); msg.focus();
-      ppEvent('beta_form_error');
-      btn.disabled = false; btn.textContent = old;
-    }
-  });
-  const btn2 = form2.querySelector('button[type="submit"]');
-  const msg2 = form2.querySelector('.form-msg');
-  form2.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (btn2.disabled) return;
-    btn2.disabled = true; const old2 = btn2.textContent; btn2.textContent = 'Sending…';
-    msg2.className = 'form-msg';
-    try {
-      const r = await fetch(form2.action, { method:'POST', body:new FormData(form2), headers:{ 'Accept':'application/json' } });
-      if (!r.ok) throw new Error();
-      form2.querySelectorAll('label, input, select, textarea, fieldset, button, .note, h3').forEach(el=>el.style.display='none');
-      msg2.textContent = "Thank you — that helps us invite a good mix of families.";
-      msg2.className = 'form-msg ok';
-      msg2.setAttribute('tabindex', '-1'); msg2.focus();
-    } catch {
-      msg2.textContent = "That didn't send — but your request is already in. You can email details to hello@playprofessorpaws.com if you like.";
-      msg2.className = 'form-msg err';
-      msg2.setAttribute('tabindex', '-1'); msg2.focus();
-      btn2.disabled = false; btn2.textContent = old2;
-    }
-  });
 </script>
 </body>
 </html>
