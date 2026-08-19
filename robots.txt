@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /pages/
 Disallow: /scripts/
+Disallow: /docs/
 
 Sitemap: https://playprofessorpaws.com/sitemap.xml
