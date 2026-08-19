@@ -157,11 +157,11 @@
   /* SECOND PASS: desktop = copy left, product right; phones = stacked and centred (below). */
   @media (min-width:900px){
     /* SIMPLIFICATION: the product is ~half the hero (two equal columns), not a thumbnail beside the copy. */
-    .hero { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:40px; align-items:center; text-align:left; }
+    .hero { display:grid; grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr); gap:40px; align-items:center; text-align:left; }
     .hero.wrap { padding-block:40px 56px; }
     .hero h1, .hero .sub, .hero .quiet { margin-left:0; margin-right:0; }
     .hero .ctas { justify-content:flex-start; }
-    .hero-shot { margin:0 0 0 auto; max-width:500px; }
+    .hero .hero-shot { margin:0 0 0 auto; max-width:500px; }   /* (0,2,0): beats the phone cap declared later in the sheet */
   }
   .eyebrow { display:inline-block; font-weight:700; font-size:.92rem; color:var(--orange-deep);
     background:var(--tint); border:1px solid var(--line); border-radius:999px; padding:6px 16px; }
@@ -221,7 +221,7 @@
   .trail .paw svg { width:26px; height:26px; }
   .trail h3 { font-size:1.06rem; margin:10px 0 2px; }
   .trail p { color:var(--ink-soft); font-size:.96rem; }
-  .subjects { text-align:center; margin-top:30px; font-family:var(--display); font-weight:700; font-size:1.08rem; color:var(--orange-deep); letter-spacing:.01em; }
+  .subjects { text-align:center; margin-top:30px; font-family:var(--display); font-weight:700; font-size:1.2rem; color:var(--orange-deep); letter-spacing:.01em; } /* ≥18.66px bold = large text: orange-deep on tint is 4.42:1, passes at 3:1 */
   a.more { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-block; padding-block:8px; }
   a.more:hover { color:var(--orange-deep); }
 
@@ -249,7 +249,7 @@
   .trust-founder { text-align:center; margin-top:10px; color:var(--ink-soft); font-size:.98rem; max-width:60ch; margin-inline:auto; }
   .trust-founder a { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-block; padding-block:6px; }
   .trust .links { text-align:center; margin-top:22px; font-size:.95rem; color:var(--ink-soft); }
-  .trust .links a { color:var(--ink); text-decoration:underline; text-underline-offset:3px; display:inline-block; padding-block:8px; } /* 12.5:1 on the band (orange-deep was 4.30:1); 8px pad → 34px+ tap height */
+  .trust .links a { color:var(--ink); text-decoration:underline; text-underline-offset:3px; display:inline-block; padding-block:10px; } /* 12.5:1 on the band (orange-deep was 4.30:1); 8px pad → 34px+ tap height */
 
   .founder .inner { max-width:560px; margin:0 auto; text-align:center; }
   .founder p { margin-top:12px; }
