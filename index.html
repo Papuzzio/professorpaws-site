@@ -287,6 +287,9 @@
   .form-msg:focus { outline:none; }
   .form-msg.ok { color:var(--orange-deep); font-weight:700; }
   .form-msg.err { color:#8c2f0d; }
+  .beta-2 { margin-top:22px; }
+  .beta-2 h3 { text-align:center; font-size:1.25rem; }
+  .beta-2 h3:focus { outline:none; }
 
 
   .method-strip { display:flex; gap:12px; justify-content:center; align-items:center; flex-wrap:wrap; }
@@ -339,7 +342,6 @@
     </picture></a>
     <nav aria-label="Sections">
       <a href="#how">How it works</a>
-      <a href="#schoolwork">Real schoolwork</a>
       <a href="#trust">Safety</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -456,18 +458,15 @@
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="wrap" id="faq" style="padding-top:20px;">
+<!-- FAQ — SIMPLIFICATION PASS (owner-ruled 2026-08-19): SIX questions on the homepage; the full set lives on /faq. -->
+<section class="wrap" id="faq" style="padding-block:64px 24px;">
   <h2 class="sec-title fade">Questions parents ask</h2>
-  <div class="faq fade">
+  <div class="faq fade" style="margin-top:26px;">
     <details><summary>Does it give children the answer?</summary>
       <p>It's designed not to. It guides the method in small steps — visuals, manipulatives, hints — and breaks a step down smaller when your child is stuck, instead of revealing the answer.</p>
       <p>If you ever see it slip, tell us — there's a report button right in the lesson.</p></details>
-    <details><summary>What does the AI actually do?</summary>
-      <p>The AI writes the lesson — pacing, wording, encouragement.</p>
-      <p>Arithmetic answers are checked by code, not by the AI, and every phonics letter sound is real recorded human speech. There's no open-ended AI chat anywhere in the app.</p></details>
     <details><summary>Is Professor Paws an AI tutor?</summary>
-      <p>It teaches the next step, checks arithmetic in code, and has no chat.</p></details>
+      <p>It teaches the next step, checks arithmetic in code, and has no chat. The AI writes the lesson — pacing, wording, encouragement — and every phonics letter sound is real recorded human speech.</p></details>
     <details><summary>What data do you collect about my child?</summary>
       <p>The minimum a learning coach needs: a parent email, a nickname, your child's age, the schoolwork you enter, and learning progress. (When homework photos arrive, they are processed to read the task and not stored in your child's profile.)</p>
       <p>Handwriting stays on the device. Nothing is sold, shared for ads, or used to train AI. Details in our <a href="/privacy.html">Privacy Policy</a>.</p></details>
@@ -475,66 +474,65 @@
       <p>Children roughly 8–13, met at the level they're actually working at. The beta covers spelling and phonics; addition, subtraction, times tables, division, fractions, telling time, and money; and home reading passages.</p></details>
     <details><summary>Is a diagnosis required?</summary>
       <p>No. It's for children who learn differently or regularly find homework overwhelming — with or without a formal diagnosis.</p></details>
-    <details><summary>Can my child make purchases?</summary>
-      <p>No. The parent controls the account and any subscription. There is nothing a child can buy.</p></details>
     <details><summary>What device, and what will it cost?</summary>
       <p>Professor Paws is being built as an iPad app planned for the Apple App Store. Private beta families will be invited to test early before public launch.</p>
       <p>The private beta is free. If we launch a paid subscription, you'll see the price before paying anything.</p></details>
-    <details><summary>Does it replace school or tutoring?</summary>
-      <p>No — it supports the work your child is already learning, and makes home practice calmer and more accessible.</p></details>
   </div>
+  <p class="fade" style="text-align:center; margin-top:18px;"><a href="/faq" class="more">All questions →</a></p>
 </section>
 
-<!-- BETA FORM -->
-<section class="wrap" id="beta">
+<!-- BETA — SIMPLIFICATION PASS, RULING C (owner, 2026-08-19): EMAIL-FIRST conversion. Step 1 = parent email + one
+     button; the request is complete the moment it sends. Step 2 (country, age range, homework note) is OPTIONAL and
+     only appears after success, posted as a second Formspree submission keyed by the same email. Analytics stay bare
+     counts (beta_form_started / _submitted / _error) — no email, no free text, ever. -->
+<section class="wrap" id="beta" style="padding-block:24px 72px;">
   <form class="beta fade" action="https://formspree.io/f/xlgyqkaq" method="POST" novalidate aria-labelledby="beta-h2">
-    <h2 id="beta-h2">Help make homework feel possible again.</h2>
-    <p class="note">Free private beta for families of children ages 8–13 who find homework hard. No payment required.</p>
+    <h2 id="beta-h2">Make homework feel possible again.</h2>
+    <p class="note">Free private beta for families of children ages 8–13. No payment required.</p>
 
-    <label for="parent-email">Parent email <span style="font-weight:400; color:var(--ink-soft);">(required)</span></label>
+    <label for="parent-email">Parent email</label>
     <input id="parent-email" type="email" name="email" required autocomplete="email" />
 
-    <label for="country">Country <span style="font-weight:400; color:var(--ink-soft);">(required)</span></label>
-    <select id="country" name="country" required>
-      <option value="" selected disabled>Choose one</option>
+    <input type="hidden" name="_subject" value="Professor Paws — beta request" />
+    <!-- attribution only — populated from ?src= by the script below (sanitized, never personal data). Empty unless the visitor arrived via a tagged link. -->
+    <input type="hidden" name="source" id="beta-source" value="" />
+    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+    <button type="submit" class="btn">Request Free Beta Access</button>
+    <p class="note" style="margin:12px 0 0; font-size:.9rem;">We review requests and email beta access when the iPad app is ready to test.</p>
+    <p class="form-msg" role="status" aria-live="polite"></p>
+  </form>
+
+  <!-- OPTIONAL second step — hidden until step 1 succeeds; never required for the request to count. -->
+  <form class="beta beta-2 fade" action="https://formspree.io/f/xlgyqkaq" method="POST" novalidate aria-labelledby="beta2-h3" hidden>
+    <h3 id="beta2-h3" tabindex="-1">Want to help us find the right beta families?</h3>
+    <p class="note">Optional — a few details help us invite a good mix. Skip it if you'd rather not.</p>
+
+    <label for="country">Country</label>
+    <select id="country" name="country">
+      <option value="" selected>Choose one</option>
       <option>United States</option>
       <option>United Kingdom</option>
       <option>Other</option>
     </select>
 
     <fieldset style="border:0; padding:0; margin:0;">
-      <legend style="font-weight:600; font-size:.95rem; margin:18px 0 6px;">Your child's age range <span style="font-weight:400; color:var(--ink-soft);">(optional)</span></legend>
+      <legend style="font-weight:600; font-size:.95rem; margin:18px 0 6px;">Your child's age range</legend>
       <div class="ages">
         <label><input type="radio" name="age_range" value="8-10" /> 8–10</label>
         <label><input type="radio" name="age_range" value="11-13" /> 11–13</label>
       </div>
     </fieldset>
 
-    <label for="homework-life">What's the hardest part of homework right now? <span style="font-weight:400; color:var(--ink-soft);">(optional)</span><span class="hint">No need to include your child's name or any diagnosis — a sentence about the homework itself is plenty.</span></label>
+    <label for="homework-life">What's the hardest part of homework right now?<span class="hint">No need to include your child's name or any diagnosis — a sentence about the homework itself is plenty.</span></label>
     <textarea id="homework-life" name="homework_challenge" rows="3"></textarea>
 
-    <input type="hidden" name="_subject" value="Professor Paws — beta request" />
-    <!-- v3.2: attribution only — populated from ?src= by the script below (sanitized,
-         never personal data). Empty unless the visitor arrived via a tagged link. -->
-    <input type="hidden" name="source" id="beta-source" value="" />
+    <input type="hidden" name="email" id="beta2-email" value="" />
+    <input type="hidden" name="_subject" value="Professor Paws — beta details" />
+    <input type="hidden" name="source" id="beta2-source" value="" />
     <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
-    <button type="submit" class="btn">Request Free Beta Access</button>
-    <!-- .note so the success handler hides it with the rest of the form chrome -->
-    <p class="note" style="margin:12px 0 0; font-size:.9rem;">Free private beta. No payment required. We'll only email about Professor Paws.</p>
+    <button type="submit" class="btn">Send details</button>
     <p class="form-msg" role="status" aria-live="polite"></p>
   </form>
-  <!-- WHAT HAPPENS NEXT (v3.6) — the after-request expectations as a scannable box.
-       (The free/no-payment and deletion facts live in the button microcopy and the
-       trust list directly above — nothing was lost in the paragraph-to-steps swap.) -->
-  <div class="beta fade" style="margin:22px auto 0; padding:26px;">
-    <h3 style="text-align:center; font-size:1.15rem;">What happens next</h3>
-    <ol style="margin:14px 0 0; padding-left:24px; color:var(--ink-soft); font-size:.96rem; display:grid; gap:8px;">
-      <li>Request free beta access</li>
-      <li>We review parent requests</li>
-      <li>If Professor Paws looks like a good fit, we email beta access when the iPad app is ready to test</li>
-      <li>You test it free before App Store launch and help shape what comes next</li>
-    </ol>
-  </div>
 </section>
 </main>
 
@@ -542,6 +540,10 @@
   <div class="wrap">
     <a class="brand" href="/" aria-label="Professor Paws — home"><img class="brand-logo-footer" src="/assets/brand/A_wordmark.svg" width="311" height="152" loading="lazy" alt="Professor Paws" /></a>
     <nav aria-label="Footer">
+      <a href="/about">About</a>
+      <a href="/how-it-works">How it works</a>
+      <a href="/safety">Safety</a>
+      <a href="/faq">FAQ</a>
       <a href="/privacy.html">Privacy</a>
       <a href="/terms.html">Terms</a>
       <a href="/support.html">Support</a>
@@ -590,8 +592,11 @@
   const io = new IntersectionObserver((es)=>{ for (const e of es) if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} },{threshold:.12});
   document.querySelectorAll('.fade').forEach(el=>io.observe(el));
 
-  // beta form: AJAX submit with loading / success / error, double-submit guard
-  const form = document.querySelector('form.beta');
+  // beta form, EMAIL-FIRST (ruling C): step 1 = email + button. On success the step-2 form (optional details) is
+  // revealed and posted separately, keyed by the same email. Loading / success / error states, double-submit guard,
+  // focus landed on the live message. Analytics are bare counts — never the email, never the free text.
+  const form = document.querySelector('form.beta:not(.beta-2)');
+  const form2 = document.querySelector('form.beta-2');
   const btn = form.querySelector('button[type="submit"]');
   const msg = form.querySelector('.form-msg');
   let formStarted = false;
@@ -605,17 +610,42 @@
     try {
       const r = await fetch(form.action, { method:'POST', body:new FormData(form), headers:{ 'Accept':'application/json' } });
       if (!r.ok) throw new Error();
-      form.querySelectorAll('label, input, select, textarea, fieldset, button, .note').forEach(el=>el.style.display='none');
-      msg.textContent = "Thanks — we've got your request. We review parent requests and will email you if it looks like a good fit, once the iPad app is ready to test.";
+      form.querySelectorAll('label, input, button, .note').forEach(el=>el.style.display='none');
+      msg.textContent = "You're on the list. We review requests and email beta access when the iPad app is ready to test.";
       msg.className = 'form-msg ok';
       msg.setAttribute('tabindex', '-1'); msg.focus();   // the submit button that held focus is now hidden — land focus on the message
       ppEvent('beta_form_submitted');
+      // optional step 2 — same email travels in a hidden field; the request above already counted
+      document.getElementById('beta2-email').value = form.elements.email.value;
+      document.getElementById('beta2-source').value = document.getElementById('beta-source').value;
+      form2.hidden = false; form2.classList.add('in');
     } catch {
       msg.textContent = "That didn't send. Please try again, or email hello@playprofessorpaws.com.";
       msg.className = 'form-msg err';
       msg.setAttribute('tabindex', '-1'); msg.focus();
       ppEvent('beta_form_error');
       btn.disabled = false; btn.textContent = old;
+    }
+  });
+  const btn2 = form2.querySelector('button[type="submit"]');
+  const msg2 = form2.querySelector('.form-msg');
+  form2.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (btn2.disabled) return;
+    btn2.disabled = true; const old2 = btn2.textContent; btn2.textContent = 'Sending…';
+    msg2.className = 'form-msg';
+    try {
+      const r = await fetch(form2.action, { method:'POST', body:new FormData(form2), headers:{ 'Accept':'application/json' } });
+      if (!r.ok) throw new Error();
+      form2.querySelectorAll('label, input, select, textarea, fieldset, button, .note, h3').forEach(el=>el.style.display='none');
+      msg2.textContent = "Thank you — that helps us invite a good mix of families.";
+      msg2.className = 'form-msg ok';
+      msg2.setAttribute('tabindex', '-1'); msg2.focus();
+    } catch {
+      msg2.textContent = "That didn't send — but your request is already in. You can email details to hello@playprofessorpaws.com if you like.";
+      msg2.className = 'form-msg err';
+      msg2.setAttribute('tabindex', '-1'); msg2.focus();
+      btn2.disabled = false; btn2.textContent = old2;
     }
   });
 </script>
