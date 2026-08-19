@@ -69,6 +69,18 @@ Owner rulings A–E (2026-08-19) + final guardrails. ONE branch, scoped commits 
     lifted from the homepage, no extra requests beyond the shared assets); lazy-loading kept on the proof screenshots.
 12. Tests: HTML tag-balance on all five pages; script syntax on all five; site-event enums.test.ts (3 pins, both sides mutation-checked red).
 
+### Step 8/9 RESULTS (measured, 2026-08-19 — branch only, nothing deployed)
+- **Homepage height by viewport (live → branch):** 375 12,063 → 6,318 (−48%) · 390 11,923 → 6,358 (−47%) · 430 11,385 → 6,202 (−46%) · 768 8,553 → 5,933 (−31%) · 1280 7,667 → 4,401 (−43%).
+- **Secondary page heights:** /about/ 1,364 (375) / 1,101 (1280) · /how-it-works/ 3,463 / 2,557 · /safety/ 2,546 / 1,971 · /faq/ 1,692 / 1,552. None is a long-form landing page.
+- **Accessibility (5 pages × 375/768/1280, CDP):** zero horizontal overflow · one H1 per page · zero heading-level skips · zero duplicate ids (incl. across the two forms) · zero <img> without alt · zero non-decorative svg without aria · zero unlabelled form controls · zero contrast failures (AA: 4.5:1 body / 3:1 large) · lang + skip link on every page · every standalone link row and button ≥44px. The only sub-44px targets are links INSIDE a sentence (WCAG 2.5.8 inline exception).
+- **Form flow (4 scripted tests against the real page, fetch stubbed):** (T1) step 1 posts email/_subject/source only and succeeds independently; success message + focus lands on the live region; step 2 revealed, opacity 1, email carried in a hidden field; step 2 posts its own submission. (T2) step 2 submitted EMPTY sends nothing — one POST total, friendly message, still usable. (T3) a step-2 network failure leaves step 1's success message intact and offers a retry — the captured signup is never undone. (T4) an empty email posts nothing and never reveals step 2.
+- **Analytics privacy:** the ONLY event the form emits is `beta_form_submitted` with `{event,page,cta,src,ref_host,vw}` — grep of the captured beacon bodies for the email address and for the free-text note: zero hits. Step 2 emits no event at all.
+- **Beacon (positive control, all five pages):** page_view carries the right page value on each (`/`, `/about/`, `/how-it-works/`, `/safety/`, `/faq/`); `primary_cta_click`+`cta=header` and `privacy_opened` fire; `/about/index.html` normalises to `/about/`; with GPC on, **zero** beacons are sent.
+- **Comparison table on phones:** two 167/174/194px columns at 375/390/430, rows 74px (two lines max) — readable without scroll; no horizontal overflow at any width.
+- **Performance:** homepage 53.4 KB raw / **17.3 KB gzipped** (live homepage is 60.9 KB raw); secondary pages 35–39 KB raw / 11.5–12.5 KB gzipped each, and they add NO new requests (CSS/sprite/header are inlined from the homepage; fonts + brand assets are already cached). No new third parties; image bytes unchanged (the hero renders larger from the same file); proof screenshots stay lazy-loaded.
+- **Build sources excluded from the published site:** `_config.yml` excludes `pages/` and `scripts/` (they would otherwise be served — verified that `docs/LAUNCH_LOG.md` and `README.md` currently return 200 on live), plus robots Disallow.
+- **Adversarial review:** 6 independent reviewers (rulings, claims, a11y, concision, form, SEO) with a skeptic verifying each finding; 11 of 17 confirmed and fixed, 6 refuted and left alone. The a11y reviewer died mid-run (usage limit) and its dimension was re-run directly by measurement (results above).
+
 ## 2026-08-19 · brand-header pass (branch brand-header-2026-08-19)
 1. Starting branch/commit: main @ f51e01d (the launch-audit deploy of the same day; before that, beab053).
 2. Ending commit: recorded at merge.
