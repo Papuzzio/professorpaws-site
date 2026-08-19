@@ -55,8 +55,9 @@ Owner rulings A–E (2026-08-19) + final guardrails. ONE branch, scoped commits 
    one-line strands + photo status + qualified learning-difference explanation + fit; /safety/ checklist + privacy summary (absolutes
    tightened to "no third-party ad tracking", "no advertising in the app"); /faq/ all questions, concise answers.
 9. SEO: titles/descriptions unique per page; one H1 per page; canonicals (directory URLs with trailing slash); OG/Twitter on every page
-   (image unchanged — ruling N-4 later; NOTE: assets/og-image.png still renders the OLD H1 and a retyped
-   wordmark, so share cards will not match the new page until N-4 is done — og:image:alt left truthful to the current image; flagged for the owner); sitemap.xml +4 URLs; robots unchanged; JSON-LD
+   (image unchanged — ruling N-4 later; NOTE: assets/og-image.png renders the HELD H1 — which matches the page again
+   after the owner's reversal — but a retyped wordmark and the old sub-line, so the card still differs from the page's frozen lockup and
+   subhead until N-4 is done; og:image:alt left truthful to the current image; flagged for the owner); sitemap.xml +4 URLs; robots unchanged; JSON-LD
    unchanged (Organization + WebSite); internal links: homepage → all four pages (How it works "More →", Trust "Read why →"/Safety, FAQ "All
    questions →", footer), pages ↔ pages. "Homework help" head term kept in <title>, description and H1 (H1 unchanged from live). Crawlable copy moved, not removed.
 10. Accessibility (CDP measurements, all 5 pages × 375/390/430/768/1280 on the homepage, 375/768/1280 on the pages): no horizontal overflow;

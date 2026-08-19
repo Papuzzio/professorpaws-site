@@ -38,9 +38,9 @@ PAGES = {
     'about':        dict(title='About — why I built Professor Paws',
                          desc="Professor Paws exists because of one kid who learns differently. The founder's story, in his own words, and why privacy and control came first."),
     'how-it-works': dict(title='How Professor Paws works — one step at a time',
-                         desc='How Professor Paws turns real schoolwork into calm, step-by-step practice: add the work, one spoken or visual step at a time, and see where help was needed. Objects → pictures → numbers.'),
+                         desc='How Professor Paws turns real schoolwork into calm, step-by-step practice: add the work, one step at a time, and see where help was needed. Objects, pictures, then numbers.'),
     'safety':       dict(title='Safety and privacy — Professor Paws',
-                         desc="Parent-created accounts, no ads, no social features, no open-ended AI chat, no third-party ad tracking, children's data never sold or used to train AI, clear deletion controls."),
+                         desc="Parent-created accounts, no ads, no social features, no open-ended AI chat, no third-party ad tracking, and clear controls for deleting your child's data."),
     'faq':          dict(title='Questions parents ask — Professor Paws',
                          desc='Does it give children the answer? Is it an AI tutor? What data do you collect? Ages, subjects, devices, cost — every question parents ask about Professor Paws.'),
 }
@@ -64,6 +64,7 @@ def shell(slug, meta, body):
 <meta property="og:image" content="https://playprofessorpaws.com/assets/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Professor Paws — homework help for kids who shut down, rush, or melt down over schoolwork — beside the iPad app's homework screen" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="{meta['title']}" />
 <meta name="twitter:description" content="{meta['desc']}" />
@@ -93,7 +94,7 @@ def shell(slug, meta, body):
   .page .chip {{ flex:0 0 34px; width:34px; height:34px; border-radius:10px; background:var(--paper); border:1px solid var(--line); display:grid; place-items:center; color:var(--orange-deep); }}
   .page .chip svg {{ width:18px; height:18px; }}
   .page .sig {{ color:var(--ink-soft); font-size:.96rem; }}
-  a.more {{ color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-block; padding-block:8px; }}
+  a.more {{ color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-flex; align-items:center; min-height:44px; }}
 </style>
 </head>
 <body>

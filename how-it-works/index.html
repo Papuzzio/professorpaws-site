@@ -4,10 +4,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>How Professor Paws works — one step at a time</title>
-<meta name="description" content="How Professor Paws turns real schoolwork into calm, step-by-step practice: add the work, one spoken or visual step at a time, and see where help was needed. Objects → pictures → numbers." />
+<meta name="description" content="How Professor Paws turns real schoolwork into calm, step-by-step practice: add the work, one step at a time, and see where help was needed. Objects, pictures, then numbers." />
 <link rel="canonical" href="https://playprofessorpaws.com/how-it-works/" />
 <meta property="og:title" content="How Professor Paws works — one step at a time" />
-<meta property="og:description" content="How Professor Paws turns real schoolwork into calm, step-by-step practice: add the work, one spoken or visual step at a time, and see where help was needed. Objects → pictures → numbers." />
+<meta property="og:description" content="How Professor Paws turns real schoolwork into calm, step-by-step practice: add the work, one step at a time, and see where help was needed. Objects, pictures, then numbers." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://playprofessorpaws.com/how-it-works/" />
 <meta property="og:site_name" content="Professor Paws" />
@@ -15,9 +15,10 @@
 <meta property="og:image" content="https://playprofessorpaws.com/assets/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Professor Paws — homework help for kids who shut down, rush, or melt down over schoolwork — beside the iPad app's homework screen" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="How Professor Paws works — one step at a time" />
-<meta name="twitter:description" content="How Professor Paws turns real schoolwork into calm, step-by-step practice: add the work, one spoken or visual step at a time, and see where help was needed. Objects → pictures → numbers." />
+<meta name="twitter:description" content="How Professor Paws turns real schoolwork into calm, step-by-step practice: add the work, one step at a time, and see where help was needed. Objects, pictures, then numbers." />
 <meta name="twitter:image" content="https://playprofessorpaws.com/assets/og-image.png" />
 <link rel="icon" href="/favicon.ico" sizes="48x48" />
 <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
@@ -210,7 +211,7 @@
   .trail h3 { font-size:1.06rem; margin:10px 0 2px; }
   .trail p { color:var(--ink-soft); font-size:.96rem; }
   .subjects { text-align:center; margin-top:30px; font-family:var(--display); font-weight:700; font-size:1.2rem; color:var(--orange-deep); letter-spacing:.01em; } /* ≥18.66px bold = large text: orange-deep on tint is 4.42:1, passes at 3:1 */
-  a.more { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-block; padding-block:8px; }
+  a.more { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-flex; align-items:center; min-height:44px; }  /* standalone link rows clear the 44px tap floor (inline links inside a sentence are exempt, WCAG 2.5.8) */
   a.more:hover { color:var(--orange-deep); }
 
   /* v3.2: the above-fold kid-view screenshot + the ruled five-item trust strip */
@@ -320,7 +321,7 @@
   .page .chip { flex:0 0 34px; width:34px; height:34px; border-radius:10px; background:var(--paper); border:1px solid var(--line); display:grid; place-items:center; color:var(--orange-deep); }
   .page .chip svg { width:18px; height:18px; }
   .page .sig { color:var(--ink-soft); font-size:.96rem; }
-  a.more { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-block; padding-block:8px; }
+  a.more { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-flex; align-items:center; min-height:44px; }
 </style>
 </head>
 <body>
@@ -370,7 +371,7 @@
 <h2>Three steps</h2>
 <ol class="trail">
   <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-book"/></svg></span>
-    <div><h3>1. Add the work</h3><p>Type or paste the homework your child was assigned — spelling words, the assigned math, or a home reading passage.</p></div></li>
+    <div><h3>1. Add the work</h3><p>Type or paste the homework your child was assigned — spelling words, the assigned math, or a home reading passage. Photographing it is coming soon.</p></div></li>
   <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-speak"/></svg></span>
     <div><h3>2. Work one step at a time</h3><p>The puppy gives one spoken or visual instruction at a time. If your child is stuck, the step gets smaller — a hint, a smaller piece, something to move — instead of the answer.</p></div></li>
   <li><span class="paw"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>
@@ -393,9 +394,6 @@
   <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span><strong>Assigned math</strong> — the exact table or skill that was assigned, taught with objects your child moves, then pictures, then the numbers.</span></li>
   <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span><strong>Home reading</strong> — short stories one page at a time, read aloud on request, with one look-back question at the end.</span></li>
 </ul>
-
-<h2>Homework photos</h2>
-<p>Photographing the homework is coming soon. Today you type or paste what school assigned.</p>
 
 <h2>Designed with different ways of learning in mind</h2>
 <p>Professor Paws is designed with ADHD, autism, and dyslexia in mind: one step at a time, no timers, and no penalty for a wrong answer.</p>
@@ -447,7 +445,7 @@
       let ref = 'direct';
       try { if (document.referrer) { const h = new URL(document.referrer).hostname.replace(/^www\./, ''); ref = h === location.hostname ? 'internal' : h; } } catch {}
       const src = (new URLSearchParams(location.search).get('src') || '').replace(/[^\w-]/g, '').slice(0, 64);
-      const page = location.pathname === '/index.html' ? '/' : location.pathname;
+      const page = location.pathname.replace(/\/index\.html$/, '/');   // '/index.html'→'/', '/about/index.html'→'/about/' (both are inside the page enum; the un-normalised form is not)
       return (event, cta) => {
         try {
           const body = JSON.stringify({ event, page, cta: cta || '', src, ref_host: ref, vw });

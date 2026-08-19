@@ -15,6 +15,7 @@
 <meta property="og:image" content="https://playprofessorpaws.com/assets/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Professor Paws — homework help for kids who shut down, rush, or melt down over schoolwork — beside the iPad app's homework screen" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Questions parents ask — Professor Paws" />
 <meta name="twitter:description" content="Does it give children the answer? Is it an AI tutor? What data do you collect? Ages, subjects, devices, cost — every question parents ask about Professor Paws." />
@@ -210,7 +211,7 @@
   .trail h3 { font-size:1.06rem; margin:10px 0 2px; }
   .trail p { color:var(--ink-soft); font-size:.96rem; }
   .subjects { text-align:center; margin-top:30px; font-family:var(--display); font-weight:700; font-size:1.2rem; color:var(--orange-deep); letter-spacing:.01em; } /* ≥18.66px bold = large text: orange-deep on tint is 4.42:1, passes at 3:1 */
-  a.more { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-block; padding-block:8px; }
+  a.more { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-flex; align-items:center; min-height:44px; }  /* standalone link rows clear the 44px tap floor (inline links inside a sentence are exempt, WCAG 2.5.8) */
   a.more:hover { color:var(--orange-deep); }
 
   /* v3.2: the above-fold kid-view screenshot + the ruled five-item trust strip */
@@ -320,7 +321,7 @@
   .page .chip { flex:0 0 34px; width:34px; height:34px; border-radius:10px; background:var(--paper); border:1px solid var(--line); display:grid; place-items:center; color:var(--orange-deep); }
   .page .chip svg { width:18px; height:18px; }
   .page .sig { color:var(--ink-soft); font-size:.96rem; }
-  a.more { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-block; padding-block:8px; }
+  a.more { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-flex; align-items:center; min-height:44px; }
 </style>
 </head>
 <body>
@@ -360,7 +361,8 @@
 <main id="main">
 <article class="wrap page">
 <!-- /faq/ — every question (2026-08-19 simplification, ruling D). The homepage shows six of these; the rest moved here
-     from the old homepage verbatim. Two questions are new and carry only published, design-intent claims. -->
+     from the old homepage. "What does the AI actually do?" and "Is it an AI tutor?" are MERGED into one answer here as on
+     the homepage (the old pair repeated itself). Two questions are new and carry only published, design-intent claims. -->
 <h1>Questions parents ask</h1>
 <p class="lede">Straight answers about what Professor Paws does, what it doesn't, and what it collects.</p>
 
@@ -368,11 +370,8 @@
   <details><summary>Does it give children the answer?</summary>
     <p>It's designed not to. It guides the method in small steps — visuals, manipulatives, hints — and breaks a step down smaller when your child is stuck, instead of revealing the answer.</p>
     <p>If you ever see it slip, tell us — there's a report button right in the lesson.</p></details>
-  <details><summary>What does the AI actually do?</summary>
-    <p>The AI writes the lesson — pacing, wording, encouragement.</p>
-    <p>Arithmetic answers are checked by code, not by the AI, and every phonics letter sound is real recorded human speech. There's no open-ended AI chat anywhere in the app.</p></details>
   <details><summary>Is Professor Paws an AI tutor?</summary>
-    <p>It teaches the next step, checks arithmetic in code, and has no chat.</p></details>
+    <p>It teaches the next step, checks arithmetic in code, and has no chat. The AI writes the lesson — pacing, wording, encouragement — and every phonics letter sound is real recorded human speech.</p></details>
   <details><summary>What data do you collect about my child?</summary>
     <p>The minimum a learning coach needs: a parent email, a nickname, your child's age, the schoolwork you enter, and learning progress. (When homework photos arrive, they are processed to read the task and not stored in your child's profile.)</p>
     <p>Handwriting stays on the device. Nothing is sold, shared for ads, or used to train AI. Details in our <a href="/privacy.html">Privacy Policy</a>.</p></details>
@@ -430,7 +429,7 @@
       let ref = 'direct';
       try { if (document.referrer) { const h = new URL(document.referrer).hostname.replace(/^www\./, ''); ref = h === location.hostname ? 'internal' : h; } } catch {}
       const src = (new URLSearchParams(location.search).get('src') || '').replace(/[^\w-]/g, '').slice(0, 64);
-      const page = location.pathname === '/index.html' ? '/' : location.pathname;
+      const page = location.pathname.replace(/\/index\.html$/, '/');   // '/index.html'→'/', '/about/index.html'→'/about/' (both are inside the page enum; the un-normalised form is not)
       return (event, cta) => {
         try {
           const body = JSON.stringify({ event, page, cta: cta || '', src, ref_host: ref, vw });

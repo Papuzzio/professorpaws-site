@@ -15,6 +15,7 @@
 <meta property="og:image" content="https://playprofessorpaws.com/assets/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Professor Paws — homework help for kids who shut down, rush, or melt down over schoolwork — beside the iPad app's homework screen" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="About — why I built Professor Paws" />
 <meta name="twitter:description" content="Professor Paws exists because of one kid who learns differently. The founder's story, in his own words, and why privacy and control came first." />
@@ -210,7 +211,7 @@
   .trail h3 { font-size:1.06rem; margin:10px 0 2px; }
   .trail p { color:var(--ink-soft); font-size:.96rem; }
   .subjects { text-align:center; margin-top:30px; font-family:var(--display); font-weight:700; font-size:1.2rem; color:var(--orange-deep); letter-spacing:.01em; } /* ≥18.66px bold = large text: orange-deep on tint is 4.42:1, passes at 3:1 */
-  a.more { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-block; padding-block:8px; }
+  a.more { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-flex; align-items:center; min-height:44px; }  /* standalone link rows clear the 44px tap floor (inline links inside a sentence are exempt, WCAG 2.5.8) */
   a.more:hover { color:var(--orange-deep); }
 
   /* v3.2: the above-fold kid-view screenshot + the ruled five-item trust strip */
@@ -320,7 +321,7 @@
   .page .chip { flex:0 0 34px; width:34px; height:34px; border-radius:10px; background:var(--paper); border:1px solid var(--line); display:grid; place-items:center; color:var(--orange-deep); }
   .page .chip svg { width:18px; height:18px; }
   .page .sig { color:var(--ink-soft); font-size:.96rem; }
-  a.more { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-block; padding-block:8px; }
+  a.more { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-flex; align-items:center; min-height:44px; }
 </style>
 </head>
 <body>
@@ -404,7 +405,7 @@
       let ref = 'direct';
       try { if (document.referrer) { const h = new URL(document.referrer).hostname.replace(/^www\./, ''); ref = h === location.hostname ? 'internal' : h; } } catch {}
       const src = (new URLSearchParams(location.search).get('src') || '').replace(/[^\w-]/g, '').slice(0, 64);
-      const page = location.pathname === '/index.html' ? '/' : location.pathname;
+      const page = location.pathname.replace(/\/index\.html$/, '/');   // '/index.html'→'/', '/about/index.html'→'/about/' (both are inside the page enum; the un-normalised form is not)
       return (event, cta) => {
         try {
           const body = JSON.stringify({ event, page, cta: cta || '', src, ref_host: ref, vw });

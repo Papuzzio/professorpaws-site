@@ -222,7 +222,7 @@
   .trail h3 { font-size:1.06rem; margin:10px 0 2px; }
   .trail p { color:var(--ink-soft); font-size:.96rem; }
   .subjects { text-align:center; margin-top:30px; font-family:var(--display); font-weight:700; font-size:1.2rem; color:var(--orange-deep); letter-spacing:.01em; } /* ≥18.66px bold = large text: orange-deep on tint is 4.42:1, passes at 3:1 */
-  a.more { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-block; padding-block:8px; }
+  a.more { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-flex; align-items:center; min-height:44px; }  /* standalone link rows clear the 44px tap floor (inline links inside a sentence are exempt, WCAG 2.5.8) */
   a.more:hover { color:var(--orange-deep); }
 
   /* v3.2: the above-fold kid-view screenshot + the ruled five-item trust strip */
@@ -575,7 +575,7 @@
       let ref = 'direct';
       try { if (document.referrer) { const h = new URL(document.referrer).hostname.replace(/^www\./, ''); ref = h === location.hostname ? 'internal' : h; } } catch {}
       const src = (new URLSearchParams(location.search).get('src') || '').replace(/[^\w-]/g, '').slice(0, 64);
-      const page = location.pathname === '/index.html' ? '/' : location.pathname;
+      const page = location.pathname.replace(/\/index\.html$/, '/');   // '/index.html'→'/', '/about/index.html'→'/about/' (both are inside the page enum; the un-normalised form is not)
       return (event, cta) => {
         try {
           const body = JSON.stringify({ event, page, cta: cta || '', src, ref_host: ref, vw });
@@ -632,6 +632,9 @@
   form2.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (btn2.disabled) return;
+    // Nothing filled in? Do not spend a second Formspree submission on an empty payload — the request from step 1 already counted.
+    const anything = form2.elements.country.value || form2.querySelector('input[name="age_range"]:checked') || form2.elements.homework_challenge.value.trim();
+    if (!anything) { msg2.textContent = "Nothing to send yet — add whatever you'd like to share, or skip this step; your request is already in."; msg2.className = 'form-msg'; return; }
     btn2.disabled = true; const old2 = btn2.textContent; btn2.textContent = 'Sending…';
     msg2.className = 'form-msg';
     try {

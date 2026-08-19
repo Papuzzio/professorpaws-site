@@ -1,0 +1,11 @@
+# GitHub Pages (Jekyll) build config. Purpose: keep BUILD SOURCES out of the published site.
+#   pages/   — body fragments for the secondary pages (no <head>, no canonical): if served they would be
+#              crawlable, canonical-less duplicates of /about/ etc.
+#   scripts/ — the page generator (build-time only, never a runtime asset).
+# The generated pages themselves (about/, how-it-works/, safety/, faq/) are published normally.
+# NOTE for the owner: docs/ and README.md are ALREADY publicly served on the live site today
+# (https://playprofessorpaws.com/docs/LAUNCH_LOG.md returns 200). Add them to this list to stop that —
+# left as-is here because it is a pre-existing decision, not part of this pass.
+exclude:
+  - pages
+  - scripts
