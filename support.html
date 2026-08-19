@@ -36,5 +36,17 @@
   <h2>Policies</h2>
   <p><a href="/privacy.html">Privacy Policy</a> · <a href="/terms.html">Terms</a></p>
 </main>
+<script>
+  // First-party aggregate page count (privacy policy §15): one text/plain beacon, no cookie/id/IP/UA, GPC/DNT → nothing.
+  try {
+    if (!(navigator.globalPrivacyControl || navigator.doNotTrack === '1')) {
+      const vw = innerWidth < 600 ? 'phone' : innerWidth < 1024 ? 'tablet' : 'desktop';
+      let ref = 'direct'; try { if (document.referrer) { const h = new URL(document.referrer).hostname.replace(/^www\./, ''); ref = h === location.hostname ? 'internal' : h; } } catch {}
+      const body = JSON.stringify({ event: 'page_view', page: location.pathname, cta: '', src: '', ref_host: ref, vw });
+      const EP = 'https://mlokvzsjrrwlcejjonck.supabase.co/functions/v1/site-event';
+      if (!(navigator.sendBeacon && navigator.sendBeacon(EP, new Blob([body], { type: 'text/plain;charset=UTF-8' })))) fetch(EP, { method: 'POST', body, keepalive: true, headers: { 'Content-Type': 'text/plain;charset=UTF-8' } }).catch(() => {});
+    }
+  } catch {}
+</script>
 </body>
 </html>

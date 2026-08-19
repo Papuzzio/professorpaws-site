@@ -305,7 +305,7 @@
       <a href="#trust">Safety</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a class="btn" href="#beta">Request beta access</a>
+    <a class="btn" href="#beta" data-cta="header">Request beta access</a>
   </div>
 </header>
 <main id="main">
@@ -325,7 +325,7 @@
     <p class="sub">Professor Paws turns the worksheet your child actually brings home into calm, spoken, step-by-step practice — without handing over the answer.</p>
     <p class="quiet" style="margin-top:16px; font-weight:600;">Free private beta for families of children ages 8–13.</p>
     <div class="ctas" style="margin-top:18px;">
-      <a class="btn" href="#beta">Request Free Beta Access</a>
+      <a class="btn" href="#beta" data-cta="hero">Request Free Beta Access</a>
     </div>
     <p class="quiet" style="max-width:64ch;">No ads · No chat · No social features · Parent-controlled · Children's data never sold or used to train AI</p>
   </div>
@@ -416,7 +416,7 @@
     <p class="fade">So I started building one in the evenings. Professor Paws turns real schoolwork into small, manageable steps, with a puppy companion helping along the way.</p>
     <p class="fade">Somewhere along the way, he started opening it without being asked. He even asked me to put his favorite pebble in the app. It's still there.</p>
     <p class="fade">We're now inviting a small number of families to test Professor Paws for free and help shape what comes next.</p>
-    <a class="btn fade" href="#beta">Request Free Beta Access</a>
+    <a class="btn fade" href="#beta" data-cta="founder">Request Free Beta Access</a>
   </div>
 </section>
 
@@ -686,6 +686,32 @@
     if (src) document.getElementById('beta-source').value = src.replace(/[^\w-]/g, '').slice(0, 64);
   } catch {}
 
+
+  // ── FIRST-PARTY AGGREGATE COUNTS (privacy policy §15). One tiny text/plain beacon per event to our own Supabase
+  // function; the row it increments is (day, event, page, cta, src, ref_host, screen class) → a number. No cookie,
+  // no visitor id, no IP/UA stored, no free text. GPC / Do Not Track → nothing is sent at all.
+  const ppEvent = (() => {
+    try {
+      if (navigator.globalPrivacyControl || navigator.doNotTrack === '1' || navigator.msDoNotTrack === '1') return () => {};
+      const EP = 'https://mlokvzsjrrwlcejjonck.supabase.co/functions/v1/site-event';
+      const vw = innerWidth < 600 ? 'phone' : innerWidth < 1024 ? 'tablet' : 'desktop';
+      let ref = 'direct';
+      try { if (document.referrer) { const h = new URL(document.referrer).hostname.replace(/^www\./, ''); ref = h === location.hostname ? 'internal' : h; } } catch {}
+      const src = (new URLSearchParams(location.search).get('src') || '').replace(/[^\w-]/g, '').slice(0, 64);
+      const page = location.pathname === '/index.html' ? '/' : location.pathname;
+      return (event, cta) => {
+        try {
+          const body = JSON.stringify({ event, page, cta: cta || '', src, ref_host: ref, vw });
+          const blob = new Blob([body], { type: 'text/plain;charset=UTF-8' });          // safelisted type: no preflight
+          if (!(navigator.sendBeacon && navigator.sendBeacon(EP, blob))) fetch(EP, { method: 'POST', body, keepalive: true, headers: { 'Content-Type': 'text/plain;charset=UTF-8' } }).catch(() => {});
+        } catch {}
+      };
+    } catch { return () => {}; }
+  })();
+  ppEvent('page_view');
+  document.querySelectorAll('[data-cta]').forEach(a => a.addEventListener('click', () => ppEvent('primary_cta_click', a.dataset.cta)));
+  document.querySelectorAll('a[href="/privacy.html"]').forEach(a => a.addEventListener('click', () => ppEvent('privacy_opened')));
+
   const io = new IntersectionObserver((es)=>{ for (const e of es) if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} },{threshold:.12});
   document.querySelectorAll('.fade').forEach(el=>io.observe(el));
 
@@ -693,6 +719,8 @@
   const form = document.querySelector('form.beta');
   const btn = form.querySelector('button[type="submit"]');
   const msg = form.querySelector('.form-msg');
+  let formStarted = false;
+  form.addEventListener('focusin', () => { if (!formStarted) { formStarted = true; ppEvent('beta_form_started'); } });
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (btn.disabled) return;
@@ -706,10 +734,12 @@
       msg.textContent = "Thanks — we've got your request. We review parent requests and will email you if it looks like a good fit, once the iPad app is ready to test.";
       msg.className = 'form-msg ok';
       msg.setAttribute('tabindex', '-1'); msg.focus();   // the submit button that held focus is now hidden — land focus on the message
+      ppEvent('beta_form_submitted');
     } catch {
       msg.textContent = "That didn't send. Please try again, or email hello@playprofessorpaws.com.";
       msg.className = 'form-msg err';
       msg.setAttribute('tabindex', '-1'); msg.focus();
+      ppEvent('beta_form_error');
       btn.disabled = false; btn.textContent = old;
     }
   });
