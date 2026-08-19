@@ -240,6 +240,14 @@
   .trust .chip { flex:0 0 34px; width:34px; height:34px; border-radius:10px; background:var(--paper);
     border:1px solid var(--line); display:grid; place-items:center; color:var(--orange-deep); }
   .trust .chip svg { width:18px; height:18px; }
+  .trust-points { list-style:none; margin:34px auto 0; padding:0; max-width:860px; display:grid; grid-template-columns:1fr; gap:22px 40px; }
+  @media (min-width:700px){ .trust-points { grid-template-columns:1fr 1fr; } }
+  .trust-points li { display:flex; gap:14px; align-items:flex-start; }
+  .trust-points strong { display:block; font-family:var(--display); font-weight:700; font-size:1.12rem; margin-top:4px; }
+  .trust-points p { color:var(--ink-soft); font-size:.98rem; margin-top:4px; max-width:36ch; }
+  .trust-line { text-align:center; margin-top:34px; font-weight:600; }
+  .trust-founder { text-align:center; margin-top:10px; color:var(--ink-soft); font-size:.98rem; max-width:60ch; margin-inline:auto; }
+  .trust-founder a { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-block; padding-block:6px; }
   .trust .links { text-align:center; margin-top:22px; font-size:.95rem; color:var(--ink-soft); }
   .trust .links a { color:var(--ink); text-decoration:underline; text-underline-offset:3px; display:inline-block; padding-block:8px; } /* 12.5:1 on the band (orange-deep was 4.30:1); 8px pad → 34px+ tap height */
 
@@ -428,64 +436,23 @@
   </div>
 </section>
 
-<!-- WHY CHILDREN KEEP GOING -->
-<section class="wrap" id="motivation">
-  <h2 class="sec-title fade">Encouragement without pressure.</h2>
-  <div class="cards" style="margin-top:26px;">
-    <div class="card fade"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-paw"/></svg>
-      <h3>A puppy that helps</h3><p>Your child names and cares for their own companion.</p></div>
-    <div class="card fade"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bone"/></svg>
-      <h3>Rewards tied to learning</h3><p>Bones are earned by real learning — not by time on screen.</p></div>
-    <div class="card fade"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-hand"/></svg>
-      <h3>Help without punishment</h3><p>Using a hint never reduces the reward.</p></div>
-    <div class="card fade"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-loop"/></svg>
-      <h3>No streaks, no leaderboards</h3><p>Coming back is encouraged without shame or competition.</p></div>
-  </div>
-</section>
-
-<!-- METHOD + COMPARISON (merged from method/science/answer-box sections) -->
-<section id="teaches" style="background:var(--tint); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+<!-- TRUST — SIMPLIFICATION PASS (owner-ruled 2026-08-19): one compact section. Merges "Encouragement without
+     pressure", "Who it's for", the safety checklist (full list now on /safety), the learning-difference line and the
+     founder credibility. RULING B: the explicit ADHD/autism/dyslexia sentence is OFF the homepage — only "Designed with
+     different ways of learning in mind." here; the qualified explanation lives on /how-it-works and /faq. Every
+     clause verified against shipped behaviour (claims discipline). -->
+<section class="trust" id="trust" style="padding-block:64px;">
   <div class="wrap">
-    <h2 class="sec-title fade">The learning progression many schools use — continued at home.</h2>
-    <div class="method-strip fade" role="list" aria-label="Teaching progression">
-      <span role="listitem">Objects</span><span class="arrow" aria-hidden="true">→</span>
-      <span role="listitem">Pictures</span><span class="arrow" aria-hidden="true">→</span>
-      <span role="listitem">Numbers</span><span class="arrow" aria-hidden="true">→</span>
-      <span role="listitem">On their own</span>
-    </div>
-    <p class="sec-sub fade" style="margin-top:18px;">It starts with something your child can see and move. Support gradually fades, and important skills return days later — spaced practice, built into the plan.</p>
-    <!-- Accommodations line (owner-ruled 2026-08-07, design-intent framing only). Every
-         clause VERIFIED against the app before publishing. "No timers" and "no penalty for
-         a wrong answer" returned per the owner's ruling once the calm-earned-state app
-         branch was HELD (sticky mastered star + untimed break) — COUPLING: this page must
-         not deploy before the app build carrying that branch. Still out until its app work
-         ships: "everything spoken aloud" (lesson hints, story problems, reading choices and
-         the kid hub render silently today — part of it held on surface-legibility). -->
-    <p class="sec-sub fade" style="margin-top:14px;">Designed with ADHD, autism, and dyslexia in mind: one step at a time, no timers, and no penalty for a wrong answer.</p>
-
-  </div>
-</section>
-
-<!-- WHO IT IS FOR (v3.5, owner-directed copy) -->
-<section class="wrap" id="who-for">
-  <h2 class="sec-title fade">Who Professor Paws is for</h2>
-  <div class="panels fade" style="max-width:760px; margin:26px auto 0;">
-    <div class="panel">
-      <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-paw"/></svg>
-      <h3>A good fit if…</h3>
-      <p style="color:var(--ink-soft); font-size:.96rem; margin-top:10px;">Professor Paws may be a good fit if your child finds homework overwhelming, shuts down before starting, rushes just to be done, or needs instructions broken into smaller steps.</p>
-    </div>
-    <div class="panel">
-      <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg>
-      <h3>What it is not</h3>
-      <ul>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Not a replacement for school, teachers, reading books, or tutoring</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Not a diagnosis tool</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Not an answer generator</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Not open-ended AI chat</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg>Not built around streaks, timers, or leaderboards</li>
-      </ul>
-    </div>
+    <h2 class="sec-title fade">Built for learning. Designed for families.</h2>
+    <ul class="trust-points fade">
+      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-steps"/></svg></span><div><strong>No answer machine</strong><p>Guidance gets smaller when your child gets stuck.</p></div></li>
+      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-loop"/></svg></span><div><strong>No pressure mechanics</strong><p>No streaks, timers or leaderboards.</p></div></li>
+      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-hand"/></svg></span><div><strong>Parent-controlled</strong><p>No open-ended child chat or social features.</p></div></li>
+      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg></span><div><strong>Privacy taken seriously</strong><p>No ads. No third-party ad tracking. Children's data isn't sold or used to train AI.</p></div></li>
+    </ul>
+    <p class="trust-line fade">Designed with different ways of learning in mind.</p>
+    <p class="trust-founder fade">Built by an application security engineer after watching a child he loves struggle with homework. <a href="/about">Read why →</a></p>
+    <p class="links fade"><a href="/privacy.html">Privacy Policy</a> · <a href="/terms.html">Terms</a> · <a href="/safety">Safety</a></p>
   </div>
 </section>
 
@@ -515,26 +482,6 @@
       <p>The private beta is free. If we launch a paid subscription, you'll see the price before paying anything.</p></details>
     <details><summary>Does it replace school or tutoring?</summary>
       <p>No — it supports the work your child is already learning, and makes home practice calmer and more accessible.</p></details>
-  </div>
-</section>
-
-<!-- SAFETY — moved next to the form (v3.5): reassurance directly before the ask.
-     The 8 owner-directed bullets + the handwriting line (required visible since v3.4). -->
-<section class="trust" id="trust">
-  <div class="wrap">
-    <h2 class="sec-title fade">Built for children. Controlled by parents.</h2>
-    <ul class="fade">
-      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg></span>Parent-created accounts</li>
-      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>No ads</li>
-      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>No social features</li>
-      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>No open-ended AI chat</li>
-      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>No third-party ad tracking</li>
-      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg></span>Children's data never sold</li>
-      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg></span>Children's data never used to train AI</li>
-      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>Clear deletion controls</li>
-      <li><span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg></span>Handwriting practice never leaves the device</li>
-    </ul>
-    <p class="links fade"><a href="/privacy.html">Privacy Policy</a> · <a href="/terms.html">Terms</a> · <a href="/support.html">Support &amp; data deletion</a></p>
   </div>
 </section>
 
