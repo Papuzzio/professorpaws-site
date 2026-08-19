@@ -155,10 +155,11 @@
   .hero { padding-block:56px 52px; text-align:center; position:relative; overflow:hidden; }
   /* SECOND PASS: desktop = copy left, product right; phones = stacked and centred (below). */
   @media (min-width:900px){
-    .hero { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr); gap:44px; align-items:center; text-align:left; padding-block:48px 44px; }
+    /* SIMPLIFICATION: the product is ~half the hero (two equal columns), not a thumbnail beside the copy. */
+    .hero { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:40px; align-items:center; text-align:left; padding-block:48px 44px; }
     .hero h1, .hero .sub, .hero .quiet { margin-left:0; margin-right:0; }
     .hero .ctas { justify-content:flex-start; }
-    .hero-shot { margin:0 0 0 auto; max-width:340px; }
+    .hero-shot { margin:0 0 0 auto; max-width:500px; }
   }
   .eyebrow { display:inline-block; font-weight:700; font-size:.92rem; color:var(--orange-deep);
     background:var(--tint); border:1px solid var(--line); border-radius:999px; padding:6px 16px; }
@@ -169,7 +170,7 @@
      ("Teaches the method" / "Uses the work school assigned") */
   .hero-pup img { width:100%; height:100%; object-fit:cover; }
   @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-  .hero h1 { font-size:clamp(2.05rem,6.3vw,3.2rem); font-weight:700; max-width:18ch; margin:0 auto; font-variation-settings:'opsz' 144; }
+  .hero h1 { font-size:clamp(2.05rem,5.6vw,2.9rem); font-weight:700; max-width:18ch; margin:0 auto; font-variation-settings:'opsz' 144; }
   .hero .sub { max-width:50ch; margin:16px auto 0; font-size:1.1rem; color:var(--ink-soft); }
   .hero .ctas { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:28px; }
   .hero .btn { padding:15px 32px; font-size:1.12rem; min-height:48px; }
@@ -213,7 +214,7 @@
   .trail p { color:var(--ink-soft); font-size:.96rem; }
 
   /* v3.2: the above-fold kid-view screenshot + the ruled five-item trust strip */
-  .hero-shot { margin:30px auto 0; max-width:300px; }
+  .hero-shot { margin:30px auto 0; max-width:440px; } /* phones: stacked under the copy at full content width */
   .hero-shot .frame { border-radius:22px; overflow:hidden; border:1px solid var(--line);
     box-shadow:0 10px 34px rgba(44,44,44,.10); background:#FDFBF5; }
   .hero-shot svg, .hero-shot img { display:block; width:100%; height:auto; }
@@ -327,29 +328,21 @@
 </header>
 <main id="main">
 
-<!-- HERO — SITE v3.4 conversion pass (owner-directed 2026-08-12): parent-pain headline,
-     the no-answer promise in the sub, free-beta line, one CTA, trust line DIRECTLY under
-     the CTA (the v3.2 standalone strip folded in here — same claims, no duplication;
-     "no third-party tracking" remains in the Safety section list). Every app-behavior
-     claim verified against shipped code before publishing (claims-sweep discipline). -->
-<!-- SECOND PASS (owner-directed 2026-08-17): the product sits BESIDE the copy on desktop — the
-     first thing a parent sees is the headline and the iPad together, not words then a scroll.
-     Copy is verbatim from the first pass (headline held by owner ruling). Phones stack, centred.
-     Decorative bones removed (ornament down); semantic icons elsewhere stay. -->
+<!-- HERO — SIMPLIFICATION PASS (owner-ruled 2026-08-19, ruling A): the promise in two short lines, one
+     sentence, one CTA, a three-item trust line, and the SAME typed-input screenshot at roughly half the hero
+     width on desktop (layout change only — the image is untouched). The earlier parent-pain headline and the
+     long trust sentence moved off the first impression (FAQ / Trust / secondary pages). -->
 <section class="hero wrap" aria-labelledby="hero-h1">
   <div class="hero-copy">
-    <h1 id="hero-h1">Homework help for kids who shut down, rush, or melt down over schoolwork.</h1>
-    <p class="sub">Professor Paws turns the worksheet your child actually brings home into calm, spoken, step-by-step practice — without handing over the answer.</p>
-    <p class="quiet" style="margin-top:16px; font-weight:600;">Free private beta for families of children ages 8–13.</p>
-    <div class="ctas" style="margin-top:18px;">
+    <h1 id="hero-h1">Homework help that teaches.<br />Not just answers.</h1>
+    <p class="sub">Professor Paws turns schoolwork into calm, step-by-step learning that keeps your child doing the thinking.</p>
+    <div class="ctas" style="margin-top:22px;">
       <a class="btn" href="#beta" data-cta="hero">Request Free Beta Access</a>
     </div>
-    <p class="quiet" style="max-width:64ch;">No ads · No chat · No social features · Parent-controlled · Children's data never sold or used to train AI</p>
+    <p class="quiet">Ages 8–13 · No ads · Parent-controlled</p>
   </div>
-  <!-- SITE TONE FIX (owner-directed 2026-08-17): the hero shot is the TYPED-INPUT screen —
-       "Calculate 426 × 38", the crayons word problem, the money problems — because it carries
-       the same age as the copy (8–13). The letter-tracing shot that was here read as 5–6 and
-       people believe the images. -->
+  <!-- The hero shot is the TYPED-INPUT screen — "Calculate 426 × 38", the crayons word problem, the money
+       problems — because it carries the same age as the copy (8–13). Real screen, never restaged. -->
   <figure class="hero-shot fade in"><div class="frame">
     <picture><source type="image/webp" srcset="/assets/screen-homework.webp" /><img src="/assets/screen-homework.png" width="915" height="1280" fetchpriority="high"
          alt="What goes in: the puppy asks what we are working on, with skill tiles and this week's typed homework — Calculate 426 × 38, a word problem about boxes of crayons, and money problems" /></picture>
