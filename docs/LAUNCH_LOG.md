@@ -1,5 +1,39 @@
 # Website launch log — playprofessorpaws.com
 
+## 2026-08-19 · wordmark tail REMOVED + s terminal REDRAWN (branch teal-buttons) — NOT DEPLOYED
+Owner ruling: a tester read the swash tail as a SNAKE, not a dog's tail. Options were rendered at header sizes
+beside the mascot head (shorten / dog geometry / remove); the owner chose REMOVE, and correctly noted that
+removal alone is not the job — deleting the flourish left the s's lower arm as a blunt diagonal stub, and a
+half-removed flourish reads as a rendering fault, which is worse than a snake. **So the terminal was redrawn.**
+
+WHAT CHANGED. The lower arm no longer dives below the baseline to a point (it reached y +4.59 where the 'a'
+overshoots only +1.40 and P/w sit at 0 — that depth existed only to lead into the tail). It is now cut across
+its FULL stroke width (5.68 units) at x=215.6, the letter's own left sidebearing. 29 quadratic segments are
+preserved.
+
+PROVENANCE DEBT FROM THE NAVY-S PASS IS CLEARED. Full Disk Access was granted, so ~/Documents became readable
+and all three assets are now RE-RENDERED FROM THE FROZEN MASTERS rather than recoloured from the approved
+raster. The masters are untouched and still read-only (B sha256 6e05d33dfd96beac… unchanged, verified after).
+The teal lived ONLY inside the tail group, so removing the tail removes the last teal from the wordmark — the
+earlier pixel recolour is superseded, not merely re-verified.
+
+REPRODUCIBLE: `python3 scripts/finish-wordmark.py <outdir>` derives all three from the frozen masters and
+asserts its own preconditions (exactly one tail group, exactly one teal fill) and postconditions (no tail, no
+teal). `node scripts/render-lockup.mjs <svg> <out.png> 374 120` rasterises the header at 2x with alpha.
+
+APPLIED TOGETHER, as the owner required — two different marks on one page would be worse than either option:
+  - assets/brand/B_primary_horizontal_lockup-374w.png / .webp  (header at every width, 748x240, 0 teal px)
+  - assets/brand/A_wordmark.svg   (footer)
+  - assets/brand/D_wordmark_one_line.svg
+Verified after install: 0 teal pixels in both raster formats, 0 '#14AAA3' and 0 tail groups in both SVGs, and
+0 teal-ish pixels in the wordmark region of the rendered page at 1280.
+
+TWO MISTAKES MADE AND CAUGHT WHILE DRAWING THE TERMINAL, recorded because neither was catchable by a test:
+  1. a naive coordinate extraction turned the s's 30 quadratic CONTROL POINTS into vertices and faceted the
+     whole letter — fixed with a real path parser;
+  2. clamping the outer edge flat squashed the terminal from its natural ~5.5 units to 2.13, a weak point —
+     the clamp was removed. Both were visible only by rendering and looking.
+
 ## 2026-08-19 · teal action colour + all-navy wordmark S (branch teal-buttons) — BUILT, NOT DEPLOYED
 Owner rulings 2026-08-19.
 1. BUTTONS: orange -> teal. The BRAND teal #14AAA3 cannot be the button: white on it is 2.87:1 and FAILS AA.
