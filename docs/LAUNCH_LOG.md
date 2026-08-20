@@ -1,5 +1,31 @@
 # Website launch log — playprofessorpaws.com
 
+## 2026-08-19 · teal action colour + all-navy wordmark S (branch teal-buttons) — BUILT, NOT DEPLOYED
+Owner rulings 2026-08-19.
+1. BUTTONS: orange -> teal. The BRAND teal #14AAA3 cannot be the button: white on it is 2.87:1 and FAILS AA.
+   New token --teal-deep #0F7A76 is a darkened step, exactly as --orange-deep #B4530A darkens --orange #EE6F1E
+   for the same reason. White on #0F7A76 = 5.17:1 vs 5.02:1 for the orange it replaces — contrast improves.
+   Side effect: the teal now matches the app's own teal "My homework" bar in the hero screenshot.
+2. WORDMARK S: all navy. Owner's reasoning, recorded because it supersedes the freeze rationale — the teal tail
+   was kept to make the mark ownable when ORANGE was the action colour; now that TEAL is the action colour, a
+   teal letterform reads as something clickable, and a brand accent that looks like a control is worse than a
+   plain one. Applied to header, footer and phone lockups together: one fill value (#14AAA3 -> #14213D), which
+   is exactly ONE fill in each asset against 13 navy, and trivially reversible.
+   - assets/brand/A_wordmark.svg (footer) and D_wordmark_one_line.svg: one fill each, verified count == 1 first.
+   - assets/brand/B_primary_horizontal_lockup-374w.{png,webp} (header, all widths incl. the 150x48 phone size):
+     **PROVENANCE CAVEAT — this pair was RECOLOURED FROM THE APPROVED RASTER, not re-rendered from the frozen B
+     master.** The master is unreadable from this shell (macOS TCC blocks reads of ~/Documents; `ls` works,
+     `open()` does not), so a re-render was impossible. The recolour is blend-aware — every pixel on the
+     navy->teal ramp collapses to the navy end keeping its own antialias offset (130 px) — and was verified at
+     4x zoom with clean edges and no fringing, plus 0 teal-ish pixels remaining in both png and webp.
+     TO DO when the folder is readable: re-render this pair from the untouched master and byte-compare.
+   Verified: 0 teal-ish pixels in the wordmark region of the rendered page; the only teal left on the page is
+   the CTA button, by design.
+   TOOLING NOTE: scripts/cdp-shot.mjs reuses /tmp/cdp-<port> per width, so its DISK CACHE served the old teal
+   webp and showed a phantom teal glint after the swap. Renders that verify a changed ASSET need a fresh
+   profile (rm -rf /tmp/cdp-<port>) or a cache-busted asset URL — the page query string is not enough.
+3. Rendered 390 and 1280; no contrast failures, no overflow. NOT DEPLOYED.
+
 ## 2026-08-19 · homepage simplification — DEPLOYED (owner-approved, main c1a25fd → 9af46bd)
 Deployed in one coordinated window, in the approved order. Pre-deploy rollback points: site main `c1a25fd`
 (live homepage sha256 `2cc788d6…`), site-event function **v2**, site_events CHECKs =
