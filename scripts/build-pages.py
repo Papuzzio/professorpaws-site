@@ -83,7 +83,7 @@ def shell(slug, meta, body):
   .page p {{ margin-top:10px; max-width:var(--measure); }}
   .page ul.checks {{ list-style:none; margin:12px 0 0; padding:0; display:grid; gap:9px; }}
   .page ul.checks li {{ display:flex; gap:10px; align-items:flex-start; }}
-  .page ul.checks svg {{ flex:0 0 16px; width:16px; height:16px; margin-top:6px; color:var(--orange-deep); }}
+  .page ul.checks svg {{ flex:0 0 16px; width:16px; height:16px; margin-top:6px; color:var(--orange-text); }}
   .page .cta-row {{ margin-top:36px; }}
   .page .cta-row .btn {{ padding:15px 32px; font-size:1.08rem; min-height:48px; display:inline-block; }}
   .page .back {{ display:inline-block; margin-top:28px; }}
@@ -91,9 +91,19 @@ def shell(slug, meta, body):
   .page .method-strip {{ justify-content:flex-start; margin-top:14px; }}
   .page .faq {{ max-width:none; margin:18px 0 0; }}
   .page .trust-points {{ margin-top:18px; max-width:none; }}
-  .page .chip {{ flex:0 0 34px; width:34px; height:34px; border-radius:10px; background:var(--paper); border:1px solid var(--line); display:grid; place-items:center; color:var(--orange-deep); }}
+  .page .chip {{ flex:0 0 34px; width:34px; height:34px; border-radius:10px; background:var(--paper); border:1px solid var(--line); display:grid; place-items:center; color:var(--orange-text); }}
   .page .chip svg {{ width:18px; height:18px; }}
   .page .sig {{ color:var(--ink-soft); font-size:.96rem; }}
+  .page .trail {{ list-style:none; max-width:600px; margin:22px auto 0; padding:0; position:relative; display:grid; gap:24px; }}
+  .page .trail::before {{ content:""; position:absolute; left:25px; top:26px; bottom:26px; border-left:3px dashed var(--orange); opacity:.45; }}
+  .page .trail li {{ display:grid; grid-template-columns:52px 1fr; gap:16px; align-items:start; position:relative; }}
+  .page .trail .paw {{ width:52px; height:52px; border-radius:50%; background:var(--paper); border:2px solid var(--orange); display:grid; place-items:center; color:var(--orange-text); }}
+  .page .trail .paw svg {{ width:26px; height:26px; }}
+  .page .trail h3 {{ font-size:1.06rem; margin:10px 0 2px; }}
+  .page .trail p {{ color:var(--ink-soft); font-size:.96rem; }}
+  .page .method-strip {{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; }}
+  .page .method-strip span {{ background:var(--paper); border:1.5px solid var(--orange); border-radius:999px; padding:10px 20px; font-weight:800; color:var(--orange-text); }}
+  .page .method-strip .arrow {{ background:none; border:0; padding:0; color:var(--ink-soft); font-weight:400; }}
   a.more {{ color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-flex; align-items:center; min-height:44px; }}
 </style>
 </head>

@@ -25,285 +25,210 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 <link rel="preload" href="/assets/fonts/fraunces-var-latin.woff2" as="font" type="font/woff2" crossorigin />
 <style>
-  @font-face { font-family:'Fraunces'; font-style:normal; font-weight:600 700; font-stretch:normal; font-display:swap; /* 600–700 exactly as Google Fonts declared it: an 800 request clamps to 700, as it always has */
+  @font-face { font-family:'Fraunces'; font-style:normal; font-weight:600 700; font-stretch:normal; font-display:swap;
     src:url('/assets/fonts/fraunces-var-latin.woff2') format('woff2');
+    unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+  @font-face { font-family:'Nunito'; font-style:normal; font-weight:400 800; font-stretch:normal; font-display:swap;
+    src:url('/assets/fonts/nunito-var-latin.woff2') format('woff2');
     unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
 </style>
 <style>
+  /* ═══ PALETTE ═══════════════════════════════════════════════════════════════════════════════════════════════════
+     The brand board's five colours, each split into a FILL value (exact brand colour, used for shapes and the mark)
+     and, where it is used for text or as a button ground, a darkened TEXT-SAFE step. Every pair below was computed,
+     not eyeballed — the failures are real and were all in the same direction:
+        white on #FF8C42 (board orange)  = 2.31:1  FAIL      → so the orange button carries NAVY text = 6.91:1 PASS
+        #FF8C42 as text on cream         = 2.19:1  FAIL      → orange text uses --orange-text #C85A15 = 4.04:1 PASS
+        white on #14AAA3 (brand teal)    = 2.87:1  FAIL      → the action teal is --teal-deep #0F7A76 = 5.17:1 PASS
+     ACTION COLOUR = TEAL. Owner ruling 2026-08-19 ("make the button teal instead of orange"), deployed the same day,
+     and the navy-S ruling that followed depends on it ("teal IS the action colour, so a teal letterform reads as
+     something clickable"). Orange is therefore the ACCENT — the wordmark's Paws, section marks, rules and emphasis —
+     never a control. */
   :root {
-    --cream:#FBF8F3; --paper:#FDFBF5; --band:#F3EDE0; --tint:#FDEEE2;
-    --ink:#2C2C2C; --ink-soft:#6B665E;
-    --orange:#EE6F1E; --orange-deep:#B4530A;
-    /* TEAL ACTION (owner 2026-08-19: "make the button teal instead of orange"). The BRAND teal #14AAA3 is
-       the frozen wordmark's teal and stays exact wherever the mark appears — but white text on it is
-       2.87:1, which fails AA, so the ACTION teal is a darkened step exactly as --orange-deep is a darkened
-       --orange (white on #0F7A76 = 5.17:1, versus 5.02:1 for the orange it replaces: no contrast lost). */
-    --teal:#14AAA3; --teal-deep:#0F7A76;
-    --line:rgba(44,44,44,.13);
-    --field-line:rgba(44,44,44,.42);   /* form-field extent must be visible: .13 was 1.27:1 on paper; .42 ≈ 3.2:1 */
-    /* SITE TONE FIX (owner-directed 2026-08-17): headings in a WARM SERIF — serif reads
-       "learning", the rounded sans read "toy" to two outside parents. Buttons, pills, nav and
-       the wordmark stay in the clean sans; body text unchanged; palette unchanged. */
+    --navy:#14213D; --teal:#14AAA3; --teal-deep:#0F7A76;
+    --orange:#FF8C42; --orange-text:#C85A15;
+    --yellow:#FFD166; --teal-light:#CFEDE9;
+    --cream:#FFF8EE; --paper:#FFFCF7; --band:#FDF1E2; --line:rgba(20,33,61,.12);
+    --ink:#14213D; --ink-soft:#5B5750;
+    --field-line:rgba(20,33,61,.42);
     --heading:'Fraunces','Iowan Old Style','Palatino',Georgia,serif;
-    --display:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
-    --body:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
-    /* RESPONSIVE SYSTEM (owner-directed 2026-08-18) — ONE gutter scale, ONE measure, safe-area aware.
-       --gutter: phone 20px (floor), tablet ~35–46px, desktop 56px (cap) — a single clamp, not per-device
-       breakpoints. --measure: the max line length for running text (target 60–75 characters). --maxw is
-       the CONTENT box plus two gutters, so desktop content width is unchanged (976px) while gutters scale. */
-    --gutter: clamp(20px, 4.5vw, 56px);
-    --measure: 58ch;   /* CALIBRATED, not guessed: in the system UI face 1ch ("0") ≈ 1.23 average prose glyphs, so 66ch measured 81 cpl on the footer line; 58ch lands ~71 */
-    --maxw: calc(976px + 2 * var(--gutter));
+    --body:'Nunito','Nunito Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --measure:62ch;
+    --r:16px; --r-lg:22px;
+    --shadow:0 1px 2px rgba(20,33,61,.05), 0 10px 30px -12px rgba(20,33,61,.16);
   }
-  * { box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
-  body { margin:0; background:var(--cream); color:var(--ink); font-family:var(--body);
-    font-size:18px; line-height:1.6; -webkit-font-smoothing:antialiased; }
-  h1,h2,h3 { font-family:var(--heading); font-weight:700; line-height:1.14; margin:0; letter-spacing:-.005em; font-variation-settings:'opsz' 96; }
+  *,*::before,*::after { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+  @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
+  body {
+    margin:0; background:var(--cream); color:var(--ink);
+    font-family:var(--body); font-size:1.0625rem; line-height:1.65; font-weight:400;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+  h1,h2,h3 { font-family:var(--heading); font-weight:700; line-height:1.15; letter-spacing:-.01em; margin:0; font-variation-settings:'opsz' 144; text-wrap:balance; }
   p { margin:0; }
-  a { color:var(--orange-deep); }
-  img,svg { max-width:100%; display:block; }
-  /* .wrap = the horizontal system. It sets INLINE padding only, and honours the notch on a
-     viewport-fit=cover phone (env() is 0 everywhere else). NOTE the historic foot-gun this replaces:
-     `.wrap { padding:0 22px }` (a shorthand) zeroed a section's VERTICAL padding too, which is why
-     several `section.wrap`s carry inline padding-top overrides — those stay as they were, and
-     section.wrap's vertical rhythm is made explicit below rather than left to shorthand order. */
-  .wrap { width:100%; max-width:var(--maxw); margin:0 auto;
-    padding-inline: max(var(--gutter), env(safe-area-inset-left)) max(var(--gutter), env(safe-area-inset-right)); }
-  section { padding:56px 0; scroll-margin-top:76px; }
-  section.wrap { padding-block:0; }   /* unchanged rhythm, stated explicitly (see the note above) */
-  /* Running text never runs past the measure. Cards, panels, FAQ answers and .sec-sub (54ch) already sit
-     inside the target; the measured offender is the footer line (81 characters at ≥768px). */
-  footer .wrap > p, .founder .inner p { max-width:var(--measure); margin-inline:auto; }
-  /* v3.6 mobile-spacing pass: phones get tighter section rhythm so the (now longer)
-     page doesn't feel spread out — desktop spacing unchanged. */
-  @media (max-width:600px){
-    section { padding:40px 0; }
-    /* padding-block ONLY — the shorthand that used to sit here (`padding:40px 0 36px`) was the SECOND
-       site of the phone gutter defect: it re-zeroed the hero's inline padding on every phone. */
-    section.hero.wrap { padding-block:40px 36px; }   /* specificity: must beat section.wrap{padding-block:0} (measured 0px on live at every width) */
-    .sec-sub { margin-bottom:22px; }
-  }
-  .sec-title { font-size:clamp(1.5rem,4vw,2.05rem); font-weight:800; text-align:center; margin-bottom:8px; }
-  .sec-sub { text-align:center; color:var(--ink-soft); max-width:54ch; margin:0 auto 30px; }
+  img,svg { max-width:100%; }
+  img { height:auto; }
+  a { color:var(--ink); }
+  ::selection { background:var(--teal-light); }
+  :where(a,button,input,select,textarea,summary):focus-visible { outline:3px solid var(--teal-deep); outline-offset:3px; border-radius:6px; }
 
-  /* the fade-in is JS-driven (IntersectionObserver); without JS nothing may stay invisible → gate the hidden state on .js */
-  .js .fade { opacity:0; transform:translateY(14px); transition:opacity .6s ease,transform .6s ease; }
+  .wrap { width:100%; max-width:1120px; margin-inline:auto; padding-inline:clamp(20px,5vw,32px); }
+  section.wrap { padding-block:0; }        /* sections set their own block padding; see the .hero note below */
+  .skip { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap;
+          background:var(--navy); color:#fff; padding:12px 18px; z-index:99; border-radius:0 0 10px 0; }
+  .skip:focus { position:fixed; left:0; top:0; width:auto; height:auto; clip:auto; clip-path:none; overflow:visible; }
+
+  /* ═══ BUTTONS ═══ */
+  .btn {
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    background:var(--teal-deep); color:#fff; text-decoration:none;
+    font-family:var(--body); font-weight:800; font-size:1rem; letter-spacing:.005em;
+    padding:14px 26px; min-height:48px; border:0; border-radius:999px; cursor:pointer;
+    box-shadow:0 2px 0 rgba(20,33,61,.10), 0 8px 22px -12px rgba(15,122,118,.75);
+    transition:transform .14s ease, box-shadow .14s ease, background-color .14s ease;
+  }
+  .btn:hover { background:#0C6A66; transform:translateY(-1px); }
+  .btn:active { transform:translateY(0); }
+  .btn-lg { padding:17px 34px; font-size:1.09rem; min-height:54px; }
+  .btn-ghost { background:transparent; color:var(--navy); box-shadow:none; border:2px solid rgba(20,33,61,.22); }
+  .btn-ghost:hover { background:rgba(20,33,61,.05); border-color:rgba(20,33,61,.38); }
+
+  /* ═══ HEADER ═══ */
+  header.top { position:sticky; top:0; z-index:40; background:rgba(255,248,238,.92); backdrop-filter:saturate(150%) blur(10px); border-bottom:1px solid var(--line); }
+  header.top .wrap { display:flex; align-items:center; gap:20px; min-height:72px; padding-block:10px; }
+  .brand { display:inline-flex; align-items:center; text-decoration:none; flex:0 0 auto; }
+  .brand-logo { width:187px; height:60px; display:block; }
+  header.top nav { margin-left:auto; display:flex; align-items:center; gap:4px; }
+  header.top nav a { font-weight:700; font-size:.97rem; text-decoration:none; color:var(--navy); padding:10px 12px; border-radius:10px; display:inline-flex; align-items:center; min-height:44px; }
+  header.top nav a:hover { background:rgba(20,33,61,.06); }
+  header.top nav a.btn { color:#fff; margin-left:8px; }   /* MUST out-specify `header.top nav a`, which sets navy */
+  details.menu { display:none; position:relative; }
+  details.menu > summary { list-style:none; cursor:pointer; width:46px; height:46px; border-radius:12px; display:grid; place-items:center; color:var(--navy); border:1.5px solid rgba(20,33,61,.20); }
+  details.menu > summary::-webkit-details-marker { display:none; }
+  details.menu > summary svg { width:22px; height:22px; }
+  details.menu[open] > summary { background:rgba(20,33,61,.06); }
+  .menu-panel { position:absolute; right:0; top:calc(100% + 10px); background:var(--paper); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow); padding:6px; min-width:190px; display:grid; }
+  .menu-panel a { text-decoration:none; color:var(--navy); font-weight:700; padding:12px 14px; border-radius:10px; min-height:44px; display:flex; align-items:center; }
+  .menu-panel a:hover { background:rgba(20,33,61,.06); }
+  @media (max-width:860px) { details.menu { display:block; } }
+  .menu-cta { background:var(--teal-deep); color:#fff !important; justify-content:center; margin-top:4px; font-weight:800; }
+  .menu-cta:hover { background:#0C6A66; }
+  @media (min-width:521px) { .menu-cta { display:none; } }   /* above 520 the header keeps its own button */
+  @media (max-width:520px) { header.top nav > a.btn { display:none; } header.top .wrap { gap:12px; } }
+  @media (max-width:860px) { header.top nav a.navlink { display:none; } .brand-logo { width:150px; height:48px; } header.top .wrap { min-height:64px; } }
+
+  /* ═══ HERO ═══
+     NOTE: `section.wrap{padding-block:0}` out-specifies a bare `.hero{padding-block:…}` — the live site shipped a
+     hero with zero block padding for exactly this reason. The double class is deliberate; do not "simplify" it. */
+  .hero.wrap { padding-block:clamp(36px,6vw,64px) clamp(40px,6vw,68px); }
+  .hero-grid { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); gap:clamp(28px,5vw,56px); align-items:center; }
+  .eyebrow { display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:.78rem; letter-spacing:.11em; text-transform:uppercase; color:#A34A08; background:#FFEEDF; border-radius:999px; padding:7px 14px; }
+  .eyebrow svg { width:15px; height:15px; }
+  h1 { font-size:clamp(2.05rem,5.1vw,3.15rem); margin-top:18px; max-width:17ch; }
+  .strapline { font-family:var(--heading); font-weight:700; font-size:clamp(1.15rem,2.4vw,1.4rem); margin-top:14px; color:var(--navy); letter-spacing:-.01em; }
+  .strapline em { font-style:normal; color:var(--orange-text); }
+  .sub { margin-top:16px; font-size:1.12rem; color:var(--ink-soft); max-width:52ch; line-height:1.6; }
+  .sub strong { color:var(--ink); font-weight:800; }
+  .cta-row { display:flex; flex-wrap:wrap; gap:12px; margin-top:26px; }
+  .under-cta { margin-top:14px; font-size:.93rem; color:var(--ink-soft); display:flex; align-items:center; gap:8px; }
+  .under-cta svg { width:16px; height:16px; color:var(--teal-deep); flex:0 0 16px; }
+  .hero-art { position:relative; }
+  .hero-art img.shot { width:100%; border-radius:var(--r-lg); box-shadow:var(--shadow); background:#fff; display:block; }
+  @media (max-width:820px) { .hero-grid { grid-template-columns:1fr; } .hero-art { max-width:440px; margin-inline:auto; } }
+
+  /* ═══ TRUST STRIP ═══ */
+  .strip { background:var(--teal-light); border-block:1px solid rgba(20,33,61,.07); }
+  .strip .wrap { padding-block:22px; }
+  .strip ul { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(4,1fr); gap:14px 22px; }
+  .strip li { display:flex; align-items:center; gap:10px; font-weight:700; font-size:.97rem; color:var(--navy); }
+  .strip svg { width:20px; height:20px; flex:0 0 20px; color:var(--teal-deep); }
+  @media (max-width:820px) { .strip ul { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:400px) { .strip ul { grid-template-columns:1fr; } .strip li { font-size:.93rem; } }
+
+  /* ═══ SECTIONS ═══ */
+  .sec { padding-block:clamp(52px,7vw,84px); }
+  .sec-head { max-width:var(--measure); }
+  .sec h2 { font-size:clamp(1.65rem,3.6vw,2.35rem); max-width:20ch; }
+  .sec .lede { margin-top:14px; font-size:1.08rem; color:var(--ink-soft); max-width:56ch; }
+  .mark { display:block; width:44px; height:5px; border-radius:999px; background:var(--orange); margin-bottom:20px; }
+  .band { background:var(--band); }
+  .band-teal { background:var(--teal-light); }
+
+  /* subjects */
+  .subjects { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-top:32px; list-style:none; padding:0; }
+  .subjects li { background:var(--paper); border:1px solid var(--line); border-radius:var(--r); padding:20px 18px; }
+  .subjects .ic { width:42px; height:42px; border-radius:12px; display:grid; place-items:center; background:#FFEEDF; color:var(--orange-text); margin-bottom:12px; }
+  .subjects .ic svg { width:22px; height:22px; }
+  .subjects strong { display:block; font-weight:800; font-size:1.04rem; }
+  .subjects p { margin-top:5px; font-size:.95rem; color:var(--ink-soft); line-height:1.55; }
+  @media (max-width:900px) { .subjects { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:400px) { .subjects { grid-template-columns:1fr; } }
+
+  /* how it works */
+  .steps { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(18px,3vw,28px); margin-top:36px; list-style:none; padding:0; counter-reset:s; }
+  .steps li { position:relative; background:var(--paper); border:1px solid var(--line); border-radius:var(--r-lg); padding:28px 22px 24px; }
+  .steps li::before { counter-increment:s; content:counter(s); position:absolute; top:-16px; left:22px; width:38px; height:38px; border-radius:50%; background:var(--navy); color:#fff; font-family:var(--body); font-weight:800; font-size:1.05rem; display:grid; place-items:center; box-shadow:0 4px 12px -4px rgba(20,33,61,.5); }
+  .steps h3 { font-size:1.16rem; margin-top:6px; }
+  .steps p { margin-top:8px; color:var(--ink-soft); font-size:.99rem; }
+  @media (max-width:860px) { .steps { grid-template-columns:1fr; gap:26px; } }
+
+  /* learn-differently */
+  .diff-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(28px,5vw,56px); align-items:center; }
+  .diff-list { list-style:none; margin:26px 0 0; padding:0; display:grid; gap:16px; }
+  .diff-list li { display:flex; gap:13px; align-items:flex-start; }
+  .diff-list .chip { flex:0 0 34px; width:34px; height:34px; border-radius:11px; background:#fff; border:1px solid var(--line); display:grid; place-items:center; color:var(--teal-deep); }
+  .diff-list .chip svg { width:18px; height:18px; }
+  .diff-list strong { font-weight:800; }
+  .diff-list p { color:var(--ink-soft); font-size:.98rem; margin-top:2px; }
+  .diff-art img { width:100%; border-radius:var(--r-lg); box-shadow:var(--shadow); background:#fff; display:block; }
+  @media (max-width:860px) { .diff-grid { grid-template-columns:1fr; } .diff-art { max-width:420px; } }
+
+  /* founder */
+  .founder { max-width:760px; margin-inline:auto; border-left:5px solid var(--orange); padding-left:clamp(20px,3vw,32px); }
+  .founder blockquote { margin:0; font-family:var(--heading); font-weight:600; font-size:clamp(1.15rem,2.5vw,1.42rem); line-height:1.42; letter-spacing:-.01em; }
+  .founder .sig { margin-top:14px; color:var(--ink-soft); font-size:.96rem; }
+
+  /* honest proof */
+  .proof { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:32px; list-style:none; padding:0; }
+  .proof li { background:var(--paper); border:1px solid var(--line); border-radius:var(--r); padding:22px 20px; }
+  .proof .k { font-family:var(--heading); font-weight:700; font-size:1.5rem; color:var(--navy); }
+  .proof p { margin-top:6px; color:var(--ink-soft); font-size:.96rem; }
+  .proof-note { margin-top:20px; font-size:.93rem; color:var(--ink-soft); max-width:var(--measure); }
+  @media (max-width:820px) { .proof { grid-template-columns:1fr; } }
+
+  a.more { color:var(--ink); font-weight:800; text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:2px; text-decoration-color:var(--orange); display:inline-flex; align-items:center; min-height:44px; }
+  a.more:hover { text-decoration-color:var(--teal-deep); }
+
+  /* ═══ BETA FORM ═══ */
+  form.beta { max-width:560px; margin-inline:auto; background:var(--paper); border:1px solid var(--line); border-radius:var(--r-lg); padding:clamp(24px,4vw,36px); box-shadow:var(--shadow); }
+  form.beta h2 { font-size:clamp(1.5rem,3.2vw,2rem); text-align:center; }
+  form.beta h3 { font-size:1.2rem; }
+  form.beta .note { margin-top:10px; color:var(--ink-soft); font-size:.97rem; text-align:center; }
+  form.beta label { display:block; font-weight:800; font-size:.95rem; margin:22px 0 6px; }
+  form.beta label .hint { display:block; font-weight:400; font-size:.88rem; color:var(--ink-soft); margin-top:3px; }
+  form.beta input[type=email], form.beta select, form.beta textarea { width:100%; font-family:var(--body); font-size:1.03rem; padding:13px 14px; min-height:48px; border:1.5px solid var(--field-line); border-radius:12px; background:#fff; color:var(--ink); }
+  form.beta textarea { line-height:1.5; resize:vertical; }
+  form.beta button.btn { width:100%; margin-top:20px; }
+  form.beta .ages { display:flex; gap:18px; }
+  form.beta .ages label { display:inline-flex; align-items:center; gap:8px; margin:0; font-weight:600; min-height:44px; }
+  .form-msg { margin-top:14px; font-size:1rem; text-align:center; }
+  .form-msg.ok { color:#0B5F3A; font-weight:700; }
+  .form-msg.err { color:#8A1F11; font-weight:700; }
+
+  /* ═══ FOOTER ═══ */
+  footer { background:var(--navy); color:#EAF1F0; padding-block:44px 36px; margin-top:0; }
+  footer .brand-logo-footer { width:190px; height:auto; display:block; }
+  footer nav { display:flex; flex-wrap:wrap; gap:6px 22px; margin-top:22px; }
+  footer nav a { color:#EAF1F0; font-weight:600; font-size:.96rem; text-decoration:none; display:inline-flex; align-items:center; min-height:44px; opacity:.92; }
+  footer nav a:hover { opacity:1; text-decoration:underline; text-underline-offset:3px; }
+  footer p { margin-top:16px; font-size:.93rem; color:#B9C6CE; max-width:var(--measure); }
+  footer :focus-visible { outline-color:var(--yellow); }
+
+  /* reveal-on-scroll — gated on .js so a no-JS visitor never gets a hidden page */
+  .js .fade { opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease; }
   .js .fade.in { opacity:1; transform:none; }
-  .skip { position:absolute; left:-9999px; top:8px; background:var(--paper); color:var(--ink); padding:10px 14px; border-radius:8px; z-index:100; font-weight:600; }
-  .skip:focus { left:8px; outline:3px solid var(--ink); }
-  .top nav a { display:inline-block; padding-block:10px; } /* 44px tap height without changing the visible layout (footer nav already has its 44px floor below) */
-  /* img.brand-logo outranks the legacy `.brand img { width:28px }` rule (which stays for nothing but is left to avoid
-     churn); the frozen lockup must never be crushed into the old 28px slot. */
-  .brand img.brand-logo { display:block; width:187px; height:60px; }               /* B lockup ≥180px wide per the frozen usage rules */
-  /* Phones (≤600): the SAME B lockup at 150×48 (owner ruling 2026-08-19, option B). MEASURED: a 375 bar holds
-     20 + brand + 12 + 163 CTA + 20, so the brand may be at most ~160px; the one-line wordmark at 22px was 225px
-     and pushed the CTA off-screen (bar min width 459px). 150×48 leaves 20px spare at 375/390/410; the mascot
-     stays on phones. NOTE: this is BELOW the frozen README's "B ≥ ~180px wide" guideline — authorised by the owner
-     and recorded in docs/LAUNCH_LOG.md with the measurement. */
-  @media (max-width:600px){ .brand img.brand-logo { width:150px; height:48px; } }
-  .brand picture { display:contents; }
-  .brand img.brand-logo-footer { display:block; width:140px; height:68px; margin-inline:auto; }
-  .beta .hint { display:block; font-weight:400; font-size:.9rem; color:var(--ink-soft); margin-top:4px; }
-  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto}
-    .fade{opacity:1;transform:none;transition:none} .hero-pup{animation:none!important} }
-
-  /* header: sticky, one line, one CTA */
-  .top { position:sticky; top:0; z-index:20; background:var(--cream);
-    border-bottom:1px solid var(--line); }
-  .top .bar { display:flex; align-items:center; gap:20px; max-width:var(--maxw);
-    margin:0 auto; padding-block:12px;
-    padding-inline: max(var(--gutter), env(safe-area-inset-left)) max(var(--gutter), env(safe-area-inset-right)); }
-  .brand { display:flex; align-items:center; gap:9px; font-family:var(--display);
-    font-weight:700; font-size:1.1rem; color:var(--ink); text-decoration:none; letter-spacing:.005em;
-    white-space:nowrap; min-height:44px; }   /* never wraps; 44px tap floor */
-  .brand svg { width:22px; height:22px; color:var(--orange); }
-  /* SITE TONE FIX: the lockup is the ILLUSTRATED puppy (assets/puppy.png), small, beside a
-     plain wordmark — the glossy app-icon face read as an emoji. No crop, no squircle. */
-  .brand img { width:28px; height:28px; display:inline-block; }
-  .top nav { display:flex; gap:20px; margin-left:auto; }
-  .top nav a { color:var(--ink-soft); text-decoration:none; font-weight:600; font-size:.95rem; }
-  .top nav a:hover { color:var(--orange-deep); }
-  /* Owner ruling 2026-08-19: buttons rest on --orange-deep (white on #B4530A = 5.02:1); white on #EE6F1E was 3.03:1 at
-     15.7–18px bold — a fragile pass at best, a fail at these sizes. Hover goes one step darker for feedback. */
-  .btn { display:inline-block; background:var(--teal-deep); color:#fff; text-decoration:none;
-    font-family:var(--display); font-weight:700; border:0; border-radius:14px; cursor:pointer; }
-  .btn:hover { background:#9A4708; }
-  .btn:focus-visible { outline:3px solid var(--ink); outline-offset:3px; }
-  .top .btn { padding:11px 20px; font-size:.98rem; margin-left:8px; white-space:nowrap; min-height:44px; display:inline-flex; align-items:center; }
-  /* The nav needs ~820px to sit on one line with the brand and the button (measured); below that it
-     wraps into a second row, so it hides — a content breakpoint, not a device one. */
-  @media (max-width:819px){ .top nav{display:none} .top .btn{margin-left:auto} } /* measured: the nav fits on one line at 820 (iPad Air portrait) and wraps at 768 — hide only where it wraps */
-  .top .brand { flex-shrink:0; }   /* the brand never gives up width — its nowrap text would only overflow into the gap */
-  /* ≤420: brand (~157px) + gap + button must fit in 375−2×20 = 335px. Measured: brand 1rem + 12px gap +
-     button .88rem/10px = 332px. Below ~350px the two cannot both fit at any legible size and the
-     button rides into the right gutter — see the report; the wordmark or the label would have to give. */
-  @media (max-width:420px){ .top .bar{ gap:12px } .top .btn{ padding:10px 10px; font-size:.88rem } .top .brand{ font-size:1rem } }
-
-  /* hero */
-  /* THE PHONE DEFECT (measured 2026-08-18): `.hero { padding:56px 0 52px }` — a shorthand declared after
-     .wrap — zeroed the hero's INLINE padding, so on every phone the headline, sub, beta line and trust
-     line ran edge to edge (gutter 0/0 at 375 and 390; the trust line at x=8 on an iPad portrait). The
-     earlier "no overflow" check could never catch that: text can fill the viewport exactly with zero
-     margin. Block padding only, from here on; the gutter comes from .wrap. */
-  .hero { text-align:center; position:relative; overflow:hidden; }
-  .hero.wrap { padding-block:56px 52px; }   /* MEASURED 2026-08-19: the old `.hero{padding-block}` lost to section.wrap{padding-block:0} (0,1,1 > 0,1,0) — the H1 sat flush under the header on live at 375/768/1280 */
-  /* SECOND PASS: desktop = copy left, product right; phones = stacked and centred (below). */
-  @media (min-width:900px){
-    /* SIMPLIFICATION: the product is ~half the hero (two equal columns), not a thumbnail beside the copy. */
-    .hero { display:grid; grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr); gap:40px; align-items:center; text-align:left; }
-    .hero.wrap { padding-block:40px 56px; }
-    .hero h1, .hero .sub, .hero .quiet { margin-left:0; margin-right:0; }
-    .hero .ctas { justify-content:flex-start; }
-    .hero .hero-shot { margin:0 0 0 auto; max-width:500px; }   /* (0,2,0): beats the phone cap declared later in the sheet */
-  }
-  .eyebrow { display:inline-block; font-weight:700; font-size:.92rem; color:var(--orange-deep);
-    background:var(--tint); border:1px solid var(--line); border-radius:999px; padding:6px 16px; }
-  .hero-pup { width:150px; height:150px; margin:22px auto 18px; border-radius:50%;
-    background:var(--paper); border:2px solid var(--line); overflow:hidden;
-    box-shadow:0 14px 34px rgba(238,111,30,.16); animation:float 5s ease-in-out infinite; }
-  /* POST-SWEEP: replace .hero-pup with one large real iPad screenshot + two callout chips
-     ("Teaches the method" / "Uses the work school assigned") */
-  .hero-pup img { width:100%; height:100%; object-fit:cover; }
-  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-  .hero h1 { font-size:clamp(2.05rem,5.6vw,2.9rem); font-weight:700; max-width:18ch; margin:0 auto; font-variation-settings:'opsz' 144; }
-  .hero .sub { max-width:50ch; margin:16px auto 0; font-size:1.1rem; color:var(--ink-soft); }
-  .hero .ctas { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:28px; }
-  .hero .btn { padding:15px 32px; font-size:1.12rem; min-height:48px; }
-  .btn.ghost { background:transparent; color:var(--orange-deep); border:2px solid var(--orange); }
-  .btn.ghost:hover { background:var(--tint); }
-  .hero .quiet { margin-top:14px; font-size:.93rem; color:var(--ink-soft); margin-inline:auto; } /* centred in the sub-900 stacked hero (its 64ch box hugged the left edge on tablets); the ≥900 grid rule below resets the side margins */
-
-  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; }
-  .card { background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:22px 20px; }
-  .card .ic { width:42px; height:42px; color:var(--orange); }
-  .card h3 { font-size:1.08rem; margin:10px 0 4px; font-weight:700; }
-  .card p { color:var(--ink-soft); font-size:.96rem; }
-
-  /* schoolwork centerpiece */
-  .panels { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; }
-  .panel { background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:26px 22px; }
-  .panel .ic { width:44px; height:44px; color:var(--orange); margin-bottom:12px; }
-  .panel h3 { font-size:1.16rem; }
-  .panel ul { margin:12px 0 0; padding:0; list-style:none; display:grid; gap:8px; }
-  .panel li { display:flex; gap:9px; align-items:flex-start; color:var(--ink-soft); font-size:.96rem; }
-  .panel li svg { flex:0 0 15px; width:15px; height:15px; margin-top:5px; color:var(--orange-deep); }
-
-  /* 200px floor (was 220): with the tablet gutter, 3×220+52 needs 712px but iPad portrait leaves 699px (744px iPad mini: 677px) —
-     the third screenshot dropped to a second row, orphaned left. 3×200+52 = 652 fits both. Shots still cap at 270px elsewhere. */
-  .shots { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:26px; justify-items:center; }
-  .shot { width:100%; max-width:270px; text-align:center; }
-  .frame { background:var(--ink); border-radius:26px; padding:9px; aspect-ratio:3/4; }
-  .frame picture { display:contents; } /* <picture> is only a format switch — it must not add an inline box */
-  .frame img,.frame svg.vig,.frame video { width:100%; height:100%; object-fit:cover; border-radius:18px; background:var(--paper); }
-  .shot figcaption { margin-top:12px; font-size:.95rem; color:var(--ink-soft); }
-  /* SIMPLIFICATION: the product-proof row. Phones/small tablets stack one frame at a time (up to 340px); three-up
-     only from the width where each frame still renders ≥ ~220px (breakpoint set from the 375/390/430/768/1280 renders —
-     see docs/LAUNCH_LOG.md). Captions only, more air between frames. */
-  .shots-proof { grid-template-columns:1fr; gap:34px; margin-top:34px; }
-  .shots-proof .shot { max-width:340px; }
-  .shots-proof .shot figcaption { font-size:1.02rem; color:var(--ink); font-weight:600; }
-  @media (min-width:900px){ .shots-proof { grid-template-columns:repeat(3,minmax(0,1fr)); gap:30px; } }
-  .video-shot { max-width:320px; margin:0 auto 34px; }
-
-  .trail { list-style:none; max-width:600px; margin:0 auto; padding:0; position:relative; display:grid; gap:24px; }
-  .trail::before { content:""; position:absolute; left:25px; top:26px; bottom:26px;
-    border-left:3px dashed var(--orange); opacity:.45; }
-  .trail li { display:grid; grid-template-columns:52px 1fr; gap:16px; align-items:start; position:relative; }
-  .trail .paw { width:52px; height:52px; border-radius:50%; background:var(--paper);
-    border:2px solid var(--orange); display:grid; place-items:center; color:var(--orange-deep); }
-  .trail .paw svg { width:26px; height:26px; }
-  .trail h3 { font-size:1.06rem; margin:10px 0 2px; }
-  .trail p { color:var(--ink-soft); font-size:.96rem; }
-  .subjects { text-align:center; margin-top:30px; font-family:var(--display); font-weight:700; font-size:1.2rem; color:var(--orange-deep); letter-spacing:.01em; } /* ≥18.66px bold = large text: orange-deep on tint is 4.42:1, passes at 3:1 */
-  a.more { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-flex; align-items:center; min-height:44px; }  /* standalone link rows clear the 44px tap floor (inline links inside a sentence are exempt, WCAG 2.5.8) */
-  a.more:hover { color:var(--orange-deep); }
-
-  /* v3.2: the above-fold kid-view screenshot + the ruled five-item trust strip */
-  .hero-shot { margin:30px auto 0; max-width:440px; } /* phones: stacked under the copy at full content width */
-  .hero-shot .frame { border-radius:22px; overflow:hidden; border:1px solid var(--line);
-    box-shadow:0 10px 34px rgba(44,44,44,.10); background:#FDFBF5; }
-  .hero-shot svg, .hero-shot img { display:block; width:100%; height:auto; }
-  .strip { background:var(--band); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-  .strip p { max-width:820px; margin:0 auto; padding:14px 22px; text-align:center;
-    font-size:.95rem; color:var(--ink-soft); font-weight:600; }
-  .trust { background:var(--band); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-  .trust ul { list-style:none; margin:0 auto; padding:0; max-width:760px;
-    display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:14px 26px; }
-  .trust li { display:flex; gap:12px; align-items:center; font-size:1rem; }
-  .trust .chip { flex:0 0 34px; width:34px; height:34px; border-radius:10px; background:var(--paper);
-    border:1px solid var(--line); display:grid; place-items:center; color:var(--orange-deep); }
-  .trust .chip svg { width:18px; height:18px; }
-  .trust-points { list-style:none; margin:34px auto 0; padding:0; max-width:860px; display:grid; grid-template-columns:1fr; gap:22px 40px; }
-  @media (min-width:700px){ .trust-points { grid-template-columns:1fr 1fr; } }
-  .trust-points li { display:flex; gap:14px; align-items:flex-start; }
-  .trust-points strong { display:block; font-family:var(--display); font-weight:700; font-size:1.12rem; margin-top:4px; }
-  .trust-points p { color:var(--ink-soft); font-size:.98rem; margin-top:4px; max-width:36ch; }
-  .trust-line { text-align:center; margin-top:34px; font-weight:600; }
-  .trust-founder { text-align:center; margin-top:10px; color:var(--ink-soft); font-size:.98rem; max-width:60ch; margin-inline:auto; }
-  .trust-founder a { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-block; padding-block:6px; }
-  .trust .links { text-align:center; margin-top:22px; font-size:.95rem; color:var(--ink-soft); }
-  .trust .links a { color:var(--ink); text-decoration:underline; text-underline-offset:3px; display:inline-block; padding-block:10px; } /* 12.5:1 on the band (orange-deep was 4.30:1); 8px pad → 34px+ tap height */
-
-  .founder .inner { max-width:560px; margin:0 auto; text-align:center; }
-  .founder p { margin-top:12px; }
-  .founder .sig { margin-top:14px; color:var(--ink-soft); font-size:.95rem; }
-  .founder .btn { display:inline-block; margin-top:24px; padding:15px 32px; font-size:1.12rem; min-height:48px; }
-
-  .faq { max-width:640px; margin:0 auto; display:grid; gap:10px; }
-  .faq details { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:2px 18px; }
-  .faq summary { cursor:pointer; font-weight:700; font-size:1rem; padding:12px 0; list-style:none;
-    display:flex; justify-content:space-between; align-items:center; gap:12px; }
-  .faq summary::-webkit-details-marker { display:none; }
-  .faq summary::after { content:"+" / ""; color:var(--orange-deep); font-family:var(--display); font-weight:800; font-size:1.3rem; flex:0 0 auto; }
-  .faq details[open] summary::after { content:"–" / ""; }
-  .faq summary:focus-visible { outline:3px solid var(--orange-deep); outline-offset:2px; border-radius:8px; } /* #EE6F1E ring was 2.9:1 on paper; --orange-deep is 4.85:1 */
-  .faq details p { color:var(--ink-soft); font-size:.96rem; padding:0 0 14px; }
-
-  .beta { background:var(--paper); border:1px solid var(--line); border-radius:22px; padding:36px 26px; max-width:560px; margin:0 auto; }
-  .beta h2 { text-align:center; }
-  .beta .note { text-align:center; color:var(--ink-soft); margin:8px 0 22px; }
-  .beta label { display:block; font-weight:600; font-size:.95rem; margin:18px 0 6px; }
-  .beta input[type="email"], .beta select, .beta textarea {
-    width:100%; font:inherit; color:var(--ink); background:var(--cream);
-    border:1.5px solid var(--field-line); border-radius:12px; padding:13px 14px; }
-  .beta input:focus,.beta select:focus,.beta textarea:focus { outline:3px solid var(--orange-deep); outline-offset:1px; border-color:transparent; }
-  .ages { display:flex; gap:10px; }
-  .ages label { flex:1; margin:0; text-align:center; font-weight:600; cursor:pointer; position:relative;
-    background:var(--cream); border:1.5px solid var(--field-line); border-radius:12px; padding:13px 10px 13px 34px; }
-  /* the native radio stays IN the pill (visible, 18px) — the checked state no longer depends on :has() or on a 2.7:1 border tint */
-  .ages input { position:absolute; left:12px; top:50%; transform:translateY(-50%); width:18px; height:18px; margin:0; accent-color:var(--orange-deep); }
-  .ages label:has(input:checked){ border-color:var(--orange-deep); border-width:2px; background:var(--tint); }
-  .ages label:has(input:focus-visible){ outline:3px solid var(--orange-deep); outline-offset:1px; }
-  .beta button.btn { width:100%; margin-top:26px; padding:15px; font-size:1.1rem; min-height:48px; }
-  .beta button[disabled] { opacity:.6; cursor:default; }
-  .form-msg { margin-top:16px; text-align:center; font-size:.98rem; min-height:1.5em; } /* always in the tree so the live region exists BEFORE it is populated */
-  .form-msg:focus { outline:none; }
-  .form-msg.ok { color:var(--orange-deep); font-weight:700; }
-  .form-msg.err { color:#8c2f0d; }
-  .beta-2 { margin-top:22px; }
-  .beta-2 h3 { text-align:center; font-size:1.25rem; }
-  .beta-2 h3:focus { outline:none; }
-
-
-  .method-strip { display:flex; gap:12px; justify-content:center; align-items:center; flex-wrap:wrap; }
-  .method-strip span { background:var(--paper); border:1.5px solid var(--orange); border-radius:999px; padding:10px 20px; font-family:var(--display); font-weight:700; color:var(--orange-deep); }
-  .method-strip .arrow { background:none; border:0; padding:0; color:var(--ink-soft); font-weight:400; font-family:var(--body); }
-  .compare { max-width:640px; margin:0 auto; background:var(--paper); border:1px solid var(--line); border-radius:18px; overflow:hidden; }
-  .compare .c-head, .compare .c-row { display:grid; grid-template-columns:1fr 1fr; }
-  .compare .c-head span { font-family:var(--display); font-weight:800; padding:14px 18px; font-size:1.17rem; } /* ≥18.67px bold = large text; orange-deep on tint (4.42:1) then passes */
-  .compare .c-head span:last-child { color:var(--orange-deep); }
-  .compare .c-row { border-top:1px solid var(--line); }
-  .compare .c-row span { padding:12px 18px; font-size:.96rem; color:var(--ink-soft); }
-  .compare .c-row span:last-child { color:var(--ink); font-weight:600; border-left:1px solid var(--line); }
-  .compare .c-head span:last-child, .compare .c-row span:last-child { background:var(--tint); }
-  footer { border-top:1px solid var(--line); padding:38px 0 50px; text-align:center; color:var(--ink-soft); font-size:.95rem; }
-  footer .brand { justify-content:center; margin:0 auto 14px; }
-  footer .pup { width:60px; height:60px; border-radius:50%; overflow:hidden; margin:0 auto 14px;
-    background:var(--paper); border:1px solid var(--line); }
-  footer .pup img { width:100%; height:100%; object-fit:cover; }
-  footer nav { margin-bottom:10px; display:flex; gap:6px 18px; justify-content:center; flex-wrap:wrap; }
-  footer nav a { display:inline-flex; align-items:center; min-height:44px; padding-inline:4px; }  /* 44px tap floor */
+  @media (prefers-reduced-motion:reduce) { .js .fade { opacity:1 !important; transform:none !important; } }
 </style>
 <style>
   /* page-specific: a reading column for the secondary pages */
@@ -315,7 +240,7 @@
   .page p { margin-top:10px; max-width:var(--measure); }
   .page ul.checks { list-style:none; margin:12px 0 0; padding:0; display:grid; gap:9px; }
   .page ul.checks li { display:flex; gap:10px; align-items:flex-start; }
-  .page ul.checks svg { flex:0 0 16px; width:16px; height:16px; margin-top:6px; color:var(--orange-deep); }
+  .page ul.checks svg { flex:0 0 16px; width:16px; height:16px; margin-top:6px; color:var(--orange-text); }
   .page .cta-row { margin-top:36px; }
   .page .cta-row .btn { padding:15px 32px; font-size:1.08rem; min-height:48px; display:inline-block; }
   .page .back { display:inline-block; margin-top:28px; }
@@ -323,9 +248,19 @@
   .page .method-strip { justify-content:flex-start; margin-top:14px; }
   .page .faq { max-width:none; margin:18px 0 0; }
   .page .trust-points { margin-top:18px; max-width:none; }
-  .page .chip { flex:0 0 34px; width:34px; height:34px; border-radius:10px; background:var(--paper); border:1px solid var(--line); display:grid; place-items:center; color:var(--orange-deep); }
+  .page .chip { flex:0 0 34px; width:34px; height:34px; border-radius:10px; background:var(--paper); border:1px solid var(--line); display:grid; place-items:center; color:var(--orange-text); }
   .page .chip svg { width:18px; height:18px; }
   .page .sig { color:var(--ink-soft); font-size:.96rem; }
+  .page .trail { list-style:none; max-width:600px; margin:22px auto 0; padding:0; position:relative; display:grid; gap:24px; }
+  .page .trail::before { content:""; position:absolute; left:25px; top:26px; bottom:26px; border-left:3px dashed var(--orange); opacity:.45; }
+  .page .trail li { display:grid; grid-template-columns:52px 1fr; gap:16px; align-items:start; position:relative; }
+  .page .trail .paw { width:52px; height:52px; border-radius:50%; background:var(--paper); border:2px solid var(--orange); display:grid; place-items:center; color:var(--orange-text); }
+  .page .trail .paw svg { width:26px; height:26px; }
+  .page .trail h3 { font-size:1.06rem; margin:10px 0 2px; }
+  .page .trail p { color:var(--ink-soft); font-size:.96rem; }
+  .page .method-strip { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+  .page .method-strip span { background:var(--paper); border:1.5px solid var(--orange); border-radius:999px; padding:10px 20px; font-weight:800; color:var(--orange-text); }
+  .page .method-strip .arrow { background:none; border:0; padding:0; color:var(--ink-soft); font-weight:400; }
   a.more { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-flex; align-items:center; min-height:44px; }
 </style>
 </head>
@@ -342,25 +277,36 @@
   <g id="i-speak" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4.4 4.4 0 0 1 0 6M18 6.6a8 8 0 0 1 0 10.8"/></g>
   <g id="i-abc" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l3.2-9 3.2 9M5.2 14h4M14 8.5h3.6a2.2 2.2 0 0 1 0 4.4H14zM14 12.9h4a2.3 2.3 0 0 1 0 4.6h-4z" transform="translate(0 -0.7)"/></g>
   <g id="i-book" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5C10.5 5 8.4 4.4 4 4.6v13.6c4.4-.2 6.5.4 8 1.9 1.5-1.5 3.6-2.1 8-1.9V4.6c-4.4-.2-6.5.4-8 1.9z"/><path d="M12 6.5v13.6"/></g>
+  <g id="i-nochat" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 4.5h-17v10h3.5v4l4.5-4h9z"/><path d="M4 3.4 20.6 20"/></g>
   <g id="i-times" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="7" cy="7" r="2.1"/><circle cx="17" cy="7" r="2.1"/><circle cx="7" cy="17" r="2.1"/><circle cx="17" cy="17" r="2.1"/></g>
 </defs></svg>
 
 <a class="skip" href="#main">Skip to content</a>
 <header class="top">
-  <div class="bar">
-    <!-- The FROZEN primary lockup (APPROVED_LOCKED_2026-08-18). Desktop/tablet: a 374×120@2x raster rendered from the
-         untouched B master (sha 6e05d33d…, provenance in docs/LAUNCH_LOG.md). Phones (≤600): the approved one-line
-         wordmark master D, per the frozen system's small-size rule. Never retyped, never rebuilt in CSS. -->
-    <a class="brand" href="/" aria-label="Professor Paws — home"><picture>
-      <source type="image/webp" srcset="/assets/brand/B_primary_horizontal_lockup-374w.webp" />
-      <img class="brand-logo" src="/assets/brand/B_primary_horizontal_lockup-374w.png" width="374" height="120" alt="Professor Paws" />
-    </picture></a>
-    <nav aria-label="Sections">
-      <a href="/how-it-works/">How it works</a>
-      <a href="/safety/">Safety</a>
-      <a href="/faq/">FAQ</a>
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Professor Paws — home">
+      <picture>
+        <source srcset="/assets/logo/logo-horizontal-374w.webp" type="image/webp" />
+        <img class="brand-logo" src="/assets/logo/logo-horizontal-374w.png" width="187" height="60" fetchpriority="high" decoding="sync" alt="Professor Paws" />
+      </picture>
+    </a>
+    <nav aria-label="Primary">
+      <a class="navlink" href="/how-it-works/">How it works</a>
+      <a class="navlink" href="/safety/">Safety</a>
+      <a class="navlink" href="/faq/">FAQ</a>
+      <a class="navlink" href="/about/">About</a>
+      <a class="btn" href="/#beta" data-cta="header">Join the waitlist</a>
+      <details class="menu">
+        <summary aria-label="Menu"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></summary>
+        <div class="menu-panel">
+          <a href="/how-it-works/">How it works</a>
+          <a href="/safety/">Safety</a>
+          <a href="/faq/">FAQ</a>
+          <a href="/about/">About</a>
+          <a class="menu-cta" href="/#beta" data-cta="header">Join the waitlist</a>
+        </div>
+      </details>
     </nav>
-    <a class="btn" href="/#beta" data-cta="header">Request beta access</a>
   </div>
 </header>
 <main id="main">
@@ -406,7 +352,8 @@
 
 <footer>
   <div class="wrap">
-    <a class="brand" href="/" aria-label="Professor Paws — home"><img class="brand-logo-footer" src="/assets/brand/A_wordmark.svg" width="311" height="152" loading="lazy" alt="Professor Paws" /></a>
+    <a class="brand" href="/" aria-label="Professor Paws — home"><img class="brand-logo-footer" src="/assets/logo/wordmark-reversed-white.svg" width="190" height="93" loading="lazy" decoding="async" alt="Professor Paws" /></a>
+    <p style="margin-top:12px; font-weight:700; color:#EAF1F0;">Step by step. Confidence for life.</p>
     <nav aria-label="Footer">
       <a href="/about/">About</a>
       <a href="/how-it-works/">How it works</a>
