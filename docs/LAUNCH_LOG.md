@@ -215,6 +215,44 @@ Ten owner rulings executed: responsive ship + tablet fixes · metadata/claims/US
 - Files: index.html (picture source for phones removed; .brand img.brand-logo phone size 150×48 + comment), docs/LAUNCH_LOG.md.
 - QA: CDP measurements at 375/390/430 (no clip, no overflow), full-page screenshot diff 375/768/1280 vs live fd063b0, live-vs-branch byte compare after deploy.
 
+## 2026-08-20 — THE APP ICON FREEZE WAS LIFTED, AND RE-ESTABLISHED THE SAME DAY
+
+**The 18 August icon freeze is superseded.** The owner lifted it on 2026-08-20 — *"the dog should be closer on the
+icon like duolingo with apparent eyes and face like it feels like its closer to you and vibrant looking app"*, then,
+shown a rendered comparison of three crops at 240/120/60/40pt, *"A is best"*. The ground moved from teal to orange
+on his correction *"orange instead of teal"*.
+
+**Why lifting it was right.** The 18 August icon showed the whole sitting mascot — body, tail and paws — and at 40pt,
+the size an icon is actually seen at, it resolved to an unreadable yellow smudge. A mark that fails at its working
+size is not doing its job however carefully it was frozen. The replacement is a CROP of the same canonical mascot:
+nothing redrawn, no second dog, the mascot's own pixels untouched.
+
+| | sha256 |
+|---|---|
+| new master (orange, face crop) | `995b3fd3c5362f048044e4ae05b701d1d7ae0d57d123db6566649fe87c92fee2` |
+| superseded (teal, whole dog) | `2b0a57099e16446ded8dc8faeba495605e3a668e743bdc35919429038bdbf2f3` |
+
+**The new freeze:** `~/Documents/professor_paws_icon/APPROVED_LOCKED_2026-08-20/` — masters, a size ladder, the
+source mascot, the superseded icon kept for provenance, `MANIFEST.json`, `SHA256SUMS.txt` (14 files, all verified),
+read-only. The manifest carries a **reproducible recipe** — the exact crop boxes and the splash's alpha-ramp
+exponent — so either mark can be rebuilt byte-for-byte rather than re-derived by eye.
+
+**Superseded in both directions.** A `SUPERSEDED_NOTICE.md` was added to
+`~/Documents/professor_paws_brand/APPROVED_LOCKED_2026-08-18/` voiding that directory's three app-icon statements
+(the "teal … the app-icon background verbatim" line, the App icon row, and `MANIFEST.json → app_icon`). Its
+**wordmark** masters are unaffected and its own checksums still pass — 47/47 verified after the notice was added,
+because the notice is a new file and nothing frozen was edited.
+
+*A frozen directory that describes an abandoned asset is worse than no freeze: it is a record that lies with
+authority. Supersede on the day, in both directions.*
+
+**FOLLOW-UP THIS CREATES — the website's own icons are now stale.** The entry of 2026-08-19 records
+`favicon.ico`, `assets/favicon-32.png` and `assets/apple-touch-icon.png` as RESIZED from the frozen App Store icon
+`2b0a5709…`. That icon is now the superseded one, so the site ships a teal favicon while the app moves to orange.
+Not corrected here: the site is mid-review on branch `site-brand-system` and this is a deliberate, recorded debt
+rather than a silent drift.
+
+
 ## 2026-08-20 — Logo system, Option A (owner ruling)
 
 The board supplies the COMPOSITION; the dog stays frozen. The board's own dog is an AI-generated
