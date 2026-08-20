@@ -45,6 +45,11 @@
     --cream:#FBF8F3; --paper:#FDFBF5; --band:#F3EDE0; --tint:#FDEEE2;
     --ink:#2C2C2C; --ink-soft:#6B665E;
     --orange:#EE6F1E; --orange-deep:#B4530A;
+    /* TEAL ACTION (owner 2026-08-19: "make the button teal instead of orange"). The BRAND teal #14AAA3 is
+       the frozen wordmark's teal and stays exact wherever the mark appears — but white text on it is
+       2.87:1, which fails AA, so the ACTION teal is a darkened step exactly as --orange-deep is a darkened
+       --orange (white on #0F7A76 = 5.17:1, versus 5.02:1 for the orange it replaces: no contrast lost). */
+    --teal:#14AAA3; --teal-deep:#0F7A76;
     --line:rgba(44,44,44,.13);
     --field-line:rgba(44,44,44,.42);   /* form-field extent must be visible: .13 was 1.27:1 on paper; .42 ≈ 3.2:1 */
     /* SITE TONE FIX (owner-directed 2026-08-17): headings in a WARM SERIF — serif reads
@@ -132,7 +137,7 @@
   .top nav a:hover { color:var(--orange-deep); }
   /* Owner ruling 2026-08-19: buttons rest on --orange-deep (white on #B4530A = 5.02:1); white on #EE6F1E was 3.03:1 at
      15.7–18px bold — a fragile pass at best, a fail at these sizes. Hover goes one step darker for feedback. */
-  .btn { display:inline-block; background:var(--orange-deep); color:#fff; text-decoration:none;
+  .btn { display:inline-block; background:var(--teal-deep); color:#fff; text-decoration:none;
     font-family:var(--display); font-weight:700; border:0; border-radius:14px; cursor:pointer; }
   .btn:hover { background:#9A4708; }
   .btn:focus-visible { outline:3px solid var(--ink); outline-offset:3px; }
