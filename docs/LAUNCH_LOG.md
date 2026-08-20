@@ -214,3 +214,38 @@ Ten owner rulings executed: responsive ship + tablet fixes · metadata/claims/US
   6e05d33d…); no new variant was invented.
 - Files: index.html (picture source for phones removed; .brand img.brand-logo phone size 150×48 + comment), docs/LAUNCH_LOG.md.
 - QA: CDP measurements at 375/390/430 (no clip, no overflow), full-page screenshot diff 375/768/1280 vs live fd063b0, live-vs-branch byte compare after deploy.
+
+## 2026-08-20 — Logo system, Option A (owner ruling)
+
+The board supplies the COMPOSITION; the dog stays frozen. The board's own dog is an AI-generated
+retriever with a collar and tag — a different animal from the approved mascot (sha `2b0a5709…`),
+which is what build 21 ships as its App Store icon. Adopting the board's dog would have put one dog
+on the website and another on the home screen. Owner ruled Option A: keep the frozen mascot, take
+the navy card, the badge, the heavier PROFESSOR and the script "Paws".
+
+**Type.** PROFESSOR is Nunito 800 (already self-hosted, already the body face). "Paws" is
+Grandstander italic 800 — tested against Pacifico, Baloo 2 800 and Fredoka 600. Pacifico is the most
+literally script-like but reads retro-cafe against the "premium/modern" direction; Baloo and Fredoka
+are rounded but upright, so they are not script at all. Grandstander italic is bold, slanted and
+rounded — the closest to the board's marker script while staying modern. SIL OFL, latin subset,
+self-hosted, build-time only (the lockups ship as rasters).
+
+**The teal dashes and the trailing paw print are OMITTED**, on the owner's instruction to keep them
+only if the mark is objectively stronger with them. Rendered both ways at 126px, on a dark card, and
+at 60/44/32px. It is not stronger: a single leading dash reads as a hyphen — "-Paws" looks like a
+typographic error rather than a flourish — and at 32px the whole flourish collapses into noise. If
+they are ever wanted, they need proper symmetric vector marks and belong only on the primary lockup,
+never on the compact one.
+
+**The badge is ringed in white only on dark grounds**, matching the board; on a light ground the
+teal disc stands alone.
+
+**Trap recorded:** headless Chrome paints an opaque page unless
+`Emulation.setDefaultBackgroundColorOverride` is set to alpha 0 — the first render shipped a cream
+rectangle behind every lockup, plainly visible against the header. `background:transparent` on
+`html,body` is not sufficient.
+
+**Subset trap recorded (again):** the Google Fonts `css2` response lists cyrillic-ext FIRST. Taking
+the first `.woff2` URL yields a font with no Latin glyphs, and the page silently falls back to a
+serif. Always select the `@font-face` block whose `unicode-range` contains `U+0000-00FF`.
+

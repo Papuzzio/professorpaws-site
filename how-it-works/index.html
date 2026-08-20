@@ -98,7 +98,7 @@
   header.top { position:sticky; top:0; z-index:40; background:rgba(255,248,238,.92); backdrop-filter:saturate(150%) blur(10px); border-bottom:1px solid var(--line); }
   header.top .wrap { display:flex; align-items:center; gap:20px; min-height:72px; padding-block:10px; }
   .brand { display:inline-flex; align-items:center; text-decoration:none; flex:0 0 auto; }
-  .brand-logo { width:184px; height:60px; display:block; }   /* true aspect 3.0702 — do not round to a squashed box */
+  .brand-logo { width:176px; height:60px; display:block; }   /* true aspect 2.9265 — do not round to a squashed box */
   header.top nav { margin-left:auto; display:flex; align-items:center; gap:4px; }
   header.top nav a { font-weight:700; font-size:.97rem; text-decoration:none; color:var(--navy); padding:10px 12px; border-radius:10px; display:inline-flex; align-items:center; min-height:44px; }
   header.top nav a:hover { background:rgba(20,33,61,.06); }
@@ -116,7 +116,7 @@
   .menu-cta:hover { background:#0C6A66; }
   @media (min-width:521px) { .menu-cta { display:none; } }   /* above 520 the header keeps its own button */
   @media (max-width:520px) { header.top nav > a.btn { display:none; } header.top .wrap { gap:12px; } }
-  @media (max-width:860px) { header.top nav a.navlink { display:none; } .brand-logo { width:147px; height:48px; } header.top .wrap { min-height:64px; } }
+  @media (max-width:860px) { header.top nav a.navlink { display:none; } .brand-logo { width:140px; height:48px; } header.top .wrap { min-height:64px; } }
 
   /* ═══ HERO ═══
      NOTE: `section.wrap{padding-block:0}` out-specifies a bare `.hero{padding-block:…}` — the live site shipped a
@@ -218,7 +218,7 @@
 
   /* ═══ FOOTER ═══ */
   footer { background:var(--navy); color:#EAF1F0; padding-block:44px 36px; margin-top:0; }
-  footer .brand-logo-footer { width:216px; height:70px; display:block; }   /* true aspect 3.0919 */
+  footer .brand-logo-footer { width:205px; height:70px; display:block; }   /* true aspect 2.9265 */
   footer nav { display:flex; flex-wrap:wrap; gap:6px 22px; margin-top:22px; }
   footer nav a { color:#EAF1F0; font-weight:600; font-size:.96rem; text-decoration:none; display:inline-flex; align-items:center; min-height:44px; opacity:.92; }
   footer nav a:hover { opacity:1; text-decoration:underline; text-underline-offset:3px; }
@@ -286,8 +286,8 @@
   <div class="wrap">
     <a class="brand" href="/" aria-label="Professor Paws — home">
       <picture>
-        <source srcset="/assets/logo/logo-horizontal-374w.webp" type="image/webp" />
-        <img class="brand-logo" src="/assets/logo/logo-horizontal-374w.png" width="184" height="60" fetchpriority="high" decoding="sync" alt="Professor Paws" />
+        <source srcset="/assets/logo/lockup-horizontal-light.webp" type="image/webp" />
+        <img class="brand-logo" src="/assets/logo/lockup-horizontal-light.png" width="176" height="60" fetchpriority="high" decoding="sync" alt="Professor Paws" />
       </picture>
     </a>
     <nav aria-label="Primary">
@@ -368,7 +368,7 @@
 
 <footer>
   <div class="wrap">
-    <a class="brand" href="/" aria-label="Professor Paws — home"><img class="brand-logo-footer" src="/assets/logo/logo-dark-bg.svg" width="216" height="70" loading="lazy" decoding="async" alt="Professor Paws" /></a>
+    <a class="brand" href="/" aria-label="Professor Paws — home"><img class="brand-logo-footer" src="/assets/logo/lockup-horizontal-dark.png" width="205" height="70" loading="lazy" decoding="async" alt="Professor Paws" /></a>
     <nav aria-label="Footer">
       <a href="/about/">About</a>
       <a href="/how-it-works/">How it works</a>
