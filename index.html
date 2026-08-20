@@ -116,7 +116,7 @@
   header.top { position:sticky; top:0; z-index:40; background:rgba(255,248,238,.92); backdrop-filter:saturate(150%) blur(10px); border-bottom:1px solid var(--line); }
   header.top .wrap { display:flex; align-items:center; gap:20px; min-height:72px; padding-block:10px; }
   .brand { display:inline-flex; align-items:center; text-decoration:none; flex:0 0 auto; }
-  .brand-logo { width:187px; height:60px; display:block; }
+  .brand-logo { width:184px; height:60px; display:block; }   /* true aspect 3.0702 — do not round to a squashed box */
   header.top nav { margin-left:auto; display:flex; align-items:center; gap:4px; }
   header.top nav a { font-weight:700; font-size:.97rem; text-decoration:none; color:var(--navy); padding:10px 12px; border-radius:10px; display:inline-flex; align-items:center; min-height:44px; }
   header.top nav a:hover { background:rgba(20,33,61,.06); }
@@ -134,14 +134,14 @@
   .menu-cta:hover { background:#0C6A66; }
   @media (min-width:521px) { .menu-cta { display:none; } }   /* above 520 the header keeps its own button */
   @media (max-width:520px) { header.top nav > a.btn { display:none; } header.top .wrap { gap:12px; } }
-  @media (max-width:860px) { header.top nav a.navlink { display:none; } .brand-logo { width:150px; height:48px; } header.top .wrap { min-height:64px; } }
+  @media (max-width:860px) { header.top nav a.navlink { display:none; } .brand-logo { width:147px; height:48px; } header.top .wrap { min-height:64px; } }
 
   /* ═══ HERO ═══
      NOTE: `section.wrap{padding-block:0}` out-specifies a bare `.hero{padding-block:…}` — the live site shipped a
      hero with zero block padding for exactly this reason. The double class is deliberate; do not "simplify" it. */
   .hero.wrap { padding-block:clamp(36px,6vw,64px) clamp(40px,6vw,68px); }
   .hero-grid { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); gap:clamp(28px,5vw,56px); align-items:center; }
-  .eyebrow { display:inline-flex; align-items:center; gap:9px; font-weight:800; font-size:.78rem; letter-spacing:.11em; text-transform:uppercase; color:#A34A08; background:#FFEEDF; border-radius:999px; padding:7px 14px; }
+  .eyebrow { display:inline-flex; align-items:center; gap:9px; text-wrap:balance; font-weight:800; font-size:.78rem; letter-spacing:.11em; text-transform:uppercase; color:#A34A08; background:#FFEEDF; border-radius:999px; padding:7px 14px; }
   .eyebrow svg { width:15px; height:15px; }
   h1 { font-size:clamp(2.05rem,5.1vw,3.15rem); margin-top:18px; max-width:17ch; }
   .sub { margin-top:16px; font-size:1.12rem; color:var(--ink-soft); max-width:52ch; line-height:1.6; }
@@ -197,6 +197,8 @@
   .diff-list .chip svg { width:18px; height:18px; }
   .diff-list strong { font-weight:800; }
   .diff-list p { color:var(--ink-soft); font-size:.98rem; margin-top:2px; }
+  .no-label { margin-top:24px; padding:16px 18px; background:var(--paper); border:1px solid var(--line); border-left:5px solid var(--teal-deep); border-radius:12px; font-size:1rem; }
+  .no-label strong { font-weight:800; }
   .diff-art img { width:100%; border-radius:var(--r-lg); box-shadow:var(--shadow); background:#fff; display:block; }
   @media (max-width:860px) { .diff-grid { grid-template-columns:1fr; } .diff-art { max-width:420px; } }
 
@@ -234,7 +236,7 @@
 
   /* ═══ FOOTER ═══ */
   footer { background:var(--navy); color:#EAF1F0; padding-block:44px 36px; margin-top:0; }
-  footer .brand-logo-footer { width:190px; height:auto; display:block; }
+  footer .brand-logo-footer { width:216px; height:70px; display:block; }   /* true aspect 3.0919 */
   footer nav { display:flex; flex-wrap:wrap; gap:6px 22px; margin-top:22px; }
   footer nav a { color:#EAF1F0; font-weight:600; font-size:.96rem; text-decoration:none; display:inline-flex; align-items:center; min-height:44px; opacity:.92; }
   footer nav a:hover { opacity:1; text-decoration:underline; text-underline-offset:3px; }
@@ -271,7 +273,7 @@
     <a class="brand" href="/" aria-label="Professor Paws — home">
       <picture>
         <source srcset="/assets/logo/logo-horizontal-374w.webp" type="image/webp" />
-        <img class="brand-logo" src="/assets/logo/logo-horizontal-374w.png" width="187" height="60" fetchpriority="high" decoding="sync" alt="Professor Paws" />
+        <img class="brand-logo" src="/assets/logo/logo-horizontal-374w.png" width="184" height="60" fetchpriority="high" decoding="sync" alt="Professor Paws" />
       </picture>
     </a>
     <nav aria-label="Primary">
@@ -304,7 +306,7 @@
 <section class="hero wrap">
   <div class="hero-grid">
     <div>
-      <p class="eyebrow"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-paw"/></svg> Homework help for ages 8–13</p>
+      <p class="eyebrow"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-paw"/></svg> When homework stops before it starts · Ages 8–13</p>
       <h1>Homework help for kids who shut down, rush, or melt down over schoolwork.</h1>
       <p class="sub">Professor Paws takes the work school actually sent home and turns it into one calm step at a time — <strong>teaching the next step instead of handing over the answer</strong>.</p>
       <div class="cta-row">
@@ -338,7 +340,7 @@
 <section class="wrap sec">
   <div class="sec-head fade">
     <span class="mark" aria-hidden="true"></span>
-    <h2>The work that's already in the backpack.</h2>
+    <h2>No new homework. Just tonight's, made smaller.</h2>
     <p class="lede">You don't pick a curriculum. You add tonight's actual homework — type it or paste it in — and Professor Paws builds the practice around it.</p>
   </div>
   <ul class="subjects fade">
@@ -370,8 +372,8 @@
   <div class="wrap sec">
     <div class="sec-head fade">
       <span class="mark" aria-hidden="true"></span>
-      <h2>Three steps, then it's their turn.</h2>
-      <p class="lede">A parent sets it up once. After that it's the child's — no adult sitting beside them decoding the instructions.</p>
+      <h2>Set it up once. Then you can leave the room.</h2>
+      <p class="lede">You add the homework. After that it's your child's — nobody has to sit beside them reading the instructions out loud.</p>
     </div>
     <ol class="steps fade">
       <li>
@@ -412,13 +414,14 @@
         </li>
         <li>
           <span class="chip" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-hand"/></svg></span>
-          <div><strong>Things to move, not just numbers</strong><p>Blocks, coins, bars and clock hands the child actually drags — the screen shows the problem and never the answer.</p></div>
+          <div><strong>When numbers on a page mean nothing yet</strong><p>Blocks, coins, bars and clock hands the child actually drags — the screen shows the problem and never the answer.</p></div>
         </li>
         <li>
           <span class="chip" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-loop"/></svg></span>
           <div><strong>When being wrong is the thing they're avoiding</strong><p>No timer, no streak to break, and a wrong answer never costs them anything they've earned. It gets a smaller step, not a red cross.</p></div>
         </li>
       </ul>
+      <p class="no-label"><strong>You don't need a diagnosis, a referral, or a label.</strong> If you recognised your child in that list, this was built for them.</p>
     </div>
     <div class="diff-art fade">
       <picture>
@@ -472,7 +475,7 @@
 
 <section class="wrap" id="beta" style="padding-block:24px 72px;">
   <form class="beta fade" action="https://formspree.io/f/xlgyqkaq" method="POST" novalidate aria-labelledby="beta-h2">
-    <h2 id="beta-h2">Make homework feel possible again.</h2>
+    <h2 id="beta-h2">Get to the end of homework without the fight.</h2>
     <p class="note">Free private beta for families of children ages 8–13. No payment required.</p>
 
     <label for="parent-email">Parent email</label>
@@ -523,7 +526,7 @@
 
 <footer>
   <div class="wrap">
-    <a class="brand" href="/" aria-label="Professor Paws — home"><img class="brand-logo-footer" src="/assets/logo/wordmark-reversed-white.svg" width="190" height="93" loading="lazy" decoding="async" alt="Professor Paws" /></a>
+    <a class="brand" href="/" aria-label="Professor Paws — home"><img class="brand-logo-footer" src="/assets/logo/logo-dark-bg.svg" width="216" height="70" loading="lazy" decoding="async" alt="Professor Paws" /></a>
     <nav aria-label="Footer">
       <a href="/about/">About</a>
       <a href="/how-it-works/">How it works</a>
