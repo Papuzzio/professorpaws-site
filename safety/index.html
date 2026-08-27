@@ -106,7 +106,7 @@
      and recorded in docs/LAUNCH_LOG.md with the measurement. */
   @media (max-width:600px){ .brand img.brand-logo { width:57px; height:56px; } }
   .brand picture { display:contents; }
-  .brand img.brand-logo-footer { display:block; width:140px; height:68px; margin-inline:auto; }
+  .brand img.brand-logo-footer { display:block; width:155px; height:66px; margin-inline:auto; }  /* 2026-08-27: approved footer wordmark, 2.35:1 */
   .beta .hint { display:block; font-weight:400; font-size:.9rem; color:var(--ink-soft); margin-top:4px; }
   @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto}
     .fade{opacity:1;transform:none;transition:none} .hero-pup{animation:none!important} }
@@ -403,7 +403,10 @@
 
 <footer>
   <div class="wrap">
-    <a class="brand" href="/" aria-label="Professor Paws — home"><img class="brand-logo-footer" src="/assets/brand/A_wordmark.svg" width="311" height="152" loading="lazy" alt="Professor Paws" /></a>
+    <a class="brand" href="/" aria-label="Professor Paws — home"><picture>
+      <source type="image/webp" srcset="/assets/brand/professor-paws-wordmark.webp" />
+      <img class="brand-logo-footer" src="/assets/brand/professor-paws-wordmark.png" width="310" height="132" loading="lazy" alt="Professor Paws" />
+    </picture></a>
     <nav aria-label="Footer">
       <a href="/about/">About</a>
       <a href="/how-it-works/">How it works</a>
