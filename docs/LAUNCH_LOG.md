@@ -262,8 +262,14 @@ is already live and working, and reversing now reopens a decision on taste that 
 measurement.
 
 **AN HONEST CAVEAT, recorded because it cuts against the ruling.** That measurement compares teal to
-TEAL. `c1bb720`'s own pairing — Deep Ink `#14213D` on Professor Orange `#F59A23` — measures
-**6.91:1**, better than the teal it would replace. So contrast alone does not defeat navy-on-orange;
+TEAL. The orange pairing beats it either way, and the two numbers in circulation are BOTH RIGHT
+because they are different swatches — record them with their source or the next reader will think one
+is a mistake:
+  * Deep Ink `#14213D` on **`#FF8C42`** = **6.91:1** — the orange `c1bb720` actually shipped.
+  * Deep Ink `#14213D` on **`#F59A23`** = **7.25:1** — *Professor Orange*, the post-freeze `--orange`
+    and the value the hero-polish brief specifies. (Lane A raised the discrepancy; recomputed here
+    independently — Deep Ink luminance 0.015734, Professor Orange 0.426450.)
+Against white-on-teal at 5.17:1, both beat the teal they would replace. So contrast alone does not defeat navy-on-orange;
 what settles it is that teal is live, working, and one line away from being changed. A concurrent
 hero-polish brief (Lane A, also dated 2026-08-27) specifies the orange pairing, so this is an OPEN
 CONFLICT for the owner, not a closed one. Neither lane treated the other's brief as authority.
