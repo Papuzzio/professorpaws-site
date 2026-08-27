@@ -298,3 +298,41 @@ pair at rest AND on hover, with that exact mutant in `--selftest`.
 
 Verified live by fetching all seven pages: the token is served on all five button pages, zero orange
 remains in CSS (comments excluded), `/privacy` and `/terms` have no buttons.
+
+---
+
+## STANDING LESSON — pages no build step reaches do not receive decisions
+
+**Owner ruling, 2026-08-27.** `scripts/build-pages.py` generates `/about/`, `/how-it-works/`,
+`/safety/` and `/faq/` from `index.html`. It reaches **six** of the site's eleven pages. It does not
+reach:
+
+| page | why it matters |
+|---|---|
+| `404.html` | the page a lost parent actually lands on |
+| `confirm.html` | email-confirm — an auth flow |
+| `reset.html` | password-reset — an auth flow |
+| (`privacy.html`, `terms.html`, `support.html`) | standalone, but carry no controls |
+
+**A decision applied by regenerating lands everywhere except there.** That is how the action colour
+reached fifteen controls in three different colours: each new standalone page reached for whatever
+literal was nearby, and no rebuild ever corrected it. It is the same shape as `c1bb720`, where a
+ruling was applied on a branch nobody merged — a decision that is *implemented* but does not *land*.
+
+**THE RULE: any site-wide ruling must name these three pages explicitly.** "Apply it site-wide and
+rebuild" is not a plan; it silently excludes the auth flows and the 404.
+
+**Two corollaries earned the same day:**
+
+* **"In line" means wired to the same TOKEN, not painted the same colour.** `404.html` was brought
+  "in line" hours earlier and still drifted, because it took `--teal-deep` rather than `--action` —
+  the right colour off the wrong wire, plus a fourth hover teal nobody meant.
+* **A standalone page must define a token before it uses it.** `confirm.html` and `reset.html` had no
+  `:root` and not one custom property. `background:var(--action)` without a definition is an
+  **invalid declaration**, which CSS drops — leaving `color:#fff` on no background: an invisible
+  submit button on an auth page, failing silently. `check-brand-contrast.py` rule 6 now catches this
+  statically, and rule 5 catches a control painting from a literal at all. Both carry selftest
+  mutants; both were watched going red on these very files before the fix.
+
+**And verify by computed style, never by grep.** A file mentioning `--action` says nothing about what
+paints. All fifteen controls were confirmed at `rgb(15,122,118)` in a browser, on the live site.
