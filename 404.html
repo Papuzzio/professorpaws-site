@@ -8,18 +8,34 @@
 <link rel="icon" href="/favicon.ico" sizes="48x48" />
 <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
 <style>
-  body { margin:0; background:#FFF8ED; color:#14213D; font-family:system-ui, -apple-system, sans-serif; font-size:18px; line-height:1.65; display:grid; min-height:100vh; place-items:center; text-align:center; padding:22px; }
-  .pup { width:96px; height:96px; border-radius:50%; overflow:hidden; margin:0 auto 18px; background:#FFFCF7; border:1px solid rgba(20,33,61,.13); }
-  .pup img { width:100%; height:100%; object-fit:cover; display:block; }
+  /* Brought in line with the other eight pages, 2026-08-27. This page previously carried its own
+     brand: the mascot cropped into a 96px circle, and a CTA on --orange-deep where every section
+     page uses --teal-deep. A 404 is a page a lost parent actually lands on, so it is not the place
+     to be the one inconsistent surface. Same palette tokens, same approved logo, same button. */
+  :root {
+    --cream:#FFF8ED; --paper:#FFFCF7;
+    --ink:#14213D; --ink-soft:#55607A;
+    --orange:#F59A23; --orange-deep:#B4530A;
+    --teal:#14AAA3; --teal-deep:#0F7A76;
+    --green:#63A65F;
+  }
+  body { margin:0; background:var(--cream); color:var(--ink); font-family:system-ui, -apple-system, sans-serif; font-size:18px; line-height:1.65; display:grid; min-height:100vh; place-items:center; text-align:center; padding:22px; }
+  /* The approved logo, not a cropped mascot. This is the ONE page with vertical room to spare, so it
+     runs at 120px — the size at which the badge's wordmark (8.8% of its height) is actually legible
+     at ~10.6px, rather than the emblem reading it necessarily has in the 72px header bar. */
+  .brand { display:block; margin:0 auto 18px; width:123px; height:120px; }
   h1 { font-family:'Fraunces','Iowan Old Style','Palatino',Georgia,serif; font-weight:700; font-size:1.8rem; margin:0 0 8px; }
-  p { margin:0 0 22px; color:#55607A; }
-  a.home { display:inline-block; background:#B4530A; color:#fff; text-decoration:none; font-family:system-ui,-apple-system,sans-serif; font-weight:700; padding:13px 28px; border-radius:999px; }
-  a.home:hover { background:#9A4708; }
+  p { margin:0 0 22px; color:var(--ink-soft); }
+  a.home { display:inline-block; background:var(--teal-deep); color:#fff; text-decoration:none; font-family:system-ui,-apple-system,sans-serif; font-weight:700; padding:13px 28px; border-radius:999px; min-height:44px; box-sizing:border-box; }
+  a.home:hover { background:#0C6360; }
 </style>
 </head>
 <body>
 <main>
-  <div class="pup"><img src="/assets/puppy.png" alt="" /></div>
+  <a href="/" aria-label="Professor Paws — home"><picture>
+    <source type="image/webp" srcset="/assets/brand/professor-paws-logo-header.webp" />
+    <img class="brand" src="/assets/brand/professor-paws-logo-header.png" width="180" height="176" alt="Professor Paws" />
+  </picture></a>
   <h1>This page wandered off.</h1>
   <p>Let's head back home.</p>
   <a class="home" href="/">Back to Professor Paws</a>
