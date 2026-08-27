@@ -244,3 +244,51 @@ and `favicon.ico` (7.6) already derive from the shipped orange icon, not the sup
 
 Pinned by `scripts/check-brand-contrast.py` (token values + allowed pairs, `--selftest` positive
 control). Verified in-browser: all 8 pages HTTP 200, no console errors, logo served as WebP.
+
+## 2026-08-27 — the action colour: teal STANDS, hover fixed, and a ruling recovered from a held branch
+
+**READ THIS BEFORE LIFTING `c1bb720`.** That commit is titled *"Site buttons back to ORANGE (owner
+reversal 2026-08-20)"* and it is real — but it is **SUPERSEDED, NOT LOST**, and it must not be
+cherry-picked on the assumption that a ruling went missing.
+
+**How it got stranded.** `c1bb720` lives ONLY on `site-brand-system`, a branch held for an unrelated
+reason (the brand system itself was not ready). Holding the branch held a decision that had nothing
+to do with why it was held, so the 2026-08-20 reversal never reached `main` and the live site stayed
+teal for a week. **A decision must never live only on a branch held for an unrelated reason.**
+
+**Why teal stands (owner 2026-08-27).** The reversal predates the contrast work. Deep teal `#0F7A76`
+carries a white label at **5.17:1**; the frozen brand teal `#14AAA3` is **2.87:1** and fails AA. Teal
+is already live and working, and reversing now reopens a decision on taste that is settled on
+measurement.
+
+**AN HONEST CAVEAT, recorded because it cuts against the ruling.** That measurement compares teal to
+TEAL. `c1bb720`'s own pairing — Deep Ink `#14213D` on Professor Orange `#F59A23` — measures
+**6.91:1**, better than the teal it would replace. So contrast alone does not defeat navy-on-orange;
+what settles it is that teal is live, working, and one line away from being changed. A concurrent
+hero-polish brief (Lane A, also dated 2026-08-27) specifies the orange pairing, so this is an OPEN
+CONFLICT for the owner, not a closed one. Neither lane treated the other's brief as authority.
+
+**THE DEFECT actually fixed (1de4d55).** `.btn` was teal and `.btn:hover` was `#9A4708`, a dark
+orange: every button on all five button-bearing pages changed colour under the cursor, live for about
+a week. The teal pass changed the button and not the hover. Contrast was never the issue (6.4:1) —
+it was the wrong colour. Hover is now `#0C6A66` at 6.42:1.
+
+**Lifted off `site-brand-system` WITHOUT the brand system:** the `--action` / `--action-hover` /
+`--action-ink` token set, with TEAL values. The action colour is now **one line in `index.html`**
+plus a `build-pages.py` regenerate. Switching to orange is
+`--action:#F59A23; --action-hover:<darker>; --action-ink:#14213D;`.
+
+**NOT lifted, and deliberately so:** the `header.top nav a` out-specifies `.btn` fix. That paints the
+header CTA navy-on-navy only where the CTA sits INSIDE the nav. On `main` it is a SIBLING of `<nav>`
+on all five pages, so `.top nav a` never matches it and the label is already white. Porting it would
+have been a change with no defect under it. **If a future polish moves the CTA inside the nav, that
+fix becomes real here.**
+
+**The checker was blind to all of this.** `check-brand-contrast.py` matched
+`background:var(--orange|--teal|--green)` literally and could not follow indirection, so
+`.btn { background:var(--action) }` was invisible — proven by pointing `--action` at the failing
+brand teal and watching it still print "clean". It now resolves `var()` chains and checks the action
+pair at rest AND on hover, with that exact mutant in `--selftest`.
+
+Verified live by fetching all seven pages: the token is served on all five button pages, zero orange
+remains in CSS (comments excluded), `/privacy` and `/terms` have no buttons.
