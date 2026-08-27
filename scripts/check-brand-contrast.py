@@ -42,6 +42,32 @@ def strip_comments(css):                      # §14.1 — a record is not a dec
 
 WHITE = re.compile(r'color\s*:\s*(#fff(?:fff)?\b|white\b|#FFFCF7|var\(--paper\))', re.I)
 
+MIN_AA = 4.5   # normal-size body text
+
+def resolve(css, name, seen=None):
+    """Resolve a custom property to a literal hex, following var() chains.
+
+    THE PAIR RULE COULD NOT SEE THROUGH INDIRECTION. `.btn` now reads
+    `background:var(--action)`, and --action is itself `var(--teal-deep)`. Checked against the
+    literal token names alone, a --action set to the FROZEN brand teal (2.87:1 with white) passed
+    as clean — verified by mutating it and watching this script say "clean". A checker that cannot
+    fire on the one line the token set exists to protect is not a guard.
+    """
+    m = re.search(rf'{re.escape(name)}\s*:\s*([^;]+);', css)
+    if not m: return None
+    val = m.group(1).strip()
+    vm = re.fullmatch(r'var\(\s*(--[\w-]+)\s*\)', val)
+    if vm:
+        seen = seen or set()
+        if vm.group(1) in seen: return None          # circular — refuse rather than loop
+        seen.add(vm.group(1))
+        return resolve(css, vm.group(1), seen)
+    if val.lower() in ('white', '#fff', '#ffffff'): return '#FFFFFF'
+    if re.fullmatch(r'#[0-9A-Fa-f]{6}', val): return val.upper()
+    m3 = re.fullmatch(r'#([0-9A-Fa-f]{3})', val)
+    if m3: return ('#' + ''.join(c * 2 for c in m3.group(1))).upper()
+    return None
+
 def check(files):
     bad = []
     for rel in files:
@@ -67,6 +93,18 @@ def check(files):
                 if re.search(rf'background(?:-color)?\s*:\s*var\(\s*{re.escape(tok)}\s*\)', block) and WHITE.search(block):
                     r = ratio('#FFFFFF', APPROVED[tok])
                     bad.append(f'{rel}: white label on {tok} ({APPROVED[tok]}) = {r:.2f}:1 — banned by the 2026-08-27 ruling')
+
+        # 4. THE ACTION PAIR — the one line the token set exists to make changeable, so the one
+        #    line that most needs a guard. Resolved through var() chains, at rest AND on hover.
+        act, ink, hov = resolve(css, '--action'), resolve(css, '--action-ink'), resolve(css, '--action-hover')
+        if act and ink:
+            r = ratio(ink, act)
+            if r < MIN_AA:
+                bad.append(f'{rel}: --action-ink on --action ({ink} on {act}) = {r:.2f}:1, below {MIN_AA}:1')
+        if hov and ink:
+            r = ratio(ink, hov)
+            if r < MIN_AA:
+                bad.append(f'{rel}: --action-ink on --action-hover ({ink} on {hov}) = {r:.2f}:1, below {MIN_AA}:1')
     return bad
 
 def selftest():
@@ -74,17 +112,25 @@ def selftest():
     tmp = ROOT / '_contrast_selftest.html'
     tmp.write_text(':root { --orange:#F59A23; }\n.x { background:var(--orange); color:#fff; }\n'
                    '/* a comment mentioning #EE6F1E must NOT trip the retired-value check */\n')
+    tmp2 = ROOT / '_contrast_selftest_action.html'
+    # --action pointed at the FROZEN brand teal through a var() chain: 2.87:1 with a white label.
+    # This is the exact mutant that passed as "clean" before check 4 existed.
+    tmp2.write_text(':root { --teal:#14AAA3; --action:var(--teal); --action-ink:#fff;'
+                    ' --action-hover:var(--teal); }\n')
     try:
         found = check(['_contrast_selftest.html'])
         white  = [b for b in found if 'white label' in b]
         commented = [b for b in found if '#EE6F1E' in b]
-        ok = len(white) == 1 and not commented
+        act = [b for b in check(['_contrast_selftest_action.html']) if '--action' in b]
+        ok = len(white) == 1 and not commented and len(act) == 2
         print(('  SELFTEST PASS — ' if ok else '  SELFTEST FAIL — ') +
-              f'{len(white)} white-on-orange caught (want 1), {len(commented)} false hits on a commented value (want 0)')
-        for b in white: print(f'    caught: {b}')
+              f'{len(white)} white-on-orange caught (want 1), {len(commented)} false hits on a commented value (want 0), '
+              f'{len(act)} action-pair failures caught (want 2: rest + hover)')
+        for b in white + act: print(f'    caught: {b}')
         return 0 if ok else 1
     finally:
         tmp.unlink(missing_ok=True)
+        tmp2.unlink(missing_ok=True)
 
 if __name__ == '__main__':
     if '--selftest' in sys.argv:

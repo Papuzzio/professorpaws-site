@@ -50,6 +50,12 @@
        2.87:1, which fails AA, so the ACTION teal is a darkened step exactly as --orange-deep is a darkened
        --orange (white on #0F7A76 = 5.17:1, versus 5.02:1 for the orange it replaces: no contrast lost). */
     --teal:#14AAA3; --teal-deep:#0F7A76;
+    /* THE ACTION COLOUR, defined ONCE so the next change is one line rather than a hunt.
+       TEAL STANDS (owner 2026-08-27), settled on MEASUREMENT: white on --action is 5.17:1,
+       white on the frozen brand teal #14AAA3 is 2.87:1 and fails AA. The 2026-08-20 orange
+       reversal (c1bb720) is SUPERSEDED, not lost — it predates the contrast work and lives
+       only on the held `site-brand-system` branch. See LAUNCH_LOG before lifting it. */
+    --action:var(--teal-deep); --action-hover:#0C6A66; --action-ink:#fff;
     --green:#63A65F;   /* Garden Green. Deep Ink on it = 5.44:1; WHITE on it = 2.94:1, so it never carries a white label. */
     --line:rgba(20,33,61,.13);
     --field-line:rgba(20,33,61,.52);   /* form-field extent must be visible. RE-SOLVED 2026-08-27: Deep Ink is lighter
@@ -140,9 +146,9 @@
   .top nav a:hover { color:var(--orange-deep); }
   /* Owner ruling 2026-08-19: buttons rest on --orange-deep (white on #B4530A = 5.02:1); white on #EE6F1E was 3.03:1 at
      15.7–18px bold — a fragile pass at best, a fail at these sizes. Hover goes one step darker for feedback. */
-  .btn { display:inline-block; background:var(--teal-deep); color:#fff; text-decoration:none;
+  .btn { display:inline-block; background:var(--action); color:var(--action-ink); text-decoration:none;
     font-family:var(--display); font-weight:700; border:0; border-radius:14px; cursor:pointer; }
-  .btn:hover { background:#9A4708; }
+  .btn:hover { background:var(--action-hover); }   /* was #9A4708 — the teal pass changed .btn and not the hover, so a teal button painted ORANGE on hover */
   .btn:focus-visible { outline:3px solid var(--ink); outline-offset:3px; }
   .top .btn { padding:11px 20px; font-size:.98rem; margin-left:8px; white-space:nowrap; min-height:44px; display:inline-flex; align-items:center; }
   /* The nav needs ~820px to sit on one line with the brand and the button (measured); below that it
