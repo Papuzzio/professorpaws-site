@@ -96,20 +96,29 @@ def check(files):
 
         # 4. THE ACTION PAIR — the one line the token set exists to make changeable, so the one
         #    line that most needs a guard. Resolved through var() chains, at rest AND on hover.
-        act, ink, hov = resolve(css, '--action'), resolve(css, '--action-ink'), resolve(css, '--action-hover')
-        if act and ink:
-            r = ratio(ink, act)
-            if r < MIN_AA:
-                bad.append(f'{rel}: --action-ink on --action ({ink} on {act}) = {r:.2f}:1, below {MIN_AA}:1')
-        if hov and ink:
-            r = ratio(ink, hov)
-            if r < MIN_AA:
-                bad.append(f'{rel}: --action-ink on --action-hover ({ink} on {hov}) = {r:.2f}:1, below {MIN_AA}:1')
+        ink = resolve(css, '--action-ink')
+        # EVERY state the user can put the control into, not just the ones we happened to think of.
+        # --action-active shipped DEFINED AND UNCHECKED for one commit. It passed at 8.04:1, which is
+        # exactly why it was worth closing: an unchecked token that passes today is the one that
+        # silently stops passing tomorrow. (Found by Lane B, 2026-08-27.)
+        for state in ('--action', '--action-hover', '--action-active'):
+            val = resolve(css, state)
+            if val and ink:
+                r = ratio(ink, val)
+                if r < MIN_AA:
+                    bad.append(f'{rel}: --action-ink on {state} ({ink} on {val}) = {r:.2f}:1, below {MIN_AA}:1')
         # 5. EVERY CONTROL PAINTS FROM --action. The rule that would have caught what the 2026-08-27
         #    audit found: FIFTEEN action-coloured controls in THREE colours, because each new page
         #    reached for whatever literal was nearby. A block with a solid background AND a light
         #    label is a control; if the background is not var(--action*), it has drifted. Ghost
         #    buttons (transparent) and dark bands that set no colour are not controls.
+        #
+        #    SCOPE, STATED SO GREEN IS NOT READ AS "ALL CONTROLS CHECKED": this sees DARK action
+        #    controls only. A control with a LIGHT background and a dark label is invisible to it —
+        #    `a.skip` on the homepage is precisely that (paper background, ink label, 15.61:1,
+        #    correct as designed). Widening to "any solid background on an interactive element"
+        #    would flag every input and the skip link, and a noisy guard gets switched off. A guard
+        #    that documents what it cannot see is worth more than one implying it saw everything.
         for block in re.findall(r'\{[^{}]*\}', css):
             m = re.search(r'background(?:-color)?\s*:\s*([^;}]+)', block)
             if not m:
@@ -140,7 +149,7 @@ def selftest():
     # --action pointed at the FROZEN brand teal through a var() chain: 2.87:1 with a white label.
     # This is the exact mutant that passed as "clean" before check 4 existed.
     tmp2.write_text(':root { --teal:#14AAA3; --action:var(--teal); --action-ink:#fff;'
-                    ' --action-hover:var(--teal); }\n')
+                    ' --action-hover:var(--teal); --action-active:var(--teal); }\n')
     # RULE 5 mutant: a control painting from a literal instead of --action (the 15-in-3-colours drift).
     tmp3 = ROOT / '_contrast_selftest_drift.html'
     tmp3.write_text('.submit { background:#B4530A; color:#FFFFFF; }\n'
@@ -156,11 +165,11 @@ def selftest():
         act = [b for b in check(['_contrast_selftest_action.html']) if '--action' in b]
         drift = [b for b in check(['_contrast_selftest_drift.html']) if 'drift' in b]
         undef = [b for b in check(['_contrast_selftest_undefined.html']) if 'never defines it' in b]
-        ok = (len(white) == 1 and not commented and len(act) == 2
+        ok = (len(white) == 1 and not commented and len(act) == 3
               and len(drift) == 1 and len(undef) >= 1)
         print(('  SELFTEST PASS — ' if ok else '  SELFTEST FAIL — ') +
               f'{len(white)} white-on-orange caught (want 1), {len(commented)} false hits on a commented value (want 0), '
-              f'{len(act)} action-pair failures caught (want 2: rest + hover), '
+              f'{len(act)} action-state failures caught (want 3: rest + hover + active), '
               f'{len(drift)} literal-background drift caught (want 1; ghost + dark band must NOT trip), '
               f'{len(undef)} undefined-token invisible-control caught (want >=1)')
         for b in white + act + drift + undef: print(f'    caught: {b}')

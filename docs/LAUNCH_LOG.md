@@ -299,6 +299,36 @@ pair at rest AND on hover, with that exact mutant in `--selftest`.
 Verified live by fetching all seven pages: the token is served on all five button pages, zero orange
 remains in CSS (comments excluded), `/privacy` and `/terms` have no buttons.
 
+### CORRECTION — the inventory was SIXTEEN, not fifteen
+
+`reset.html` carries **two** controls, not one: `a.openBtn#openApp` and `a.openBtn#openAppExpired`
+(the expired-link variant). Both are correct at `rgb(15,122,118)`. Verified count:
+
+| pages | controls |
+|---|---|
+| index (4) + about/how-it-works/safety/faq (2 each) | 12 `.btn` |
+| `404.html` | 1 `a.home` |
+| `confirm.html` | 1 `button` |
+| `reset.html` | **2** `a.openBtn` |
+| | **16** |
+
+**Both were fixed** — the file was edited, not the inventory applied — so nothing shipped wrong. But
+**the number 15 was SELECTOR-DERIVED, not SURFACE-DERIVED**: neither lane had `openBtn` in a class
+list, and it surfaced only because a sweep returned *zero* for that page and the zero was
+investigated. A slightly wider selector would have found one of the two and silently missed the
+other. **Count controls by COMPUTED BACKGROUND across `a, button, input, [role=button], summary`,
+filtering transparent — never by class name.** A class list can only find controls you already knew
+about. (Found by Lane B; independently confirmed in-browser on the live domain.)
+
+The same sweep also surfaces the controls rule 5 is **not** designed to see: `a.skip` (paper
+background, ink label, 15.61:1) and three form inputs. All correct as designed — recorded so a green
+run is never read as "all controls checked". The rule's own comment now says this.
+
+**`--action-active` was defined and unchecked** for one commit, at `#0A5A57` / 8.04:1. It passed,
+which is exactly why it was worth closing: an unchecked token that passes today is the one that
+silently stops passing tomorrow. Rule 4 now checks every action state — rest, hover **and active** —
+with the mutant in the selftest.
+
 ---
 
 ## STANDING LESSON — pages no build step reaches do not receive decisions
