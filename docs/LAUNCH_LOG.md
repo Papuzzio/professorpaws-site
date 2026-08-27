@@ -366,3 +366,23 @@ rebuild" is not a plan; it silently excludes the auth flows and the 404.
 
 **And verify by computed style, never by grep.** A file mentioning `--action` says nothing about what
 paints. All fifteen controls were confirmed at `rgb(15,122,118)` in a browser, on the live site.
+
+## The hero headline is capped at 427px above 1073 — KNOWN AND ACCEPTED
+
+**Do not re-derive this and propose growing `--maxw`. That was considered and ruled against.**
+
+The 2026-08-27 brief asks for a 450–470px headline. Above 1073px the site gives **427 and cannot
+give more**, because `--maxw` is `calc(976px + 2*gutter)` and `.wrap` then removes the gutter again
+as padding — **the content box is pinned at 976 at every viewport** (measured identical at 1073,
+1280, 1600 and 2560).
+
+Growing `--maxw` reaches 460 only at ≥1164, and the case that actually hurt was a **900px viewport,
+where the wrap is viewport-bound at 885 and the column was 348 whatever `--maxw` says**. So the
+two-column breakpoint was raised 900 → **1073** instead: below it the hero is stacked and the
+headline gets its full 460, and the spec is met at every width below 1073 rather than at 600 and 768
+only.
+
+**Full record, including the levers that would work and why each is a design change rather than a
+fix: `docs/BRAND_FREEZE_2026-08-27.md` in the app repo (tandem-app), final section.** Kept there
+rather than copied here — two records of one finding drift, and the stale one wins arguments it
+should not.
