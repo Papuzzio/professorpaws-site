@@ -180,3 +180,28 @@ Ten owner rulings executed: responsive ship + tablet fixes · metadata/claims/US
   6e05d33d…); no new variant was invented.
 - Files: index.html (picture source for phones removed; .brand img.brand-logo phone size 150×48 + comment), docs/LAUNCH_LOG.md.
 - QA: CDP measurements at 375/390/430 (no clip, no overflow), full-page screenshot diff 375/768/1280 vs live fd063b0, live-vs-branch byte compare after deploy.
+
+---
+
+## 2026-08-27 — the approved primary logo, rescued into version control
+
+The owner approved a **primary logo** on 2026-08-27. The only copy on the build machine was
+**untracked**, inside an unrelated rollback worktree
+(`~/dev/tandem-rollback-v135/assets/puppy/Puppy_logo.png`) — one `git clean -fdx` from permanent
+loss, with no remote and no backup.
+
+Committed here as `assets/professor-paws-logo.png`, and in the app repo as
+`assets/brand/professor-paws-logo.png`. Byte-identical to the original in both places, verified by
+hash after each copy:
+
+```
+sha256  a349e0151ff11c1fdf0370e5632c34ce590399cfed3b8f10f755a5462ba866bd
+        1292 × 1218, alpha, 1,201,910 bytes
+```
+
+Provenance is recorded in the app repo's `docs/ASSET_PROVENANCE.md`. Established, not assumed: the
+puppy in the logo is the **same artwork** as the app mascot (mean absolute difference 33.5/765
+composited on white and squared to 256px), so the logo **inherits the mascot's AI-generated
+origin** and the ownership caveat that comes with it.
+
+**Not yet rendered anywhere.** This commit is a rescue, not the header work.
