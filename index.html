@@ -42,16 +42,19 @@
 
 <style>
   :root {
-    --cream:#FBF8F3; --paper:#FDFBF5; --band:#F3EDE0; --tint:#FDEEE2;
-    --ink:#2C2C2C; --ink-soft:#6B665E;
-    --orange:#EE6F1E; --orange-deep:#B4530A;
+    --cream:#FFF8ED; --paper:#FFFCF7; --band:#F3EDE0; --tint:#FDEEE2;
+    --ink:#14213D; --ink-soft:#55607A;
+    --orange:#F59A23; --orange-deep:#B4530A;
     /* TEAL ACTION (owner 2026-08-19: "make the button teal instead of orange"). The BRAND teal #14AAA3 is
        the frozen wordmark's teal and stays exact wherever the mark appears — but white text on it is
        2.87:1, which fails AA, so the ACTION teal is a darkened step exactly as --orange-deep is a darkened
        --orange (white on #0F7A76 = 5.17:1, versus 5.02:1 for the orange it replaces: no contrast lost). */
     --teal:#14AAA3; --teal-deep:#0F7A76;
-    --line:rgba(44,44,44,.13);
-    --field-line:rgba(44,44,44,.42);   /* form-field extent must be visible: .13 was 1.27:1 on paper; .42 ≈ 3.2:1 */
+    --green:#63A65F;   /* Garden Green. Deep Ink on it = 5.44:1; WHITE on it = 2.94:1, so it never carries a white label. */
+    --line:rgba(20,33,61,.13);
+    --field-line:rgba(20,33,61,.52);   /* form-field extent must be visible. RE-SOLVED 2026-08-27: Deep Ink is lighter
+                                      than the old warm grey, so the SAME .42 fell to 2.56:1 — below the 3:1 non-text
+                                      minimum. .52 restores 3.38:1. A palette swap silently weakens every alpha rule. */
     /* SITE TONE FIX (owner-directed 2026-08-17): headings in a WARM SERIF — serif reads
        "learning", the rounded sans read "toy" to two outside parents. Buttons, pills, nav and
        the wordmark stay in the clean sans; body text unchanged; palette unchanged. */
@@ -106,13 +109,13 @@
   .top nav a { display:inline-block; padding-block:10px; } /* 44px tap height without changing the visible layout (footer nav already has its 44px floor below) */
   /* img.brand-logo outranks the legacy `.brand img { width:28px }` rule (which stays for nothing but is left to avoid
      churn); the frozen lockup must never be crushed into the old 28px slot. */
-  .brand img.brand-logo { display:block; width:187px; height:60px; }               /* B lockup ≥180px wide per the frozen usage rules */
+  .brand img.brand-logo { display:block; width:74px; height:72px; }               /* B lockup ≥180px wide per the frozen usage rules */
   /* Phones (≤600): the SAME B lockup at 150×48 (owner ruling 2026-08-19, option B). MEASURED: a 375 bar holds
      20 + brand + 12 + 163 CTA + 20, so the brand may be at most ~160px; the one-line wordmark at 22px was 225px
      and pushed the CTA off-screen (bar min width 459px). 150×48 leaves 20px spare at 375/390/410; the mascot
      stays on phones. NOTE: this is BELOW the frozen README's "B ≥ ~180px wide" guideline — authorised by the owner
      and recorded in docs/LAUNCH_LOG.md with the measurement. */
-  @media (max-width:600px){ .brand img.brand-logo { width:150px; height:48px; } }
+  @media (max-width:600px){ .brand img.brand-logo { width:57px; height:56px; } }
   .brand picture { display:contents; }
   .brand img.brand-logo-footer { display:block; width:140px; height:68px; margin-inline:auto; }
   .beta .hint { display:block; font-weight:400; font-size:.9rem; color:var(--ink-soft); margin-top:4px; }
@@ -181,7 +184,7 @@
   .hero .sub { max-width:50ch; margin:16px auto 0; font-size:1.1rem; color:var(--ink-soft); }
   .hero .ctas { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:28px; }
   .hero .btn { padding:15px 32px; font-size:1.12rem; min-height:48px; }
-  .btn.ghost { background:transparent; color:var(--orange-deep); border:2px solid var(--orange); }
+  .btn.ghost { background:transparent; color:var(--orange-deep); border:2px solid var(--orange-deep); }  /* 2026-08-27: Professor Orange as a border is 2.15:1 on paper — below the 3:1 non-text minimum. The deep step is 4.91:1. */
   .btn.ghost:hover { background:var(--tint); }
   .hero .quiet { margin-top:14px; font-size:.93rem; color:var(--ink-soft); margin-inline:auto; } /* centred in the sub-900 stacked hero (its 64ch box hugged the left edge on tablets); the ≥900 grid rule below resets the side margins */
 
@@ -233,7 +236,7 @@
   /* v3.2: the above-fold kid-view screenshot + the ruled five-item trust strip */
   .hero-shot { margin:30px auto 0; max-width:440px; } /* phones: stacked under the copy at full content width */
   .hero-shot .frame { border-radius:22px; overflow:hidden; border:1px solid var(--line);
-    box-shadow:0 10px 34px rgba(44,44,44,.10); background:#FDFBF5; }
+    box-shadow:0 10px 34px rgba(20,33,61,.10); background:var(--paper); }
   .hero-shot svg, .hero-shot img { display:block; width:100%; height:auto; }
   .strip { background:var(--band); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
   .strip p { max-width:820px; margin:0 auto; padding:14px 22px; text-align:center;
@@ -338,12 +341,14 @@
 <!-- HEADER -->
 <header class="top">
   <div class="bar">
-    <!-- The FROZEN primary lockup (APPROVED_LOCKED_2026-08-18). Desktop/tablet: a 374×120@2x raster rendered from the
-         untouched B master (sha 6e05d33d…, provenance in docs/LAUNCH_LOG.md). Phones (≤600): the approved one-line
-         wordmark master D, per the frozen system's small-size rule. Never retyped, never rebuilt in CSS. -->
+    <!-- The APPROVED PRIMARY LOGO (owner freeze, 2026-08-27). Rendered from the approved source
+         professor-paws-logo.png (sha a349e015…, provenance in the app repo's docs/ASSET_PROVENANCE.md) by
+         trimming its transparent margin and resizing — artwork never retyped, recoloured or rebuilt in CSS.
+         Supersedes the B horizontal lockup of the 2026-08-18 freeze. NOTE: the wordmark inside this stacked
+         badge is ~8.8% of its height, so below ~120px it reads as an emblem, not as words — see LAUNCH_LOG. -->
     <a class="brand" href="/" aria-label="Professor Paws — home"><picture>
-      <source type="image/webp" srcset="/assets/brand/B_primary_horizontal_lockup-374w.webp" />
-      <img class="brand-logo" src="/assets/brand/B_primary_horizontal_lockup-374w.png" width="374" height="120" alt="Professor Paws" />
+      <source type="image/webp" srcset="/assets/brand/professor-paws-logo-header.webp" />
+      <img class="brand-logo" src="/assets/brand/professor-paws-logo-header.png" width="180" height="176" alt="Professor Paws" />
     </picture></a>
     <nav aria-label="Sections">
       <a href="#how">How it works</a>

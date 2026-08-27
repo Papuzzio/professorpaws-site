@@ -205,3 +205,42 @@ composited on white and squared to 256px), so the logo **inherits the mascot's A
 origin** and the ownership caveat that comes with it.
 
 **Not yet rendered anywhere.** This commit is a rescue, not the header work.
+
+## 2026-08-27 — the approved logo in the header, and the new palette (website-only)
+
+**Header, all eight pages.** The B horizontal lockup is replaced by the approved primary logo,
+rendered from the approved source by trimming its transparent margin and resizing (LANCZOS) —
+never retyped, recoloured or rebuilt in CSS. `assets/brand/professor-paws-logo-header.{webp,png}`,
+180×176, WebP **16.4 KB** (the 1.2 MB master is never served). Rendered 74×72 desktop, 57×56 phones.
+
+Three pages needed more than a swap:
+- `privacy.html` and `terms.html` rendered an **emoji paw + the retyped words "Professor Paws"**.
+- `support.html` had **no brand at all**.
+- Both legal pages carried an off-brand **purple** accent `#6b4ea0` → `#0F7A76`.
+
+**MEASURED CAVEAT.** The logo is a stacked badge; its wordmark is **8.8% of its height**, so at
+72px the cap is **6.3px** and reads as an emblem, not as words. A legible 10px cap needs a ~114px
+logo and a ~138px bar. Shipped at 72/56 as proportionate to the bar — **owner's call**, see
+`BRAND_FREEZE_2026-08-27.md` §6. Incidentally this fixes the 2026-08-19 phone squeeze: the badge is
+57px wide where the lockup was 150px, so the header CTA no longer competes for room, and the
+"knowingly below the ≥180px B rule" exception no longer applies to anything.
+
+**Palette.** Professor Orange `#F59A23`, Paws Teal `#14AAA3` (unchanged), Garden Green `#63A65F`
+(new), Warm Cream `#FFF8ED`, Deep Ink `#14213D`, Soft White `#FFFCF7`. Website only — no app token
+was touched.
+
+**Two regressions the swap would have introduced silently, caught by measuring, not by eye:**
+1. Professor Orange as a 2px ghost-button border is **2.15:1** on paper — below the 3:1 non-text
+   minimum, and worse than the orange it replaced (2.96:1). Border → `--orange-deep` (4.91:1).
+2. `--field-line` was `rgba(44,44,44,.42)` ≈ 3.2:1. Deep Ink is lighter than the warm grey, so the
+   **same alpha fell to 2.56:1**. Re-solved to `.52` = 3.38:1.
+
+Buttons were already compliant: white on `--teal-deep #0F7A76` = 5.17:1, exactly what the ruling
+sanctions. Deep Ink on Professor Orange = 7.25:1.
+
+**Marks NOT regenerated, deliberately.** `apple-touch-icon.png` (diff 0.3), `favicon-32.png` (10.1)
+and `favicon.ico` (7.6) already derive from the shipped orange icon, not the superseded teal
+(90+ each). `90f9823` did that. Regenerating would churn approved bytes for nothing.
+
+Pinned by `scripts/check-brand-contrast.py` (token values + allowed pairs, `--selftest` positive
+control). Verified in-browser: all 8 pages HTTP 200, no console errors, logo served as WebP.
