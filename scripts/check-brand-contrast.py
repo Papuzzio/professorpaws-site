@@ -105,6 +105,30 @@ def check(files):
             r = ratio(ink, hov)
             if r < MIN_AA:
                 bad.append(f'{rel}: --action-ink on --action-hover ({ink} on {hov}) = {r:.2f}:1, below {MIN_AA}:1')
+        # 5. EVERY CONTROL PAINTS FROM --action. The rule that would have caught what the 2026-08-27
+        #    audit found: FIFTEEN action-coloured controls in THREE colours, because each new page
+        #    reached for whatever literal was nearby. A block with a solid background AND a light
+        #    label is a control; if the background is not var(--action*), it has drifted. Ghost
+        #    buttons (transparent) and dark bands that set no colour are not controls.
+        for block in re.findall(r'\{[^{}]*\}', css):
+            m = re.search(r'background(?:-color)?\s*:\s*([^;}]+)', block)
+            if not m:
+                continue
+            val = m.group(1).strip().lower()
+            if 'transparent' in val or 'none' in val or 'var(--action' in val:
+                continue
+            if WHITE.search(block):
+                bad.append(f'{rel}: a control paints from "{val}" instead of var(--action) — the drift the token set exists to prevent')
+
+        # 6. A PAGE THAT USES --action MUST DEFINE IT. An undefined custom property makes the whole
+        #    declaration INVALID, so `background:var(--action); color:#fff` renders a white label on
+        #    NO background — an invisible control. confirm.html and reset.html are the dangerous
+        #    case: fully standalone, reached by no build step, and they are the password-reset and
+        #    email-confirm pages, where an invisible submit fails silently.
+        for tok in ('--action', '--action-ink', '--action-hover'):
+            if 'var(%s)' % tok in css.replace(' ', '') and resolve(css, tok) is None:
+                bad.append(f'{rel}: uses var({tok}) but never defines it — CSS drops the declaration, leaving a label on no background (invisible control)')
+
     return bad
 
 def selftest():
@@ -117,20 +141,35 @@ def selftest():
     # This is the exact mutant that passed as "clean" before check 4 existed.
     tmp2.write_text(':root { --teal:#14AAA3; --action:var(--teal); --action-ink:#fff;'
                     ' --action-hover:var(--teal); }\n')
+    # RULE 5 mutant: a control painting from a literal instead of --action (the 15-in-3-colours drift).
+    tmp3 = ROOT / '_contrast_selftest_drift.html'
+    tmp3.write_text('.submit { background:#B4530A; color:#FFFFFF; }\n'
+                    '.ghost { background:transparent; color:#fff; }\n'      # must NOT trip: not a control
+                    '.band { background:#14213D; }\n')                       # must NOT trip: sets no colour
+    # RULE 6 mutant: uses --action but never defines it -> CSS drops the declaration -> invisible control.
+    tmp4 = ROOT / '_contrast_selftest_undefined.html'
+    tmp4.write_text('.submit { background:var(--action); color:var(--action-ink); }\n')
     try:
         found = check(['_contrast_selftest.html'])
         white  = [b for b in found if 'white label' in b]
         commented = [b for b in found if '#EE6F1E' in b]
         act = [b for b in check(['_contrast_selftest_action.html']) if '--action' in b]
-        ok = len(white) == 1 and not commented and len(act) == 2
+        drift = [b for b in check(['_contrast_selftest_drift.html']) if 'drift' in b]
+        undef = [b for b in check(['_contrast_selftest_undefined.html']) if 'never defines it' in b]
+        ok = (len(white) == 1 and not commented and len(act) == 2
+              and len(drift) == 1 and len(undef) >= 1)
         print(('  SELFTEST PASS — ' if ok else '  SELFTEST FAIL — ') +
               f'{len(white)} white-on-orange caught (want 1), {len(commented)} false hits on a commented value (want 0), '
-              f'{len(act)} action-pair failures caught (want 2: rest + hover)')
-        for b in white + act: print(f'    caught: {b}')
+              f'{len(act)} action-pair failures caught (want 2: rest + hover), '
+              f'{len(drift)} literal-background drift caught (want 1; ghost + dark band must NOT trip), '
+              f'{len(undef)} undefined-token invisible-control caught (want >=1)')
+        for b in white + act + drift + undef: print(f'    caught: {b}')
         return 0 if ok else 1
     finally:
         tmp.unlink(missing_ok=True)
         tmp2.unlink(missing_ok=True)
+        tmp3.unlink(missing_ok=True)
+        tmp4.unlink(missing_ok=True)
 
 if __name__ == '__main__':
     if '--selftest' in sys.argv:

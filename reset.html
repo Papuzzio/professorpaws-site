@@ -43,6 +43,13 @@
 <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
 <script src="/reset.js" defer></script>
 <style>
+  /* THE ACTION COLOUR. Defined HERE because this page is reached by NO build step — a
+     regenerate does not touch it, so a site-wide decision applied by rebuilding lands
+     everywhere except here. Values must match index.html's :root. An UNDEFINED --action
+     would make `background:var(--action)` invalid and drop it, leaving a light label on no
+     background: an invisible control. check-brand-contrast.py rule 6 guards that. */
+  :root { --action:#0F7A76; --action-hover:#0C6A66; --action-active:#0A5A57; --action-ink:#fff; }
+
   /* Same visual language as confirm.html/support.html; no webfont link — no third party is
      contacted from a credential-bearing page. */
   * { box-sizing:border-box; }
@@ -61,12 +68,12 @@
                font-size:16px; color:#5C5449; }
   /* The open-app control is an ANCHOR (user-gesture scheme navigation), styled as the button. */
   a.openBtn { display:block; width:100%; min-height:56px; padding:16px 28px; margin:26px 0 0;
-           background:#B4530A; color:#FFFFFF; border:none; border-radius:14px; text-align:center;
+           background:var(--action); color:var(--action-ink); border:none; border-radius:14px; text-align:center;
            text-decoration:none;
            font-family:system-ui,-apple-system,sans-serif; font-size:1.125rem; font-weight:700;
            line-height:1.2; cursor:pointer; }
-  a.openBtn:hover { background:#9C4708; }
-  a.openBtn:active { background:#8A3F07; }
+  a.openBtn:hover { background:var(--action-hover); }
+  a.openBtn:active { background:var(--action-active); }
   a.openBtn:focus-visible { outline:3px solid #14213D; outline-offset:3px; }
   footer { margin-top:28px; font-size:15px; color:#5C5449; }
   @media (min-width:520px) {

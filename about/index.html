@@ -44,7 +44,7 @@
        white on the frozen brand teal #14AAA3 is 2.87:1 and fails AA. The 2026-08-20 orange
        reversal (c1bb720) is SUPERSEDED, not lost — it predates the contrast work and lives
        only on the held `site-brand-system` branch. See LAUNCH_LOG before lifting it. */
-    --action:var(--teal-deep); --action-hover:#0C6A66; --action-ink:#fff;
+    --action:var(--teal-deep); --action-hover:#0C6A66; --action-active:#0A5A57; --action-ink:#fff;
     --green:#63A65F;   /* Garden Green. Deep Ink on it = 5.44:1; WHITE on it = 2.94:1, so it never carries a white label. */
     --line:rgba(20,33,61,.13);
     --field-line:rgba(20,33,61,.52);   /* form-field extent must be visible. RE-SOLVED 2026-08-27: Deep Ink is lighter
@@ -139,6 +139,11 @@
     font-family:var(--display); font-weight:700; border:0; border-radius:14px; cursor:pointer; }
   .btn:hover { background:var(--action-hover); }   /* was #9A4708 — the teal pass changed .btn and not the hover, so a teal button painted ORANGE on hover */
   .btn:focus-visible { outline:3px solid var(--ink); outline-offset:3px; }
+  /* GUARD, not a live fix: on main the header CTA is a SIBLING of <nav>, so `.top nav a` never
+     matches it and the label is already correct — VERIFIED, not assumed. Lifted from
+     site-brand-system per the 2026-08-27 ruling so that IF the CTA ever moves inside <nav>,
+     `.top nav a` (0,1,2) cannot out-specify it into navy-on-navy. `.top nav a.btn` is (0,2,1). */
+  .top nav a.btn { color:var(--action-ink); margin-left:8px; }
   .top .btn { padding:11px 20px; font-size:.98rem; margin-left:8px; white-space:nowrap; min-height:44px; display:inline-flex; align-items:center; }
   /* The nav needs ~820px to sit on one line with the brand and the button (measured); below that it
      wraps into a second row, so it hides — a content breakpoint, not a device one. */

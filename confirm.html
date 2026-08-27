@@ -94,6 +94,12 @@
      design notes in the summary): the family names stay first in each stack so the page picks the
      brand faces up if they are ever self-hosted or installed, and falls back to the system stack
      otherwise. No third party is contacted from a consent page. */
+  /* THE ACTION COLOUR. Defined HERE because this page is reached by NO build step — a
+     regenerate does not touch it, so a site-wide decision applied by rebuilding lands
+     everywhere except here. Values must match index.html's :root. An UNDEFINED --action
+     would make `background:var(--action)` invalid and drop it, leaving a light label on no
+     background: an invisible control. check-brand-contrast.py rule 6 guards that. */
+  :root { --action:#0F7A76; --action-hover:#0C6A66; --action-active:#0A5A57; --action-ink:#fff; }
   * { box-sizing:border-box; }
   [hidden] { display:none !important; }
   body { margin:0; background:#FFF8ED; color:#14213D;
@@ -112,11 +118,11 @@
                font-size:16px; color:#5C5449; }
   form { margin:26px 0 0; }
   button { display:block; width:100%; min-height:56px; padding:16px 28px;
-           background:#B4530A; color:#FFFFFF; border:none; border-radius:14px;
+           background:var(--action); color:var(--action-ink); border:none; border-radius:14px;
            font-family:system-ui,-apple-system,sans-serif; font-size:1.125rem; font-weight:700;
            line-height:1.2; cursor:pointer; }
-  button:hover { background:#9C4708; }
-  button:active { background:#8A3F07; }
+  button:hover { background:var(--action-hover); }
+  button:active { background:var(--action-active); }
   button:focus-visible { outline:3px solid #14213D; outline-offset:3px; }
   footer { margin-top:28px; font-size:15px; color:#5C5449; }
   @media (min-width:520px) {
