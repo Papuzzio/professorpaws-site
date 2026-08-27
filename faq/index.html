@@ -169,7 +169,17 @@
   .hero { text-align:center; position:relative; overflow:hidden; }
   .hero.wrap { padding-block:56px 52px; }   /* MEASURED 2026-08-19: the old `.hero{padding-block}` lost to section.wrap{padding-block:0} (0,1,1 > 0,1,0) — the H1 sat flush under the header on live at 375/768/1280 */
   /* SECOND PASS: desktop = copy left, product right; phones = stacked and centred (below). */
-  @media (min-width:900px){
+  /* TWO COLUMNS START AT 1073px, RAISED FROM 900 (owner ruling 2026-08-27), and the number is
+     derived, not chosen. --maxw is calc(976px + 2*gutter) and the gutter is then subtracted back off
+     as padding, so THE CONTENT BOX IS PINNED AT 976px at every width — measured identical at 1280,
+     1600 and 2560. The copy column is 0.46*(976-48) = 427px and CANNOT REACH the specified 460 in
+     two columns at ANY viewport, so "the lowest width where two columns give 460" does not exist.
+     1073 = 976/0.91: the lowest width at which the content box reaches that 976 cap and the copy
+     column its permanent maximum. Below it, two columns are strictly WORSE than stacked — at a 900
+     viewport the wrap is viewport-bound at 885 and the copy column was 348, a 25% shortfall — while
+     stacked gives the h1 its full 460 because the single column is ~684 wide. So: stacked and
+     meeting spec up to 1072, two columns at their best from 1073. */
+  @media (min-width:1073px){
     /* SIMPLIFICATION: the product is ~half the hero (two equal columns), not a thumbnail beside the copy. */
     .hero { display:grid; grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr); gap:48px; align-items:center; text-align:left; }
     .hero.wrap { padding-block:40px 56px; }
