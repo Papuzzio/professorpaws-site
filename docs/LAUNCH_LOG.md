@@ -432,3 +432,44 @@ visible area end inside content*:
 ```
 
 **A clean run of one instrument is evidence about that instrument's question, and nothing else.**
+
+## RE-CAPTURE LIST for the next build sweep — read before capturing
+
+Three frames are wanted and **today's build-34 sweep could not supply any of them.** The reasons are
+recorded so the next sweep captures these states *deliberately* rather than rediscovering the gap.
+
+### 1. The site hero — homework pasted in (retires the last July asset)
+
+The hero must show **a real assignment in the box**. Nine subject tiles alone read as a topic picker;
+the panel with a child's actual worksheet in it is what separates this from a drill app.
+
+**Why build 34 could not supply it — the sweep has no state in between:**
+
+| capture | state |
+|---|---|
+| `B00`, `B09b` | homework entry **collapsed** — no text box in frame at all |
+| `B09c` | expanded, but the box is **EMPTY** (placeholder only) — *and* carries the "Photo homework is coming back shortly" notice |
+| `B09d` | already **generating** — the entry screen is gone |
+
+Entry → expanded-empty → generating, with **nothing captured between typing and pressing Start**.
+So `assets/screen-entry.png` is still the July capture, re-cropped.
+
+**Capture for the next sweep:** the homework panel with several lines of real assignment text pasted
+in, *before* pressing Start, on the current build. That also retires the **Photo button** the July
+shot still shows — the current build replaces it with the pause notice, so the shot is stale until
+photo returns. It was left in place deliberately: editing the button out would fabricate a screen the
+app never rendered, and when photo comes back the shot becomes correct again rather than needing a
+fix.
+
+### 2 & 3. App Store frames 05 and 06 — the earn moment, and the world with the earned thing
+
+`D22-OUTRO-EARN-MOMENT` and `D23-YARD-WITH-EARNED-BIRDBATH` exist only at **1320×2868 (iPhone)**. A
+store set cannot mix device sizes and the aspect ratios are 0.75 against 0.46, so they cannot be
+scaled in. **Capture both at 13-inch iPad Pro, 2064×2752.**
+
+### Where the store set lives — and a warning
+
+`~/dev/appstore-screenshots/` — **UNTRACKED, no git, no remote.** The four built frames, the README
+and `check-appstore.py` are loose files. This is the third time today an approved asset has been
+found sitting only in a scratch directory (the logo, the footer wordmark comp, now this). **Do not
+treat that directory as durable.**
