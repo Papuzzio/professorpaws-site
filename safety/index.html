@@ -344,7 +344,9 @@
 <style>
   /* page-specific: a reading column for the secondary pages */
   .page { max-width:720px; margin:0 auto; padding-block:40px 72px; }
-  .page h1 { font-size:clamp(1.9rem,5vw,2.6rem); font-weight:700; font-variation-settings:'opsz' 144; max-width:22ch; }
+  /* CALMER 2026-08-27, same reasoning as index.html's headings: 144 is Fraunces' POSTER cut. At
+     this size (~42px max) the text cut is the correct optical size, not a stylistic choice. */
+  .page h1 { font-size:clamp(1.9rem,5vw,2.6rem); font-weight:600; font-variation-settings:'opsz' 48, 'SOFT' 50, 'WONK' 0; max-width:22ch; }
   .page .lede { font-size:1.12rem; color:var(--ink-soft); margin-top:14px; max-width:var(--measure); }
   .page h2 { font-size:1.45rem; margin-top:44px; }
   .page h3 { font-size:1.1rem; margin-top:22px; }
