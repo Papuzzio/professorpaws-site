@@ -386,3 +386,49 @@ only.
 fix: `docs/BRAND_FREEZE_2026-08-27.md` in the app repo (tandem-app), final section.** Kept there
 rather than copied here — two records of one finding drift, and the stale one wins arguments it
 should not.
+
+## Screenshot frames — two rules, and they are opposites. Read before adding a capture.
+
+**The hero frame takes ANY SHAPE. The three proof cards must be 0.750. Do not "make them
+consistent".**
+
+### The hero: `aspect-ratio: auto` — leave it alone
+
+`.hero-shot .frame` deliberately does **not** impose a ratio. It follows whatever image it is given,
+so a capture of any shape drops in and nothing is cut.
+
+**Do not re-impose a ratio here to match the cards.** That is exactly the bug it fixes. The generic
+`.frame` is 3:4 (0.750); the July hero was 915×1280 (**0.715**); `object-fit:cover` scales to width,
+so it overflowed and `overflow:hidden` sliced the bottom — the card ended halfway through the line
+*"Ribbon length (metres)"*. The same mechanism was cutting **33px of real content off both other
+July cards** at the same time.
+
+The hero is currently **480×337, a wide card**, and that is correct: the entry screen's content is
+genuinely wider than it is tall. **Do not pad it taller to look like a device.** A short full frame
+beats a tall one with dead cream in it — that is the fractions-card defect in a new costume
+(49.9% of that image was empty, which is why it was replaced).
+
+### The three proof cards: 0.750 exactly, or they get sliced
+
+`.shots-proof` is a three-across grid, so those frames keep `aspect-ratio:3/4` — equal heights are
+doing real work there. **The consequence is a rule on the assets, not on the frame: any image in a
+proof card must be 0.750, or the frame will silently cut its bottom.**
+
+If a capture is not 0.750, **PAD it to 0.750 on its own background — never crop it to fit.** Cropping
+removes exactly the content the frame was already hiding: fixing the symptom by committing the crime.
+`screen-times` and `screen-reading` are side-padded for this reason; every pixel of content survives.
+
+### Checking it
+
+Blankness is **not** the test. `screen-homework` scored 1.9% blank and was sliced mid-sentence; the
+check that caught the fractions card cannot see this defect at all. The question is *does the frame's
+visible area end inside content*:
+
+```js
+[...document.querySelectorAll('.hero-shot img, .shots-proof img')]
+  .map(i => Math.round(i.getBoundingClientRect().height
+                       - (i.closest('.frame').getBoundingClientRect().height - 18)))
+// every value must be <= 0
+```
+
+**A clean run of one instrument is evidence about that instrument's question, and nothing else.**
