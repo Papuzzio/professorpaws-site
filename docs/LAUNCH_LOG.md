@@ -435,7 +435,8 @@ visible area end inside content*:
 
 ## RE-CAPTURE LIST for the next build sweep — read before capturing
 
-Three frames are wanted and **today's build-34 sweep could not supply any of them.** The reasons are
+Four frames are wanted. Three were wanted from **today's build-34 sweep, which could not supply any
+of them**; the fourth (1b) was found later, during the 2026-08-28 site redesign. The reasons are
 recorded so the next sweep captures these states *deliberately* rather than rediscovering the gap.
 
 ### 1. The site hero — homework pasted in (retires the last July asset)
@@ -460,6 +461,26 @@ shot still shows — the current build replaces it with the pause notice, so the
 photo returns. It was left in place deliberately: editing the button out would fabricate a screen the
 app never rendered, and when photo comes back the shot becomes correct again rather than needing a
 fix.
+
+### 1b. `screen-reading.png` — the subject tile reads "Read with Max"
+
+**DO NOT EDIT THE IMAGE.** The fix is a re-capture, not a retouch.
+
+The reading capture shows a subject tile labelled **"Read with Max"**, because the capture was taken
+on a device where the child had named their puppy *Max*. The puppy's name is **not** Max — the child
+names it, and `src/kid/puppy.ts` offers `['Biscuit', 'Rusty', 'Bella', 'Max', 'Daisy', 'Scout']`.
+Per the 2026-08-17 identity ruling the child's named dog *is* the coach, so that tile is one kid's
+choice, not the brand.
+
+The website copy was corrected to **Professor Paws** throughout (site commit `cfa3bc4`, 17
+occurrences → 0). The screenshot is now the only place on the marketing site where the wrong name is
+visible, and it is visible *inside a product screenshot*, which is exactly the thing that must never
+be edited: painting the tile out would fabricate a screen the app never rendered — the same rule
+already applied above to the July hero's Photo button.
+
+**Capture for the next sweep:** the reading screen on a device whose puppy is named **Professor
+Paws**, so the tile reads "Read with Professor Paws" — or on a fresh profile before naming, if the
+app has an unnamed default state. Everything else about the frame is current and fine.
 
 ### 2 & 3. App Store frames 05 and 06 — the earn moment, and the world with the earned thing
 
