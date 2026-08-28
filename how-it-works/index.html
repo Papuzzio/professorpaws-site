@@ -257,7 +257,11 @@
 
   /* v3.2: the above-fold kid-view screenshot + the ruled five-item trust strip */
   .hero-shot { margin:30px auto 0; max-width:440px; } /* phones: stacked under the copy at full content width */
-  .hero-shot .frame { border-radius:22px; overflow:hidden; border:1px solid var(--line);
+    /* THE FRAME FOLLOWS THE IMAGE — it must never impose an aspect on it. The generic `.frame` is
+     3:4; the July hero was 0.715, so it overflowed by 22px and `overflow:hidden` SLICED IT, ending
+     the card halfway through the line "Ribbon length (metres)". aspect-ratio:auto makes that class
+     of defect impossible here rather than fixing one instance of it. */
+  .hero-shot .frame { aspect-ratio:auto; border-radius:22px; overflow:hidden; border:1px solid var(--line);
     box-shadow:0 10px 34px rgba(20,33,61,.10); background:var(--paper); }
   .hero-shot svg, .hero-shot img { display:block; width:100%; height:auto; }
   .strip { background:var(--band); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }

@@ -268,7 +268,11 @@
 
   /* v3.2: the above-fold kid-view screenshot + the ruled five-item trust strip */
   .hero-shot { margin:30px auto 0; max-width:440px; } /* phones: stacked under the copy at full content width */
-  .hero-shot .frame { border-radius:22px; overflow:hidden; border:1px solid var(--line);
+    /* THE FRAME FOLLOWS THE IMAGE — it must never impose an aspect on it. The generic `.frame` is
+     3:4; the July hero was 0.715, so it overflowed by 22px and `overflow:hidden` SLICED IT, ending
+     the card halfway through the line "Ribbon length (metres)". aspect-ratio:auto makes that class
+     of defect impossible here rather than fixing one instance of it. */
+  .hero-shot .frame { aspect-ratio:auto; border-radius:22px; overflow:hidden; border:1px solid var(--line);
     box-shadow:0 10px 34px rgba(20,33,61,.10); background:var(--paper); }
   .hero-shot svg, .hero-shot img { display:block; width:100%; height:auto; }
   .strip { background:var(--band); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
@@ -409,8 +413,8 @@
   <!-- The hero shot is the TYPED-INPUT screen — "Calculate 426 × 38", the crayons word problem, the money
        problems — because it carries the same age as the copy (8–13). Real screen, never restaged. -->
   <figure class="hero-shot fade in"><div class="frame">
-    <picture><source type="image/webp" srcset="/assets/screen-homework.webp" /><img src="/assets/screen-homework.png" width="915" height="1280" fetchpriority="high"
-         alt="What goes in: the puppy asks what we are working on, with skill tiles and this week's typed homework — Calculate 426 × 38, a word problem about boxes of crayons, and money problems" /></picture>
+    <picture><source type="image/webp" srcset="/assets/screen-entry.webp" /><img src="/assets/screen-entry.png" width="915" height="642" fetchpriority="high"
+           alt="The screen a child starts on: the puppy asks &quot;What are we working on today?&quot;, a My homework bar for a photo or typed assignment, and nine subjects — addition, subtraction, times, division, fractions, clock, money, spelling, and reading with Max." /></picture>
   </div></figure>
 </section>
 
