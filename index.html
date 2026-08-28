@@ -55,7 +55,7 @@
      Orange carries the identity in moments; it does not coat the page.
      ══════════════════════════════════════════════════════════════════════════════════════════════ */
   :root {
-    --cream:#FFF8ED; --paper:#FFFCF7; --band:#F3EDE0; --tint:#FDEEE2;
+    --cream:#FFF8ED; --paper:#FFFCF7;
     --ink:#14213D; --ink-soft:#55607A;
     --orange:#F59A23; --orange-deep:#B4530A;
     /* GOLD — not a new hex. Inventoried from the app before inventing one: the site had no gold at
@@ -64,11 +64,13 @@
        contrast an un-outlined paw stops reading as a letter and "Paws" degrades to "P ws". The
        outline measures 3.44:1 on cream, clearing the 3:1 non-text minimum for shape definition. */
     --gold:#FFC233; --gold-deep:#B8791F; --gold-tint:#FDF3E0;
-    /* Paws Teal stays a brand colour (it is the app's), but it is no longer the site's action. */
-    --teal:#14AAA3; --teal-deep:#0F7A76;
     /* THE ACTION PAIR, defined ONCE. Deep Ink label on Professor Orange = 7.25:1. */
     --action:var(--orange); --action-hover:#E08A16; --action-active:#CC7D10; --action-ink:#14213D;
-    --green:#63A65F;   /* success / progress / Worlds ONLY — never an alternative brand colour */
+    /* PRUNED 2026-08-28: --band, --tint, --teal, --teal-deep and --green were declared here and
+       referenced ZERO times after the redesign. A declared token nobody uses is the next person's
+       false lead — it reads as an available part of the system. Paws Teal (#14AAA3) and Garden
+       Green (#63A65F) are still brand colours and still live in the APP; they are simply not part
+       of this site's palette. 404.html keeps its own teal :root and is unaffected. */
     --line:rgba(107,79,42,.18);
     --field-line:rgba(20,33,61,.52);
     --heading:'Fraunces','Iowan Old Style','Palatino',Georgia,serif;
