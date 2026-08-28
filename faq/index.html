@@ -244,6 +244,31 @@
     to   { transform: translate3d(0, var(--pp-to, 0), 0); }
   }
 
+  /* ── MAX IS ALIVE (idle) ──────────────────────────────────────────────────────────────────────
+     The parallax above is scroll-DRIVEN, which only runs where `animation-timeline` is implemented
+     (Chromium 115+, Safari 26+; Firefox not yet). On every other browser the page was completely
+     static — "nothing moves". This idle motion is plain time-based CSS, so it runs EVERYWHERE, and
+     it is what actually gives Max presence: a slow breath-like rise and a fractional tilt, roughly
+     one cycle every five seconds. It is deliberately slower than the eye tracks as "animation".
+
+     Max's ARTWORK is never altered — canonical Max is frozen. This moves the whole image only. */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-pup { animation: pp-breathe 5.2s ease-in-out infinite; transform-origin:50% 92%; }
+    .story-drift img { animation: pp-breathe 6.4s ease-in-out infinite .4s; transform-origin:50% 92%; }
+    /* where scroll timelines DO exist, the drift above takes over these same elements; the two are
+       composed by the browser rather than fighting, because the drift animation is listed first. */
+    @supports (animation-timeline: view()) {
+      .hero-pup { animation: pp-drift linear both, pp-breathe 5.2s ease-in-out infinite;
+                  animation-timeline: view(), auto; animation-range: entry 0% exit 100%, normal; }
+      .story-drift img { animation: pp-drift linear both, pp-breathe 6.4s ease-in-out infinite .4s;
+                  animation-timeline: view(), auto; animation-range: entry 0% exit 100%, normal; }
+    }
+  }
+  @keyframes pp-breathe {
+    0%, 100% { translate: 0 0;     rotate: -0.6deg; }
+    50%      { translate: 0 -9px;  rotate:  0.6deg; }
+  }
+
   /* ── FOOTER ─────────────────────────────────────────────────────────────────────────────────── */
   footer { background:var(--ink); color:var(--cream); padding-block:clamp(40px,5vw,64px); text-align:center; }
   footer .brand { justify-content:center; margin-inline:auto; }
