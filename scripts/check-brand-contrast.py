@@ -26,6 +26,12 @@ APPROVED = {'--orange':'#F59A23','--teal':'#14AAA3','--green':'#63A65F',
 RETIRED  = ['#EE6F1E','#2C2C2C','#FBF8F3','#FDFBF5','#6B665E','#6b4ea0','#1a1a2e','rgba(44,44,44']
 # never carries a white label (all below 3:1 against white)
 NO_WHITE = {'--orange','--teal','--green'}
+# THE ACTION IS ORANGE (owner ruling 2026-08-28), and the label on it is Deep Ink.
+# Rules 3-5 below are ACCESSIBILITY rules; none of them asserts which colour the action IS.
+# That is why five pages kept a teal action through the redesign: white on #0F7A76 is 5.17:1,
+# so every existing rule passed them honestly. An accessible wrong colour is still wrong.
+ACTION_FILL = '#F59A23'
+ACTION_INK  = '#14213D'
 
 def lin(c):
     c /= 255
@@ -107,6 +113,19 @@ def check(files):
                 r = ratio(ink, val)
                 if r < MIN_AA:
                     bad.append(f'{rel}: --action-ink on {state} ({ink} on {val}) = {r:.2f}:1, below {MIN_AA}:1')
+        # 4b. THE ACTION IS THE BRAND'S ORANGE — not merely a legible colour.
+        #     Rule 4 asks "is the label readable on the fill". It cannot ask "is the fill ours".
+        #     privacy/terms/404/confirm/reset each carried a private :root with a teal action that
+        #     satisfied rule 4 at 5.17:1 and survived the whole 2026-08-28 redesign because of it.
+        #     Checked through var() chains, same as rule 4.
+        if re.search(r'--action\s*:', css):
+            fill = resolve(css, '--action')
+            if fill and fill.upper() != ACTION_FILL:
+                bad.append(f'{rel}: --action is {fill}, the approved action fill is {ACTION_FILL}')
+            if ink and ink.upper() != ACTION_INK:
+                bad.append(f'{rel}: --action-ink is {ink}, the approved action label is {ACTION_INK} '
+                           f'(white on {ACTION_FILL} is {ratio("#FFFFFF", ACTION_FILL):.2f}:1 and is banned)')
+
         # 5. EVERY CONTROL PAINTS FROM --action. The rule that would have caught what the 2026-08-27
         #    audit found: FIFTEEN action-coloured controls in THREE colours, because each new page
         #    reached for whatever literal was nearby. A block with a solid background AND a light
