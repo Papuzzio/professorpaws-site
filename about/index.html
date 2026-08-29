@@ -298,6 +298,51 @@
     50%      { translate: 0 -9px;  rotate:  0.6deg; }
   }
 
+  /* ── SECONDARY-PAGE COMPONENTS ───────────────────────────────────────────────────────────────
+     /about/, /how-it-works/, /safety/ and /faq/ take their whole shell from THIS file
+     (scripts/build-pages.py lifts this stylesheet verbatim), but their bodies live in pages/*.html
+     and use classes the homepage itself never renders.
+
+     THE REDESIGN DROPPED THEM AND NOBODY NOTICED, because the homepage was the only page opened to
+     check. `.paw svg` in particular sized the inline icons: without it an SVG with no width falls
+     back to its intrinsic box, so /how-it-works/ rendered a ~270px book icon mid-page. Restored
+     here in the new visual language rather than pasted back from the old stylesheet. */
+  .paw svg, .chip svg, .checks svg { flex:0 0 auto; }
+  .paw svg { width:26px; height:26px; color:var(--orange); }
+  .chip svg { width:18px; height:18px; }
+  .checks svg { width:20px; height:20px; color:var(--orange-deep); }
+
+  /* numbered walkthrough — icon column, then the step */
+  .trail { list-style:none; max-width:640px; margin:34px auto 0; padding:0; display:grid; gap:26px; }
+  .trail li { display:grid; grid-template-columns:44px 1fr; gap:16px; align-items:start; }
+  .trail h3 { font-family:var(--display); font-weight:700; font-size:1.06rem; margin-bottom:4px; }
+  .trail p { color:var(--ink-soft); }
+
+  /* trust points — two columns on desktop, one on phones */
+  .trust-points { list-style:none; margin:32px auto 0; padding:0; max-width:860px;
+    display:grid; grid-template-columns:1fr 1fr; gap:22px 40px; }
+  .trust-points li { display:flex; gap:13px; align-items:flex-start; }
+  @media (max-width:720px){ .trust-points { grid-template-columns:1fr; } }
+
+  /* the three-method strip */
+  .method-strip { display:flex; gap:10px; justify-content:center; align-items:center; flex-wrap:wrap; margin-top:26px; }
+  .method-strip span { background:var(--paper); border:1.5px solid var(--orange); border-radius:999px;
+    padding:10px 20px; font-family:var(--display); font-weight:700; color:var(--orange-deep); }
+  .method-strip .arrow, .arrow { background:none; border:0; padding:0; color:var(--ink-soft);
+    font-weight:400; font-family:var(--body); }
+
+  /* FAQ disclosure list */
+  .faq { max-width:660px; margin:0 auto; display:grid; gap:10px; }
+  .faq details { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:2px 18px; }
+  .faq summary { cursor:pointer; padding:15px 0; font-family:var(--display); font-weight:600; list-style:none; }
+  .faq summary::-webkit-details-marker { display:none; }
+  .faq summary::after { content:"+"; float:right; color:var(--orange-deep); font-weight:700; }
+  .faq details[open] summary::after { content:"\2013"; }
+  .faq details > p { padding:0 0 16px; color:var(--ink-soft); }
+
+  .cta-row { display:flex; gap:18px; align-items:center; flex-wrap:wrap; margin-top:26px; }
+  .chip { display:inline-flex; align-items:center; gap:8px; }
+
   /* ── FOOTER ─────────────────────────────────────────────────────────────────────────────────── */
   footer { background:var(--ink); color:var(--cream); padding-block:clamp(40px,5vw,64px); text-align:center; }
   footer .brand { justify-content:center; margin-inline:auto; }
