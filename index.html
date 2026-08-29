@@ -85,7 +85,13 @@
   html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
   body { margin:0; background:var(--cream); color:var(--ink); font-family:var(--body);
     font-size:clamp(1.02rem,.98rem + .3vw,1.14rem); line-height:1.62;
-    -webkit-font-smoothing:antialiased; }
+    -webkit-font-smoothing:antialiased;
+    /* STICKY FOOTER. 404 and support are short enough that the navy footer used to stop
+       mid-viewport with dead cream beneath it, which reads as a broken page rather than a
+       short one. main grows to fill; on tall pages flex-grow has nothing to do, so the
+       homepage is unaffected (verified: identical section offsets and document height). */
+    min-height:100dvh; display:flex; flex-direction:column; }
+  body > main { flex:1 0 auto; }
   /* NOTE: no `overflow-x:hidden` here. It makes <body> a scroll container, which leaves the
      scroll-driven `view()` timelines below permanently INACTIVE (currentTime null, transform never
      applied) — the parallax silently does nothing. There is nothing to clip anyway: measured at

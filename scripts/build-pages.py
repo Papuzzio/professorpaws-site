@@ -45,8 +45,50 @@ PAGES = {
                          desc='Does it give children the answer? Is it an AI tutor? What data do you collect? Ages, subjects, devices, cost — every question parents ask about Professor Paws.'),
 }
 
-def shell(slug, meta, body):
-    url = f'https://playprofessorpaws.com/{slug}/'
+# The TRANSACTIONAL pages. Before 2026-08-29 these lived outside the shell entirely: a bare brand
+# lockup, no site nav, no footer on support/404, and their own private token sets. A parent who
+# opened the privacy policy had no way back into the site except the logo. They are built from the
+# same shell as everything else now, so they cannot drift from it again.
+#
+# NOT INCLUDED, deliberately: confirm.html and reset.html. Those are the COPPA consent and
+# password-reset flows; they carry their own strict Content-Security-Policy and are out of scope
+# per the owner (2026-08-29). Do not fold them in without asking.
+ROOT_PAGES = {
+    'privacy': dict(title='Privacy Policy — Professor Paws',
+                    desc='What Professor Paws collects, what it does not, where the data lives, and how to delete it. Written for parents, in plain language.'),
+    'terms':   dict(title='Terms of Service — Professor Paws',
+                    desc='The terms for using Professor Paws, including accounts, subscriptions, acceptable use, and how to cancel.'),
+    'support': dict(title='Support — Professor Paws',
+                    desc='Questions, problems, or feedback — how to reach a human, and how to delete your child\'s data.'),
+    '404':     dict(title='Page not found — Professor Paws', noindex=True,
+                    desc='That page does not exist. Head back to Professor Paws.'),
+}
+
+# Rules the transactional pages need that the marketing pages do not: the retention table, the
+# summary callout, the "last updated" line, and the back-home link. Doubled braces because shell()
+# is an f-string.
+LEGAL_CSS = """  /* ── TRANSACTIONAL PAGES ─────────────────────────────────────────────────────────── */
+  .page .updated {{ color:var(--ink-soft); font-size:.92rem; margin-top:6px; }}
+  .page h2 {{ font-size:1.3rem; margin-top:38px; padding-top:18px; border-top:1px solid var(--line); }}
+  .page h2:first-of-type {{ border-top:none; padding-top:0; }}
+  .page h3 {{ font-size:1.02rem; color:var(--orange-deep); margin-top:20px; }}
+  .page ul {{ margin:10px 0 0; padding-left:22px; max-width:var(--measure); }}
+  .page li {{ margin:6px 0; }}
+  .page address {{ font-style:normal; margin-top:10px; }}
+  .page .rt-wrap {{ overflow-x:auto; margin:16px 0; }}
+  .page table.rt {{ width:100%; border-collapse:collapse; font-size:.95rem; }}
+  .page table.rt caption {{ text-align:left; color:var(--ink-soft); font-size:.9rem; margin-bottom:8px; }}
+  .page table.rt th, .page table.rt td {{ text-align:left; padding:10px 12px; border:1px solid var(--line); vertical-align:top; }}
+  .page table.rt thead th {{ background:var(--gold-tint); font-weight:600; }}
+  .page table.rt tbody th {{ font-weight:600; width:40%; background:var(--paper); }}
+  .page .callout, .page .summary {{ background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:20px 22px; margin:24px 0; }}
+  .page .callout h2, .page .summary h2 {{ border:none; padding:0; margin:0 0 10px; font-size:1.05rem; }}
+"""
+
+def shell(slug, meta, body, root=False):
+    url = ('https://playprofessorpaws.com/%s.html' % slug) if root else f'https://playprofessorpaws.com/{slug}/'
+    robots = '<meta name="robots" content="noindex" />\n' if meta.get('noindex') else ''
+    extra = LEGAL_CSS if root else ''
     return f'''<!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -54,7 +96,7 @@ def shell(slug, meta, body):
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>{meta['title']}</title>
 <meta name="description" content="{meta['desc']}" />
-<link rel="canonical" href="{url}" />
+{robots}<link rel="canonical" href="{url}" />
 <meta property="og:title" content="{meta['title']}" />
 <meta property="og:description" content="{meta['desc']}" />
 <meta property="og:type" content="website" />
@@ -97,7 +139,7 @@ def shell(slug, meta, body):
   .page .chip svg {{ width:18px; height:18px; }}
   .page .sig {{ color:var(--ink-soft); font-size:.96rem; }}
   a.more {{ color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-flex; align-items:center; min-height:44px; }}
-</style>
+{extra}</style>
 </head>
 <body>
 {sprite}
@@ -127,4 +169,10 @@ for slug, meta in PAGES.items():
     out = ROOT / slug / 'index.html'
     out.parent.mkdir(exist_ok=True)
     out.write_text(shell(slug, meta, body))
+    print(f'wrote {out.relative_to(ROOT)} ({out.stat().st_size} bytes)')
+
+for slug, meta in ROOT_PAGES.items():
+    body = (ROOT / 'pages' / f'{slug}.html').read_text()
+    out = ROOT / f'{slug}.html'
+    out.write_text(shell(slug, meta, body, root=True))
     print(f'wrote {out.relative_to(ROOT)} ({out.stat().st_size} bytes)')

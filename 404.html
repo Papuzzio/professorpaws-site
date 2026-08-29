@@ -1,44 +1,498 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Page not found — Professor Paws</title>
+<meta name="description" content="That page does not exist. Head back to Professor Paws." />
 <meta name="robots" content="noindex" />
+<link rel="canonical" href="https://playprofessorpaws.com/404.html" />
+<meta property="og:title" content="Page not found — Professor Paws" />
+<meta property="og:description" content="That page does not exist. Head back to Professor Paws." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://playprofessorpaws.com/404.html" />
+<meta property="og:site_name" content="Professor Paws" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:image" content="https://playprofessorpaws.com/assets/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Professor Paws — homework help for kids who shut down, rush, or melt down over schoolwork — beside the iPad app's homework screen" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Page not found — Professor Paws" />
+<meta name="twitter:description" content="That page does not exist. Head back to Professor Paws." />
+<meta name="twitter:image" content="https://playprofessorpaws.com/assets/og-image.png" />
 <link rel="icon" href="/favicon.ico" sizes="48x48" />
 <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+<link rel="preload" href="/assets/fonts/fraunces-var-latin.woff2" as="font" type="font/woff2" crossorigin />
 <style>
-  /* Brought in line with the other eight pages, 2026-08-27. This page previously carried its own
-     brand: the mascot cropped into a 96px circle, and a CTA on --orange-deep where every section
-     page uses --teal-deep. A 404 is a page a lost parent actually lands on, so it is not the place
-     to be the one inconsistent surface. Same palette tokens, same approved logo, same button. */
+  @font-face { font-family:'Fraunces'; font-style:normal; font-weight:600 700; font-stretch:normal; font-display:swap; /* 600–700 exactly as Google Fonts declared it: an 800 request clamps to 700, as it always has */
+    src:url('/assets/fonts/fraunces-var-latin.woff2') format('woff2');
+    unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+</style>
+<style>
+  /* ══════════════════════════════════════════════════════════════════════════════════════════════
+     PROFESSOR PAWS — 2026-08-28 consumer-product redesign.
+
+     THE ACTION COLOUR IS NOW ORANGE (owner ruling 2026-08-28). This SUPERSEDES the 2026-08-27
+     "TEAL STANDS" ruling, which was settled on a contrast measurement: white on the brand teal is
+     2.87:1, so the action became a darkened teal carrying a WHITE label. The new direction keeps
+     that measurement honest by changing the LABEL rather than the hue — Deep Ink on Professor
+     Orange is 7.25:1, comfortably past AA, and it satisfies the standing frozen rule that white
+     never sits on orange/teal/green (scripts/check-brand-contrast.py enforces it).
+
+     PAGE RHYTHM (owner-specified): cream → orange → cream → gold-tint → cream → orange → navy.
+     Orange carries the identity in moments; it does not coat the page.
+     ══════════════════════════════════════════════════════════════════════════════════════════════ */
   :root {
     --cream:#FFF8ED; --paper:#FFFCF7;
     --ink:#14213D; --ink-soft:#55607A;
     --orange:#F59A23; --orange-deep:#B4530A;
-    --green:#63A65F;
-    /* Reached by NO build step — see check-brand-contrast.py rule 6. Must match index.html. */
-    --action:#F59A23; --action-hover:#E08A16; --action-active:#CC7D10; --action-ink:#14213D;
+    /* GOLD — not a new hex. Inventoried from the app before inventing one: the site had no gold at
+       all, so these are the existing app tokens — kidTheme `yellow` and theme `amber`. The paw is
+       drawn in the fill and OUTLINED in the deeper one, because gold on cream is 1.53:1: at that
+       contrast an un-outlined paw stops reading as a letter and "Paws" degrades to "P ws". The
+       outline measures 3.44:1 on cream, clearing the 3:1 non-text minimum for shape definition. */
+    --gold:#FFC233; --gold-deep:#B8791F; --gold-tint:#FDF3E0;
+    /* THE ACTION PAIR, defined ONCE. Deep Ink label on Professor Orange = 7.25:1. */
+    --action:var(--orange); --action-hover:#E08A16; --action-active:#CC7D10; --action-ink:#14213D;
+    /* PRUNED 2026-08-28: --band, --tint, --teal, --teal-deep and --green were declared here and
+       referenced ZERO times after the redesign. A declared token nobody uses is the next person's
+       false lead — it reads as an available part of the system. Paws Teal (#14AAA3) and Garden
+       Green (#63A65F) are still brand colours and still live in the APP; they are simply not part
+       of this site's palette. 404.html keeps its own teal :root and is unaffected. */
+    --line:rgba(107,79,42,.18);
+    --field-line:rgba(20,33,61,.52);
+    --heading:'Fraunces','Iowan Old Style','Palatino',Georgia,serif;
+    --display:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --body:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --gutter: clamp(20px, 4.5vw, 56px);
+    --measure: 58ch;
+    --maxw: calc(1080px + 2 * var(--gutter));
   }
-  body { margin:0; background:var(--cream); color:var(--ink); font-family:system-ui, -apple-system, sans-serif; font-size:18px; line-height:1.65; display:grid; min-height:100vh; place-items:center; text-align:center; padding:22px; }
-  /* The approved logo, not a cropped mascot. This is the ONE page with vertical room to spare, so it
-     runs at 120px — the size at which the badge's wordmark (8.8% of its height) is actually legible
-     at ~10.6px, rather than the emblem reading it necessarily has in the 72px header bar. */
-  .brand { display:block; margin:0 auto 18px; width:123px; height:120px; }
-  h1 { font-family:'Fraunces','Iowan Old Style','Palatino',Georgia,serif; font-weight:700; font-size:1.8rem; margin:0 0 8px; }
-  p { margin:0 0 22px; color:var(--ink-soft); }
-  a.home { display:inline-block; background:var(--action); color:var(--action-ink); text-decoration:none; font-family:system-ui,-apple-system,sans-serif; font-weight:700; padding:13px 28px; border-radius:999px; min-height:44px; box-sizing:border-box; }
-  a.home:hover { background:var(--action-hover); }   /* was #0C6360 — a fourth teal nobody meant. Dropped, not ported. */
+
+  *,*::before,*::after { box-sizing:border-box; }
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  body { margin:0; background:var(--cream); color:var(--ink); font-family:var(--body);
+    font-size:clamp(1.02rem,.98rem + .3vw,1.14rem); line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    /* STICKY FOOTER. 404 and support are short enough that the navy footer used to stop
+       mid-viewport with dead cream beneath it, which reads as a broken page rather than a
+       short one. main grows to fill; on tall pages flex-grow has nothing to do, so the
+       homepage is unaffected (verified: identical section offsets and document height). */
+    min-height:100dvh; display:flex; flex-direction:column; }
+  body > main { flex:1 0 auto; }
+  /* NOTE: no `overflow-x:hidden` here. It makes <body> a scroll container, which leaves the
+     scroll-driven `view()` timelines below permanently INACTIVE (currentTime null, transform never
+     applied) — the parallax silently does nothing. There is nothing to clip anyway: measured at
+     375 / 390 / 430 / tablet / desktop, document scrollWidth equals the viewport width. */
+  img,svg,picture { max-width:100%; height:auto; display:block; }
+  a { color:inherit; }
+  h1,h2,h3 { font-family:var(--heading); font-weight:700; line-height:1.08; letter-spacing:-.012em; margin:0; }
+  p { margin:0; }
+
+  .wrap { max-width:var(--maxw); margin-inline:auto; padding-inline:var(--gutter); }
+  .measure { max-width:var(--measure); }
+
+  /* focus is never removed — only restyled, and it stays visible on every ground */
+  :focus-visible { outline:3px solid var(--ink); outline-offset:3px; border-radius:6px; }
+  .on-orange :focus-visible, .on-navy :focus-visible { outline-color:var(--cream); }
+
+  .js .fade { opacity:0; transform:translateY(14px); transition:opacity .6s ease,transform .6s ease; }
+  .js .fade.in { opacity:1; transform:none; }
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto}
+    .fade{opacity:1;transform:none;transition:none} }
+
+  .skip { position:absolute; left:-9999px; top:8px; background:var(--paper); color:var(--ink);
+    padding:10px 14px; border-radius:8px; z-index:100; font-weight:600; }
+  .skip:focus { left:8px; outline:3px solid var(--ink); }
+
+  /* ── BUTTON ─────────────────────────────────────────────────────────────────────────────────── */
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+    background:var(--action); color:var(--action-ink); font-family:var(--display);
+    font-weight:700; font-size:1.02rem; letter-spacing:-.005em;
+    padding:14px 26px; min-height:52px; border:0; border-radius:999px; cursor:pointer;
+    text-decoration:none; box-shadow:0 2px 0 rgba(20,33,61,.16); transition:background .15s ease, transform .12s ease; }
+  .btn:hover { background:var(--action-hover); }
+  .btn:active { background:var(--action-active); transform:translateY(1px); box-shadow:0 1px 0 rgba(20,33,61,.16); }
+  .btn-lg { font-size:1.1rem; padding:17px 34px; min-height:60px; }
+  /* on an orange ground the button inverts to navy so it never disappears into the band */
+  .on-orange .btn { background:var(--ink); color:var(--cream); box-shadow:0 2px 0 rgba(20,33,61,.24); }
+  .on-orange .btn:hover { background:#1D2E55; }
+  .link-under { font-family:var(--display); font-weight:600; text-decoration:underline;
+    text-underline-offset:4px; text-decoration-thickness:2px; }
+
+  /* ── HEADER ─────────────────────────────────────────────────────────────────────────────────── */
+  .top { position:sticky; top:0; z-index:20; background:rgba(255,248,237,.92);
+    backdrop-filter:saturate(1.1) blur(6px); border-bottom:1px solid var(--line); }
+  .top .bar { max-width:var(--maxw); margin-inline:auto; padding:14px var(--gutter);
+    display:flex; align-items:center; gap:20px; }
+  .brand { display:inline-flex; align-items:center; flex:0 0 auto; }
+  .brand img { width:clamp(150px,20vw,206px); height:auto; }
+  .top nav { margin-left:auto; display:flex; gap:26px; font-family:var(--display); font-weight:600; }
+  .top nav a { display:inline-flex; align-items:center; min-height:44px; text-decoration:none; color:var(--ink); }
+  .top nav a:hover { text-decoration:underline; text-underline-offset:4px; }
+  .top .btn { flex:0 0 auto; padding:11px 20px; min-height:46px; font-size:.98rem; }
+  @media (max-width:860px){ .top nav { display:none; } .top .btn { margin-left:auto; } }
+  @media (max-width:430px){ .top .bar { gap:12px; padding-inline:var(--gutter); }
+    .top .btn { padding:10px 15px; min-height:44px; font-size:.92rem; } }
+
+  /* ── HERO ───────────────────────────────────────────────────────────────────────────────────── */
+  .hero { padding-block:clamp(38px,6vw,80px) clamp(44px,6vw,86px); }
+  .hero-grid { display:grid; grid-template-columns:1.04fr .96fr; gap:clamp(28px,5vw,70px); align-items:center; }
+  .hero h1 { font-size:clamp(2.15rem,1.35rem + 3.35vw,4rem); }
+  .hero .sub { margin-top:20px; font-size:clamp(1.08rem,1.02rem + .42vw,1.32rem);
+    color:var(--ink-soft); max-width:34ch; }
+  .hero .ctas { margin-top:30px; display:flex; align-items:center; gap:22px; flex-wrap:wrap; }
+  .hero .trust { margin-top:22px; font-family:var(--display); font-size:.96rem; color:var(--ink-soft); }
+  /* The puppy and the real app screen share one stage: the puppy in front, the product behind and offset, so the
+     page shows the character AND the actual thing being sold without a decorative frame around either. */
+  /* Professor Paws stands BESIDE the product, overlapping only its lower-left corner: the app screen has to stay
+     legible (it is the actual thing being sold) and the puppy must not be cropped by the overlap. */
+  .hero-stage { position:relative; display:flex; justify-content:flex-end; align-items:flex-end; padding-left:28%; }
+  .hero-shot { width:78%; margin:0; border-radius:22px; overflow:hidden;
+    box-shadow:0 18px 44px rgba(20,33,61,.16), 0 0 0 1px rgba(20,33,61,.06); }
+  .hero-pup { position:absolute; left:0; bottom:-1%; width:46%; filter:drop-shadow(0 12px 22px rgba(20,33,61,.18)); }
+  @media (max-width:900px){
+    .hero-grid { grid-template-columns:1fr; gap:34px; }
+    .hero .sub { max-width:none; }
+    .hero-stage { margin-top:6px; padding-left:26%; max-width:520px; margin-inline:auto; }
+    .hero-shot { width:74%; }
+    .hero-pup { width:44%; }
+  }
+
+  /* ── BANDS ──────────────────────────────────────────────────────────────────────────────────── */
+  .band { padding-block:clamp(52px,7vw,96px); }
+  .band-orange { background:var(--orange); color:var(--ink); }
+  .band-gold { background:var(--gold-tint); }
+  .band-paper { background:var(--paper); }
+  .band-navy { background:var(--ink); color:var(--cream); }
+  .band h2 { font-size:clamp(1.8rem,1.3rem + 2.1vw,3rem); }
+  .band p.lede { margin-top:18px; font-size:clamp(1.06rem,1.01rem + .34vw,1.24rem); }
+  .band-orange p.lede { color:#3A2A10; }
+
+  /* the orange statement: copy left, one real product visual right. Not six cards. */
+  .say { display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(26px,5vw,64px); align-items:center; }
+  .say .shot { margin:0; border-radius:20px; overflow:hidden;
+    box-shadow:0 16px 40px rgba(20,33,61,.22), 0 0 0 1px rgba(20,33,61,.08); max-width:330px; justify-self:center; }
+  @media (max-width:820px){ .say { grid-template-columns:1fr; } .say .shot { max-width:270px; } }
+
+  /* ── STORY SECTIONS (alternating, generous, no grids) ───────────────────────────────────────── */
+  .story { display:grid; grid-template-columns:1fr 1fr; gap:clamp(30px,6vw,84px); align-items:center; }
+  .story .copy h2 { font-size:clamp(1.72rem,1.28rem + 1.9vw,2.7rem); }
+  .story .copy p { margin-top:18px; font-size:clamp(1.04rem,1rem + .3vw,1.18rem); color:var(--ink-soft); max-width:46ch; }
+  .story .copy .more { display:inline-block; margin-top:20px; }
+  .story figure { margin:0; }
+  .story .shot { border-radius:20px; overflow:hidden; box-shadow:0 16px 40px rgba(20,33,61,.14), 0 0 0 1px rgba(20,33,61,.06); max-width:320px; }
+  .story.flip .copy { order:2; }
+  .story.flip figure { order:1; }
+  .story .art { justify-self:center; }
+  .story .pair { display:flex; gap:18px; justify-content:center; }
+  .story .pair .shot { max-width:212px; }
+  @media (max-width:820px){
+    .story { grid-template-columns:1fr; gap:28px; }
+    .story.flip .copy, .story.flip figure { order:initial; }
+    .story .copy p { max-width:none; }
+    .story .shot { max-width:270px; margin-inline:auto; }
+    .story .pair .shot { max-width:46%; }
+  }
+
+  /* -- THE PUPPY SPEAKS -------------------------------------------------------------------------------
+     One line, in Professor Paws' own voice, taken verbatim from the app. It rides the SAME `.fade` reveal the
+     rest of the page uses (IntersectionObserver, so it works in every browser), and inherits the
+     reduced-motion rule with it: under `reduce`, `.fade` is opacity 1 / transform none, so the
+     bubble is simply present rather than arriving. No new mechanism, no new dependency. */
+  .max-say { position:relative; display:inline-block; }
+  .max-say img { max-width:270px; margin-inline:auto; }
+  .bubble { position:absolute; left:66%; top:-6%; z-index:2; margin:0;
+    background:var(--paper); color:var(--ink); font-family:var(--display); font-weight:600;
+    font-size:.98rem; line-height:1.35; text-align:left; padding:13px 16px; border-radius:16px;
+    width:max-content; max-width:min(15rem, 46vw);
+    box-shadow:0 8px 22px rgba(20,33,61,.14), 0 0 0 1px rgba(20,33,61,.06); }
+  .bubble::after { content:""; position:absolute; left:14px; bottom:-9px; width:18px; height:18px;
+    background:var(--paper); border-radius:0 0 5px 0; transform:rotate(45deg) skew(6deg,6deg); }
+  @media (max-width:820px){ .bubble { left:60%; top:-4%; max-width:min(13rem, 50vw); font-size:.92rem; } }
+  /* Below ~560px an absolutely-positioned bubble cannot be kept inside the viewport reliably (it
+     overflowed by 5px at 390 and produced horizontal scroll), so it drops INTO FLOW above him and
+     centres. Nothing to clip, nothing to overflow. */
+  @media (max-width:560px){
+    .max-say { display:block; }
+    /* `position:relative`, NOT `static`: the tail is an absolutely-positioned ::after, and a static
+       parent is not a containing block for it — it would anchor to .max-say and float out below
+       his paws instead of under the bubble. */
+    .bubble { position:relative; left:auto; top:auto; margin:0 auto 12px; max-width:min(20rem, 88%); text-align:center; }
+    .bubble::after { left:50%; margin-left:-9px; }
+  }
+
+  /* ── PARENT / TRUST ─────────────────────────────────────────────────────────────────────────── */
+  .trust-line { margin-top:26px; display:flex; flex-wrap:wrap; gap:10px 14px; font-family:var(--display); font-weight:600; }
+  .trust-line span { background:var(--cream); border:1px solid var(--line); border-radius:999px; padding:9px 16px; }
+
+  /* ── FINAL CTA + FORM ───────────────────────────────────────────────────────────────────────── */
+  .final { text-align:center; }
+  .final h2 { font-size:clamp(1.95rem,1.35rem + 2.5vw,3.2rem); max-width:16ch; margin-inline:auto; }
+  .beta { background:var(--paper); border-radius:20px; padding:clamp(22px,4vw,34px);
+    max-width:520px; margin:30px auto 0; text-align:left; box-shadow:0 14px 36px rgba(20,33,61,.18); }
+  .beta h2, .beta h3 { font-size:1.32rem; }
+  .beta label { display:block; margin:16px 0 6px; font-family:var(--display); font-weight:600; font-size:.98rem; }
+  .beta .hint { display:block; font-weight:400; font-size:.88rem; color:var(--ink-soft); margin-top:3px; }
+  .beta input[type=email], .beta input[type=text], .beta select, .beta textarea {
+    width:100%; font:inherit; color:var(--ink); background:#fff; padding:12px 14px;
+    border:1px solid var(--field-line); border-radius:12px; }
+  .beta .btn { width:100%; margin-top:20px; }
+  .beta .note { color:var(--ink-soft); font-size:.95rem; margin-top:8px; }
+  .beta .ages { display:flex; gap:18px; }
+  .beta .ages label { display:inline-flex; align-items:center; gap:8px; margin:0; }
+  .form-msg:empty { display:none; }
+  .form-msg { margin-top:12px; font-family:var(--display); font-weight:600; }
+
+  /* ── SCROLL PARALLAX ─────────────────────────────────────────────────────────────────────────
+     THREE elements drift, by a couple of dozen pixels each, and nothing else moves. The page is
+     selling calm; motion that announces itself would argue against the copy.
+
+     REDUCED MOTION IS AN OFF SWITCH, NOT A DIMMER. The whole feature sits inside
+     `prefers-reduced-motion: no-preference`, so when a visitor asks for reduced motion these rules
+     are never applied at all — there is no low-amplitude fallback path to get wrong. The app honours
+     the same setting, and this audience includes sensory-sensitive families.
+
+     It is CSS-driven: scroll-driven animation timelines, no scroll listener, no rAF loop, no JS at
+     all. Browsers without `animation-timeline` simply render the page static, which is a fine
+     outcome rather than a broken one.
+
+     The parallax targets the INNER images while `.fade` animates their containers, so the two never
+     fight over the same `transform`. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .hero-pup, .hero-shot img, .story-drift img {
+        animation: pp-drift linear both;
+        animation-timeline: view();
+        animation-range: entry 0% exit 100%;
+      }
+      /* The puppy leads, the product screen counter-drifts a little less: the offset between them is what
+         reads as depth. Both are small enough to notice only as steadiness, not as movement. */
+      .hero-pup      { --pp-from: 16px;  --pp-to: -16px; }
+      .hero-shot img { --pp-from: -9px;  --pp-to: 9px;   }
+      .story-drift img { --pp-from: 18px; --pp-to: -18px; }
+    }
+  }
+  @keyframes pp-drift {
+    from { transform: translate3d(0, var(--pp-from, 0), 0); }
+    to   { transform: translate3d(0, var(--pp-to, 0), 0); }
+  }
+
+  /* ── MAX IS ALIVE (idle) ──────────────────────────────────────────────────────────────────────
+     The parallax above is scroll-DRIVEN, which only runs where `animation-timeline` is implemented
+     (Chromium 115+, Safari 26+; Firefox not yet). On every other browser the page was completely
+     static — "nothing moves". This idle motion is plain time-based CSS, so it runs EVERYWHERE, and
+     it is what actually gives the puppy presence: a slow breath-like rise and a fractional tilt, roughly
+     one cycle every five seconds. It is deliberately slower than the eye tracks as "animation".
+
+     The ARTWORK is never altered — the canonical puppy is frozen. This moves the whole image only. */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-pup { animation: pp-breathe 5.2s ease-in-out infinite; transform-origin:50% 92%; }
+    .story-drift img { animation: pp-breathe 6.4s ease-in-out infinite .4s; transform-origin:50% 92%; }
+    /* where scroll timelines DO exist, the drift above takes over these same elements; the two are
+       composed by the browser rather than fighting, because the drift animation is listed first. */
+    @supports (animation-timeline: view()) {
+      .hero-pup { animation: pp-drift linear both, pp-breathe 5.2s ease-in-out infinite;
+                  animation-timeline: view(), auto; animation-range: entry 0% exit 100%, normal; }
+      .story-drift img { animation: pp-drift linear both, pp-breathe 6.4s ease-in-out infinite .4s;
+                  animation-timeline: view(), auto; animation-range: entry 0% exit 100%, normal; }
+    }
+  }
+  @keyframes pp-breathe {
+    0%, 100% { translate: 0 0;     rotate: -0.6deg; }
+    50%      { translate: 0 -9px;  rotate:  0.6deg; }
+  }
+
+  /* ── SECONDARY-PAGE COMPONENTS ───────────────────────────────────────────────────────────────
+     /about/, /how-it-works/, /safety/ and /faq/ take their whole shell from THIS file
+     (scripts/build-pages.py lifts this stylesheet verbatim), but their bodies live in pages/*.html
+     and use classes the homepage itself never renders.
+
+     THE REDESIGN DROPPED THEM AND NOBODY NOTICED, because the homepage was the only page opened to
+     check. `.paw svg` in particular sized the inline icons: without it an SVG with no width falls
+     back to its intrinsic box, so /how-it-works/ rendered a ~270px book icon mid-page. Restored
+     here in the new visual language rather than pasted back from the old stylesheet. */
+  .paw svg, .chip svg, .checks svg { flex:0 0 auto; }
+  .paw svg { width:26px; height:26px; color:var(--orange); }
+  .chip svg { width:18px; height:18px; }
+  .checks svg { width:20px; height:20px; color:var(--orange-deep); }
+
+  /* numbered walkthrough — icon column, then the step */
+  .trail { list-style:none; max-width:640px; margin:34px auto 0; padding:0; display:grid; gap:26px; }
+  .trail li { display:grid; grid-template-columns:44px 1fr; gap:16px; align-items:start; }
+  .trail h3 { font-family:var(--display); font-weight:700; font-size:1.06rem; margin-bottom:4px; }
+  .trail p { color:var(--ink-soft); }
+
+  /* trust points — two columns on desktop, one on phones */
+  .trust-points { list-style:none; margin:32px auto 0; padding:0; max-width:860px;
+    display:grid; grid-template-columns:1fr 1fr; gap:22px 40px; }
+  .trust-points li { display:flex; gap:13px; align-items:flex-start; }
+  @media (max-width:720px){ .trust-points { grid-template-columns:1fr; } }
+
+  /* the three-method strip */
+  .method-strip { display:flex; gap:10px; justify-content:center; align-items:center; flex-wrap:wrap; margin-top:26px; }
+  .method-strip span { background:var(--paper); border:1.5px solid var(--orange); border-radius:999px;
+    padding:10px 20px; font-family:var(--display); font-weight:700; color:var(--orange-deep); }
+  .method-strip .arrow, .arrow { background:none; border:0; padding:0; color:var(--ink-soft);
+    font-weight:400; font-family:var(--body); }
+
+  /* FAQ disclosure list */
+  .faq { max-width:660px; margin:0 auto; display:grid; gap:10px; }
+  .faq details { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:2px 18px; }
+  .faq summary { cursor:pointer; padding:15px 0; font-family:var(--display); font-weight:600; list-style:none; }
+  .faq summary::-webkit-details-marker { display:none; }
+  .faq summary::after { content:"+"; float:right; color:var(--orange-deep); font-weight:700; }
+  .faq details[open] summary::after { content:"\2013"; }
+  .faq details > p { padding:0 0 16px; color:var(--ink-soft); }
+
+  .cta-row { display:flex; gap:18px; align-items:center; flex-wrap:wrap; margin-top:26px; }
+  .chip { display:inline-flex; align-items:center; gap:8px; }
+
+  /* ── FOOTER ─────────────────────────────────────────────────────────────────────────────────── */
+  footer { background:var(--ink); color:var(--cream); padding-block:clamp(40px,5vw,64px); text-align:center; }
+  footer .brand { justify-content:center; margin-inline:auto; }
+  footer .brand img { width:clamp(160px,22vw,210px); }
+  footer nav { margin:26px 0 14px; display:flex; gap:4px 22px; justify-content:center; flex-wrap:wrap;
+    font-family:var(--display); font-weight:600; }
+  footer nav a { display:inline-flex; align-items:center; min-height:44px; padding-inline:4px; color:var(--cream); }
+  footer p { color:#C9D0E0; font-size:.95rem; max-width:46ch; margin-inline:auto; }
+</style>
+<style>
+  /* page-specific: a reading column for the secondary pages */
+  .page { max-width:720px; margin:0 auto; padding-block:40px 72px; }
+  /* CALMER 2026-08-27, same reasoning as index.html's headings: 144 is Fraunces' POSTER cut. At
+     this size (~42px max) the text cut is the correct optical size, not a stylistic choice. */
+  .page h1 { font-size:clamp(1.9rem,5vw,2.6rem); font-weight:600; font-variation-settings:'opsz' 48, 'SOFT' 50, 'WONK' 0; max-width:22ch; }
+  .page .lede { font-size:1.12rem; color:var(--ink-soft); margin-top:14px; max-width:var(--measure); }
+  .page h2 { font-size:1.45rem; margin-top:44px; }
+  .page h3 { font-size:1.1rem; margin-top:22px; }
+  .page p { margin-top:10px; max-width:var(--measure); }
+  .page ul.checks { list-style:none; margin:12px 0 0; padding:0; display:grid; gap:9px; }
+  .page ul.checks li { display:flex; gap:10px; align-items:flex-start; }
+  .page ul.checks svg { flex:0 0 16px; width:16px; height:16px; margin-top:6px; color:var(--orange-deep); }
+  .page .cta-row { margin-top:36px; }
+  .page .cta-row .btn { padding:15px 32px; font-size:1.08rem; min-height:48px; display:inline-block; }
+  .page .back { display:inline-block; margin-top:28px; }
+  .page .trail { margin:22px 0 0; }
+  .page .method-strip { justify-content:flex-start; margin-top:14px; }
+  .page .faq { max-width:none; margin:18px 0 0; }
+  .page .trust-points { margin-top:18px; max-width:none; }
+  .page .chip { flex:0 0 34px; width:34px; height:34px; border-radius:10px; background:var(--paper); border:1px solid var(--line); display:grid; place-items:center; color:var(--orange-deep); }
+  .page .chip svg { width:18px; height:18px; }
+  .page .sig { color:var(--ink-soft); font-size:.96rem; }
+  a.more { color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; display:inline-flex; align-items:center; min-height:44px; }
+  /* ── TRANSACTIONAL PAGES ─────────────────────────────────────────────────────────── */
+  .page .updated {{ color:var(--ink-soft); font-size:.92rem; margin-top:6px; }}
+  .page h2 {{ font-size:1.3rem; margin-top:38px; padding-top:18px; border-top:1px solid var(--line); }}
+  .page h2:first-of-type {{ border-top:none; padding-top:0; }}
+  .page h3 {{ font-size:1.02rem; color:var(--orange-deep); margin-top:20px; }}
+  .page ul {{ margin:10px 0 0; padding-left:22px; max-width:var(--measure); }}
+  .page li {{ margin:6px 0; }}
+  .page address {{ font-style:normal; margin-top:10px; }}
+  .page .rt-wrap {{ overflow-x:auto; margin:16px 0; }}
+  .page table.rt {{ width:100%; border-collapse:collapse; font-size:.95rem; }}
+  .page table.rt caption {{ text-align:left; color:var(--ink-soft); font-size:.9rem; margin-bottom:8px; }}
+  .page table.rt th, .page table.rt td {{ text-align:left; padding:10px 12px; border:1px solid var(--line); vertical-align:top; }}
+  .page table.rt thead th {{ background:var(--gold-tint); font-weight:600; }}
+  .page table.rt tbody th {{ font-weight:600; width:40%; background:var(--paper); }}
+  .page .callout, .page .summary {{ background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:20px 22px; margin:24px 0; }}
+  .page .callout h2, .page .summary h2 {{ border:none; padding:0; margin:0 0 10px; font-size:1.05rem; }}
 </style>
 </head>
 <body>
-<main>
-  <a href="/" aria-label="Professor Paws — home"><picture>
-    <img class="brand" src="/assets/brand/wordmark.svg" width="200" height="24" alt="Professor Paws" />
-  </picture></a>
-  <h1>This page wandered off.</h1>
-  <p>Let's head back home.</p>
-  <a class="home" href="/">Back to Professor Paws</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="i-paw"><circle cx="12" cy="14.5" r="4.6" fill="currentColor"/><circle cx="5.6" cy="9.4" r="2.2" fill="currentColor"/><circle cx="10" cy="6.4" r="2.2" fill="currentColor"/><circle cx="14.6" cy="6.6" r="2.2" fill="currentColor"/><circle cx="18.6" cy="10" r="2.2" fill="currentColor"/></g>
+  <g id="i-bone" fill="currentColor"><circle cx="5" cy="8" r="3.4"/><circle cx="8" cy="5" r="3.4"/><circle cx="19" cy="16" r="3.4"/><circle cx="16" cy="19" r="3.4"/><rect x="4.5" y="9" width="15" height="6" rx="3" transform="rotate(45 12 12)"/></g>
+  <g id="i-hand" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 11.5V5.8a1.7 1.7 0 0 1 3.4 0v5"/><path d="M11.4 10.4V4.4a1.7 1.7 0 0 1 3.4 0v6"/><path d="M14.8 11V6.2a1.7 1.7 0 0 1 3.4 0v7.6c0 3.9-2.6 6.4-6.3 6.4-3 0-4.6-1.4-6.2-4.2L4 12.9c-.6-1-.3-2 .6-2.5.9-.5 1.9-.2 2.5.7l.9 1.5"/></g>
+  <g id="i-steps" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 19h5v-4h5v-4h5V6"/></g>
+  <g id="i-loop" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 9a8 8 0 0 1 14-1.5M19.5 15a8 8 0 0 1-14 1.5"/><path d="M18.7 3.6v4h-4M5.3 20.4v-4h4"/></g>
+  <g id="i-check" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.6l4.6 4.6L19.5 6.8"/></g>
+  <g id="i-shield" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 3.4l7 2.8v5.2c0 4.6-3 7.7-7 9.2-4-1.5-7-4.6-7-9.2V6.2z"/><path d="M9 12.2l2.1 2.1 3.9-4.2" stroke-linecap="round"/></g>
+  <g id="i-camera" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="3.4" y="7" width="17.2" height="12" rx="2.6"/><path d="M8.6 7l1.5-2.6h3.8L15.4 7"/><circle cx="12" cy="13" r="3.4"/></g>
+  <g id="i-speak" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4.4 4.4 0 0 1 0 6M18 6.6a8 8 0 0 1 0 10.8"/></g>
+  <g id="i-abc" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l3.2-9 3.2 9M5.2 14h4M14 8.5h3.6a2.2 2.2 0 0 1 0 4.4H14zM14 12.9h4a2.3 2.3 0 0 1 0 4.6h-4z" transform="translate(0 -0.7)"/></g>
+  <g id="i-book" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5C10.5 5 8.4 4.4 4 4.6v13.6c4.4-.2 6.5.4 8 1.9 1.5-1.5 3.6-2.1 8-1.9V4.6c-4.4-.2-6.5.4-8 1.9z"/><path d="M12 6.5v13.6"/></g>
+  <g id="i-times" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="7" cy="7" r="2.1"/><circle cx="17" cy="7" r="2.1"/><circle cx="7" cy="17" r="2.1"/><circle cx="17" cy="17" r="2.1"/></g>
+</defs></svg>
+
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="bar">
+    <!-- THE NEW PRIMARY WEBSITE WORDMARK (owner ruling 2026-08-28): "Professor P[paw]ws", one line,
+         orange letters with a gold paw standing in for the lowercase `a`. Built as OUTLINES from
+         Nunito (OFL) by scripts/build-wordmark.py, so no webfont is fetched for the logo and it
+         renders identically everywhere. This REPLACES the stacked puppy+roundel badge as the site
+         logo; the stacked lockup remains the app/brand-package primary and is untouched. -->
+    <a class="brand" href="/" aria-label="Professor Paws — home">
+      <img src="/assets/brand/wordmark.svg" width="206" height="24" alt="Professor Paws" />
+    </a>
+    <nav aria-label="Sections">
+      <a href="/how-it-works/">How it works</a>
+      <a href="#parents">Parents</a>
+      <a href="/safety/">Safety</a>
+    </nav>
+    <a class="btn" href="/#beta" data-cta="header">Get Professor Paws</a>
+  </div>
+</header>
+<main id="main">
+<article class="wrap page">
+<h1>This page wandered off.</h1>
+<p>Let's head back home.</p>
+<p class="cta-row"><a class="btn" href="/">Back to Professor Paws</a></p>
+</article>
 </main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Professor Paws — home">
+      <img src="/assets/brand/wordmark-footer.svg" width="210" height="25" loading="lazy" alt="Professor Paws" />
+    </a>
+    <nav aria-label="Footer">
+      <!-- ABOUT AND THE EMAIL ARE TRUST SIGNALS, not filler. /about/ is where a parent deciding
+           whether to trust this finds out who is behind it, and a real address beats a form for
+           this audience. Both were dropped by the 2026-08-28 redesign; /about/ was left live but
+           unreachable from the homepage. Restored to the original set. One row, no columns. -->
+      <a href="/about/">About</a>
+      <a href="/how-it-works/">How it works</a>
+      <a href="/safety/">Safety</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+      <a href="/support.html">Support</a>
+      <a href="mailto:hello@playprofessorpaws.com">hello@playprofessorpaws.com</a>
+    </nav>
+    <p>Built by a security engineer who watched a child he loves struggle with homework.</p>
+  </div>
+</footer>
+
+<script>
+  document.documentElement.classList.add('js');
+  // ── FIRST-PARTY AGGREGATE COUNTS (privacy policy §15). One tiny text/plain beacon per event to our own Supabase
+  // function; the row it increments is (day, event, page, cta, src, ref_host, screen class) → a number. No cookie,
+  // no visitor id, no IP/UA stored, no free text. GPC / Do Not Track → nothing is sent at all.
+  const ppEvent = (() => {
+    try {
+      if (navigator.globalPrivacyControl || navigator.doNotTrack === '1' || navigator.msDoNotTrack === '1') return () => {};
+      const EP = 'https://mlokvzsjrrwlcejjonck.supabase.co/functions/v1/site-event';
+      const vw = innerWidth < 600 ? 'phone' : innerWidth < 1024 ? 'tablet' : 'desktop';
+      let ref = 'direct';
+      try { if (document.referrer) { const h = new URL(document.referrer).hostname.replace(/^www\./, ''); ref = h === location.hostname ? 'internal' : h; } } catch {}
+      const src = (new URLSearchParams(location.search).get('src') || '').replace(/[^\w-]/g, '').slice(0, 64);
+      const page = location.pathname.replace(/\/index\.html$/, '/');   // '/index.html'→'/', '/about/index.html'→'/about/' (both are inside the page enum; the un-normalised form is not)
+      return (event, cta) => {
+        try {
+          const body = JSON.stringify({ event, page, cta: cta || '', src, ref_host: ref, vw });
+          const blob = new Blob([body], { type: 'text/plain;charset=UTF-8' });          // safelisted type: no preflight
+          if (!(navigator.sendBeacon && navigator.sendBeacon(EP, blob))) fetch(EP, { method: 'POST', body, keepalive: true, headers: { 'Content-Type': 'text/plain;charset=UTF-8' } }).catch(() => {});
+        } catch {}
+      };
+    } catch { return () => {}; }
+  })();
+  ppEvent('page_view');
+  document.querySelectorAll('[data-cta]').forEach(a => a.addEventListener('click', () => ppEvent('primary_cta_click', a.dataset.cta)));
+  document.querySelectorAll('a[href="/privacy.html"]').forEach(a => a.addEventListener('click', () => ppEvent('privacy_opened')));
+</script>
 </body>
 </html>
