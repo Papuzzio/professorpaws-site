@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Terms of Service — Professor Paws</title>
 <meta name="description" content="The terms for using Professor Paws, including accounts, subscriptions, acceptable use, and how to cancel." />
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src https://mlokvzsjrrwlcejjonck.supabase.co; form-action 'none'; base-uri 'none'" />
+<meta name="referrer" content="no-referrer" />
 <link rel="canonical" href="https://playprofessorpaws.com/terms.html" />
 <meta property="og:title" content="Terms of Service — Professor Paws" />
 <meta property="og:description" content="The terms for using Professor Paws, including accounts, subscriptions, acceptable use, and how to cancel." />
@@ -566,32 +568,6 @@ Email: <a href="mailto:hello@playprofessorpaws.com">hello@playprofessorpaws.com<
   </div>
 </footer>
 
-<script>
-  document.documentElement.classList.add('js');
-  // ── FIRST-PARTY AGGREGATE COUNTS (privacy policy §15). One tiny text/plain beacon per event to our own Supabase
-  // function; the row it increments is (day, event, page, cta, src, ref_host, screen class) → a number. No cookie,
-  // no visitor id, no IP/UA stored, no free text. GPC / Do Not Track → nothing is sent at all.
-  const ppEvent = (() => {
-    try {
-      if (navigator.globalPrivacyControl || navigator.doNotTrack === '1' || navigator.msDoNotTrack === '1') return () => {};
-      const EP = 'https://mlokvzsjrrwlcejjonck.supabase.co/functions/v1/site-event';
-      const vw = innerWidth < 600 ? 'phone' : innerWidth < 1024 ? 'tablet' : 'desktop';
-      let ref = 'direct';
-      try { if (document.referrer) { const h = new URL(document.referrer).hostname.replace(/^www\./, ''); ref = h === location.hostname ? 'internal' : h; } } catch {}
-      const src = (new URLSearchParams(location.search).get('src') || '').replace(/[^\w-]/g, '').slice(0, 64);
-      const page = location.pathname.replace(/\/index\.html$/, '/');   // '/index.html'→'/', '/about/index.html'→'/about/' (both are inside the page enum; the un-normalised form is not)
-      return (event, cta) => {
-        try {
-          const body = JSON.stringify({ event, page, cta: cta || '', src, ref_host: ref, vw });
-          const blob = new Blob([body], { type: 'text/plain;charset=UTF-8' });          // safelisted type: no preflight
-          if (!(navigator.sendBeacon && navigator.sendBeacon(EP, blob))) fetch(EP, { method: 'POST', body, keepalive: true, headers: { 'Content-Type': 'text/plain;charset=UTF-8' } }).catch(() => {});
-        } catch {}
-      };
-    } catch { return () => {}; }
-  })();
-  ppEvent('page_view');
-  document.querySelectorAll('[data-cta]').forEach(a => a.addEventListener('click', () => ppEvent('primary_cta_click', a.dataset.cta)));
-  document.querySelectorAll('a[href="/privacy.html"]').forEach(a => a.addEventListener('click', () => ppEvent('privacy_opened')));
-</script>
+<script src="/assets/site.js" defer></script>
 </body>
 </html>
