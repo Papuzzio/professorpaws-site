@@ -44,8 +44,13 @@
   // that fails this test leaves the page on the invalid state, which is the correct answer for a link
   // we cannot read.
   var token = raw;
-  if (!/^[A-Za-z0-9]{1,128}$/.test(token)) { return; }
-
+  // EXACTLY 64 LOWERCASE HEX — the shape request_consent_confirmation actually mints (two
+  // gen_random_uuid()s with the dashes stripped, concatenated). The previous test allowed any
+  // length from 1 to 128, which ACCEPTED A TRUNCATED TOKEN: a mail client that shortened the link
+  // produced a well-formed but wrong token, which posted, missed the hash, and told the parent
+  // their link had EXPIRED. A length this precise fails closed here, with the honest
+  // "this link isn't valid" card, instead of sending a doomed token to the server.
+  if (!/^[0-9a-f]{64}$/.test(token)) { return; }
   var field = document.getElementById('tokenField');
   var invalid = document.getElementById('invalidState');
   var confirmCard = document.getElementById('confirmState');
