@@ -368,6 +368,31 @@
     font-family:var(--display); font-weight:600; }
   footer nav a { display:inline-flex; align-items:center; min-height:44px; padding-inline:4px; color:var(--cream); }
   footer p { color:#C9D0E0; font-size:.95rem; max-width:46ch; margin-inline:auto; }
+
+    /* ── EVIDENCE SECTION ─────────────────────────────────────────────────────────────────────
+       Accordions are <details>/<summary>: keyboard-accessible without a line of JS, which matters
+       because the transactional pages declare script-src 'self' and an accordion that needed a
+       script would either break there or force the policy open. Closed by default so a parent scans
+       twenty concept names for their child's topic instead of reading twenty entries. */
+    .ev { border-bottom:1px solid rgba(0,0,0,.10); }
+    .ev > summary { list-style:none; cursor:pointer; padding:14px 30px 14px 0; position:relative;
+      display:flex; flex-wrap:wrap; gap:2px 14px; align-items:baseline; }
+    .ev > summary::-webkit-details-marker { display:none; }
+    .ev > summary::after { content:'+'; position:absolute; right:4px; top:12px; font-size:1.25rem;
+      line-height:1; color:var(--ink-soft); font-weight:400; }
+    .ev[open] > summary::after { content:'\2013'; }
+    .ev > summary:hover .ev-name { text-decoration:underline; }
+    .ev > summary:focus-visible { outline:3px solid var(--teal); outline-offset:2px; border-radius:6px; }
+    .ev-name { font-weight:700; }
+    .ev-rep { color:var(--ink-soft); font-size:.95rem; }
+    .ev-body { padding:0 0 16px; }
+    .ev-body ul { margin:10px 0 0; padding-left:18px; }
+    .ev-body li { margin-bottom:12px; }
+    .ev-q { color:var(--ink-soft); font-size:.95rem; margin-top:4px; }
+    .ev-count { color:var(--ink-soft); font-size:.95rem; }
+    /* the limits page: one line per limit, the reason on the same breath */
+    .lim { margin:0 0 18px; padding-left:14px; border-left:3px solid rgba(0,0,0,.12); }
+    .lim b { display:block; }
 </style>
 
 </head>
