@@ -18,6 +18,7 @@ import re, sys, pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PAGES = ['index.html', 'about/index.html', 'how-it-works/index.html',
          'safety/index.html', 'faq/index.html',
+         'evidence/index.html', 'evidence/method/index.html', 'evidence/limits/index.html',
          'privacy.html', 'terms.html', 'support.html', '404.html', 'confirm.html', 'reset.html']
 
 # Classes that are deliberately not styled. Each needs a reason, so the next person can tell an

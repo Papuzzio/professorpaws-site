@@ -82,6 +82,16 @@ PAGES = {
                          desc="Parent-created accounts, no ads, no social features, no open-ended AI chat, no third-party ad tracking, and clear controls for deleting your child's data."),
     'faq':          dict(title='Questions parents ask — Professor Paws',
                          desc='Does it give children the answer? Is it an AI tutor? What data do you collect? Ages, subjects, devices, cost — every question parents ask about Professor Paws.'),
+    # THE EVIDENCE SECTION. These three bodies are GENERATED from the app's concept records by
+    # tandem-objcount/scripts/generate-evidence-pages.ts and must not be hand-edited — the whole
+    # point is that the published page cannot drift from what the app actually rules. Re-run that
+    # script, then this one.
+    'evidence':         dict(title='The evidence behind each concept — Professor Paws',
+                             desc='Every concept the app teaches, the representation a child works with, and the published sources that named it — quoted word for word, with links.'),
+    'evidence/method':  dict(title='How we choose what a child sees — Professor Paws',
+                             desc='A concept, a documented misconception, a representation named in a citable source, and a surface that shows the problem rather than the answer.'),
+    'evidence/limits':  dict(title="What we don't claim — Professor Paws",
+                             desc='We have not run efficacy studies. Some things have no manipulative on purpose. And one rejection in our own records is one this app currently earns.'),
 }
 
 # The TRANSACTIONAL pages. Before 2026-08-29 these lived outside the shell entirely: a bare brand
@@ -202,7 +212,7 @@ def shell(slug, meta, body, root=False):
 for slug, meta in PAGES.items():
     body = (ROOT / 'pages' / f'{slug}.html').read_text()
     out = ROOT / slug / 'index.html'
-    out.parent.mkdir(exist_ok=True)
+    out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(shell(slug, meta, body))
     print(f'wrote {out.relative_to(ROOT)} ({out.stat().st_size} bytes)')
 
