@@ -31,6 +31,11 @@ beacon = beacon[: -len("  ppEvent('page_view');")]                         # the
 header = (header.replace('href="#how"', 'href="/how-it-works/"')
                 .replace('href="#trust"', 'href="/safety/"')
                 .replace('href="#faq"', 'href="/faq/"')
+                # DEAD LINK, pre-existing and fixed 2026-08-30: every other homepage anchor was
+                # rewritten for the inner pages and this one was missed, so "Parents" pointed at
+                # #parents on eight pages where no such section exists — it simply did nothing.
+                # Sent to the homepage anchor, the same treatment #beta already had.
+                .replace('href="#parents"', 'href="/#parents"')
                 .replace('href="#beta" data-cta="header"', 'href="/#beta" data-cta="header"'))
 # the brand lockup must not lazy-load nor fetch-priority on inner pages — it is above the fold everywhere; unchanged.
 
