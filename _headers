@@ -1,0 +1,36 @@
+# Cloudflare Pages headers for playprofessorpaws.com
+#
+# Place at the REPO ROOT of professorpaws-site (Cloudflare Pages reads `/_headers`).
+# GitHub Pages ignores this file, so it is safe to commit before the hosting cutover.
+#
+# WHY: the two token pages declare `frame-ancestors 'none'` in a <meta> CSP, and the spec makes
+# frame-ancestors (and X-Frame-Options) INERT in meta — they are header-only. Verified live: both
+# pages currently return NO X-Frame-Options, NO CSP header, and NO Referrer-Policy.
+
+# --- Every page: baseline.
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+# --- The two TOKEN pages. Three things the rest of the site does not need.
+#
+# 1. A REAL CSP header, mirroring each page's existing meta CSP exactly so nothing breaks — the only
+#    change is that frame-ancestors now actually applies.
+# 2. Referrer-Policy: no-referrer. These URLs CARRY A ONE-TIME TOKEN. Anything less than no-referrer
+#    can put that token in a Referer header.
+# 3. Cache-Control: no-store. Live today they return `max-age=600`, so a token-bearing page is
+#    cacheable for ten minutes — on a shared family device, that is the token sitting in cache.
+/confirm.html
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; img-src 'self'; form-action https://mlokvzsjrrwlcejjonck.supabase.co; base-uri 'none'; frame-ancestors 'none'
+  Referrer-Policy: no-referrer
+  Cache-Control: no-store, no-cache, must-revalidate, private
+  Pragma: no-cache
+
+/reset.html
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; img-src 'self'; base-uri 'none'; frame-ancestors 'none'
+  Referrer-Policy: no-referrer
+  Cache-Control: no-store, no-cache, must-revalidate, private
+  Pragma: no-cache
