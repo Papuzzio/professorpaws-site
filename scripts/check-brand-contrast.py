@@ -19,7 +19,8 @@ import re, sys, pathlib, itertools
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PAGES = ['index.html','about/index.html','how-it-works/index.html','safety/index.html',
-         'faq/index.html','privacy.html','terms.html','support.html','404.html','confirm.html','reset.html']
+         'faq/index.html','privacy.html','terms.html','support.html','404.html','confirm.html','reset.html',
+         'email-confirmed.html']
 
 APPROVED = {'--orange':'#F59A23','--teal':'#14AAA3','--green':'#63A65F',
             '--cream':'#FFF8ED','--paper':'#FFFCF7','--ink':'#14213D'}

@@ -20,7 +20,8 @@ import re, sys, pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # The pages that MUST carry a policy. index.html is deliberately absent: its two inline scripts would
 # force 'unsafe-inline', and the owner ruled (2026-08-29) that no policy beats a hollow one.
-MUST_HAVE_CSP = ['privacy.html', 'terms.html', 'support.html', '404.html', 'confirm.html', 'reset.html']
+MUST_HAVE_CSP = ['privacy.html', 'terms.html', 'support.html', '404.html', 'confirm.html', 'reset.html',
+                 'email-confirmed.html']
 # confirm/reset are hand-maintained auth pages, out of scope, and each carries a legacy
 # frame-ancestors. Recorded here rather than silently skipped.
 LEGACY_FRAME_ANCESTORS = {'confirm.html', 'reset.html'}

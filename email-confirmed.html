@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<!--
+  Professor Paws — ACCOUNT email confirmation landing (the "Confirm your email address" link).
+  Not to be confused with /confirm.html, which is the PARENTAL CONSENT confirmation (COPPA email-plus).
+
+  WHY THIS PAGE EXISTS (2026-09-14). The confirmation link verifies on Supabase and redirects to the Site URL
+  — the homepage — which ignored both outcomes: a confirmed parent and a parent with a dead link saw the same
+  marketing page and no next step. /auth-landing.js on the homepage now hands them here; once the app's
+  emails point here directly, Supabase's own fragment arrives here instead. email-confirmed.js reads either.
+
+  INVARIANTS:
+   * The address bar is CLEARED of any token or error parameter before a card is shown. The tokens are never
+     needed — the parent signs in to the app with their email and password.
+   * FAIL CLOSED, KINDLY: the default card is the generic one, true in every case (also what a refresh shows).
+   * No network call, no cookie, no storage, no timer, no analytics beacon on this page.
+   * The open-app control is an ANCHOR with a STATIC href — nothing from the URL is carried into the app.
+
+  CSP: script-src 'self' only (email-confirmed.js ships beside this file); style-src 'unsafe-inline' touches no
+  URL-derived data. frame-ancestors is header-only (see _headers), so it is NOT listed here.
+-->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; img-src 'self'; base-uri 'none'" />
+<meta name="referrer" content="no-referrer" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Confirm your email — Professor Paws</title>
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
+<script src="/email-confirmed.js" defer></script>
+<style>
+  /* THE ACTION COLOUR. Defined HERE because this page is reached by NO build step — a
+     regenerate does not touch it, so a site-wide decision applied by rebuilding lands
+     everywhere except here. Values must match index.html's :root. An UNDEFINED --action
+     would make `background:var(--action)` invalid and drop it, leaving a light label on no
+     background: an invisible control. check-brand-contrast.py rule 6 guards that. */
+  :root { --action:#F59A23; --action-hover:#E08A16; --action-active:#CC7D10; --action-ink:#14213D; }
+
+  /* Same visual language as confirm.html/support.html; no webfont link — no third party is
+     contacted from a credential-bearing page. */
+  * { box-sizing:border-box; }
+  [hidden] { display:none !important; }
+  body { margin:0; background:#FFF8ED; color:#14213D;
+         font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+         font-size:18px; line-height:1.65; -webkit-font-smoothing:antialiased; }
+  main { max-width:640px; margin:0 auto; padding:40px 22px 72px; }
+  h1 { font-family:'Fraunces','Iowan Old Style','Palatino',Georgia,serif; font-weight:700; line-height:1.15; font-size:1.75rem; margin:0 0 4px; }
+  p { margin:12px 0 0; }
+  a { color:#B4530A; }
+  .card { background:#FFFFFF; border:1px solid #EDE4D6; border-radius:20px;
+          padding:30px 26px 32px; box-shadow:0 6px 22px rgba(20,33,61,.06); }
+  .paw { font-size:34px; line-height:1; margin-bottom:10px; }
+  .fineprint { margin-top:20px; padding-top:18px; border-top:1px solid #EDE4D6;
+               font-size:16px; color:#5C5449; }
+  /* The open-app control is an ANCHOR (user-gesture scheme navigation), styled as the button. */
+  a.openBtn { display:block; width:100%; min-height:56px; padding:16px 28px; margin:26px 0 0;
+           background:var(--action); color:var(--action-ink); border:none; border-radius:14px; text-align:center;
+           text-decoration:none;
+           font-family:system-ui,-apple-system,sans-serif; font-size:1.125rem; font-weight:700;
+           line-height:1.2; cursor:pointer; }
+  a.openBtn:hover { background:var(--action-hover); }
+  a.openBtn:active { background:var(--action-active); }
+  a.openBtn:focus-visible { outline:3px solid #14213D; outline-offset:3px; }
+  footer { margin-top:28px; font-size:15px; color:#5C5449; }
+  @media (min-width:520px) {
+    main { padding-top:56px; }
+    a.openBtn { width:auto; min-width:260px; display:inline-block; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <!-- DEFAULT: true whatever happened — and what a refresh shows after the address bar has been cleared. -->
+  <section class="card" id="genericState">
+    <div class="paw" aria-hidden="true">&#128062;</div>
+    <h1>Finish signing in</h1>
+    <p>Open Professor Paws and sign in with the email and password you used to create your account.</p>
+    <p>If the app says your email isn&rsquo;t confirmed yet, use the <strong>newest</strong> confirmation email we
+       sent &mdash; each new email replaces the link in the one before.</p>
+    <a class="openBtn" href="professorpaws://">Open Professor Paws</a>
+    <p class="fineprint">On a computer? Open Professor Paws on the iPad or iPhone where it&rsquo;s installed and sign in there.</p>
+  </section>
+
+  <!-- The link worked. -->
+  <section class="card" id="confirmedState" hidden>
+    <div class="paw" aria-hidden="true">&#128062;</div>
+    <h1>Your email is confirmed</h1>
+    <p>You&rsquo;re all set. Go back to Professor Paws and sign in with your email and password.</p>
+    <a class="openBtn" href="professorpaws://">Open Professor Paws</a>
+    <p class="fineprint">On a computer? Open Professor Paws on the iPad or iPhone where it&rsquo;s installed and sign in there.
+       If the app still says your email isn&rsquo;t confirmed, use the newest confirmation email we sent.</p>
+  </section>
+
+  <!-- The link had expired, was already used, or was replaced by a newer email. -->
+  <section class="card" id="expiredState" hidden>
+    <div class="paw" aria-hidden="true">&#128062;</div>
+    <h1>This link has expired or was already used</h1>
+    <p>Confirmation links work once, and each new email replaces the link in the one before.</p>
+    <p><strong>Already confirmed?</strong> Just open Professor Paws and sign in.</p>
+    <p><strong>Not yet?</strong> Open Professor Paws, tap <strong>Resend confirmation email</strong>, and use the
+       newest email.</p>
+    <a class="openBtn" href="professorpaws://">Open Professor Paws</a>
+  </section>
+
+  <footer>
+    <p>Stuck? Email <a href="mailto:hello@playprofessorpaws.com">hello@playprofessorpaws.com</a> and a human will reply &middot;
+       <a href="/privacy.html">Privacy Policy</a> &middot; <a href="/terms.html">Terms</a></p>
+  </footer>
+</main>
+</body>
+</html>

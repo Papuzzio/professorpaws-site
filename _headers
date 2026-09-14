@@ -34,3 +34,11 @@
   Referrer-Policy: no-referrer
   Cache-Control: no-store, no-cache, must-revalidate, private
   Pragma: no-cache
+
+# --- The account-confirmation landing (2026-09-14). A successful Supabase confirmation can arrive here with a
+#     session token in the fragment; the page clears it, but the same three protections apply regardless.
+/email-confirmed.html
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; img-src 'self'; base-uri 'none'; frame-ancestors 'none'
+  Referrer-Policy: no-referrer
+  Cache-Control: no-store, no-cache, must-revalidate, private
+  Pragma: no-cache
