@@ -87,6 +87,9 @@ PAGES = {
                          desc="Parent-created accounts, no ads, no social features, no open-ended AI chat, no third-party ad tracking, and clear controls for deleting your child's data."),
     'faq':          dict(title='Questions parents ask — Professor Paws',
                          desc='Does it give children the answer? Is it an AI tutor? What data do you collect? Ages, subjects, devices, cost — every question parents ask about Professor Paws.'),
+    # FLORIDA SCHOLARSHIP FAMILIES (2026-10-01 launch refresh). Built from the same shell so it cannot drift.
+    'stepup':       dict(title='Florida Scholarship Families — Professor Paws',
+                         desc='Professor Paws is educational software for ages 8–13 that supports reading, math, and homework with step-by-step guidance. Information for Florida FES-UA and PEP families.'),
     # THE EVIDENCE SECTION. These three bodies are GENERATED from the app's concept records by
     # tandem-objcount/scripts/generate-evidence-pages.ts and must not be hand-edited — the whole
     # point is that the published page cannot drift from what the app actually rules. Re-run that
@@ -161,7 +164,7 @@ def shell(slug, meta, body, root=False):
 <meta property="og:image" content="https://playprofessorpaws.com/assets/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Professor Paws — homework help for kids who shut down, rush, or melt down over schoolwork — beside the iPad app's homework screen" />
+<meta property="og:image:alt" content="Professor Paws — homework help that teaches, beside the iPad app's homework screen" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="{meta['title']}" />
 <meta name="twitter:description" content="{meta['desc']}" />

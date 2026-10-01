@@ -6,11 +6,11 @@
 <!-- Account-confirmation links land here (Supabase Site URL). Before anything paints, auth-landing.js removes any
      session token from the address bar and hands the parent to /email-confirmed.html. NOT deferred on purpose. -->
 <script src="/auth-landing.js"></script>
-<title>Professor Paws — homework help that teaches, not just answers</title>
-<meta name="description" content="Professor Paws turns spelling words, times tables, reading, and other schoolwork into calm, step-by-step practice for kids ages 8–13 who find homework hard." />
+<title>Professor Paws — homework help that teaches, not just gives answers</title>
+<meta name="description" content="Homework and reading support for kids ages 8–13. Professor Paws works through the schoolwork your child actually has, one calm step at a time, with guided hints — while they do the thinking." />
 
-<meta property="og:title" content="Professor Paws — homework help that teaches, not just answers" />
-<meta property="og:description" content="Turns the work school actually sends home into calm, step-by-step practice for children who learn differently." />
+<meta property="og:title" content="Professor Paws — homework help that teaches, not just gives answers" />
+<meta property="og:description" content="Homework help that teaches — not just gives answers. Step-by-step help with the schoolwork your child actually has, for ages 8–13." />
 <meta property="og:type" content="website" />
 <link rel="canonical" href="https://playprofessorpaws.com/" />
 <meta property="og:url" content="https://playprofessorpaws.com/" />
@@ -19,10 +19,10 @@
 <meta property="og:image" content="https://playprofessorpaws.com/assets/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Professor Paws — homework help for kids who shut down, rush, or melt down over schoolwork — beside the iPad app's homework screen" />
+<meta property="og:image:alt" content="Professor Paws — homework help that teaches, beside the iPad app's homework screen" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Professor Paws — homework help that teaches, not just answers" />
-<meta name="twitter:description" content="Turns the work school actually sends home into calm, step-by-step practice for children who learn differently." />
+<meta name="twitter:title" content="Professor Paws — homework help that teaches, not just gives answers" />
+<meta name="twitter:description" content="Homework help that teaches — not just gives answers. Step-by-step help with the schoolwork your child actually has, for ages 8–13." />
 <meta name="twitter:image" content="https://playprofessorpaws.com/assets/og-image.png" />
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://playprofessorpaws.com/#org","name":"Professor Paws","legalName":"Professor Paws LLC","url":"https://playprofessorpaws.com/","logo":"https://playprofessorpaws.com/assets/apple-touch-icon.png","email":"hello@playprofessorpaws.com","address":{"@type":"PostalAddress","streetAddress":"7901 4th St N Ste 300","addressLocality":"St. Petersburg","addressRegion":"FL","postalCode":"33702","addressCountry":"US"},"contactPoint":{"@type":"ContactPoint","email":"hello@playprofessorpaws.com","contactType":"customer support"}},{"@type":"WebSite","@id":"https://playprofessorpaws.com/#website","url":"https://playprofessorpaws.com/","name":"Professor Paws","description":"Homework help for children ages 8–13 that teaches the next step instead of giving the answer.","publisher":{"@id":"https://playprofessorpaws.com/#org"},"inLanguage":"en-US"}]}
@@ -86,6 +86,8 @@
 
   *,*::before,*::after { box-sizing:border-box; }
   html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  /* in-page jumps (#how, #parents, #beta, #eligibility) land below the sticky header, not under it */
+  [id] { scroll-margin-top:84px; }
   body { margin:0; background:var(--cream); color:var(--ink); font-family:var(--body);
     font-size:clamp(1.02rem,.98rem + .3vw,1.14rem); line-height:1.62;
     -webkit-font-smoothing:antialiased;
@@ -140,7 +142,7 @@
     backdrop-filter:saturate(1.1) blur(6px); border-bottom:1px solid var(--line); }
   .top .bar { max-width:var(--maxw); margin-inline:auto; padding:14px var(--gutter);
     display:flex; align-items:center; gap:20px; }
-  .brand { display:inline-flex; align-items:center; flex:0 0 auto; }
+  .brand { display:inline-flex; align-items:center; flex:0 0 auto; min-height:44px; }
   .brand img { width:clamp(150px,20vw,206px); height:auto; }
   .top nav { margin-left:auto; display:flex; gap:26px; font-family:var(--display); font-weight:600; }
   .top nav a { display:inline-flex; align-items:center; min-height:44px; text-decoration:none; color:var(--ink); }
@@ -152,27 +154,32 @@
 
   /* ── HERO ───────────────────────────────────────────────────────────────────────────────────── */
   .hero { padding-block:clamp(38px,6vw,80px) clamp(44px,6vw,86px); }
-  .hero-grid { display:grid; grid-template-columns:1.04fr .96fr; gap:clamp(28px,5vw,70px); align-items:center; }
-  .hero h1 { font-size:clamp(2.15rem,1.35rem + 3.35vw,4rem); }
+  .hero-grid { display:grid; grid-template-columns:.94fr 1.06fr; gap:clamp(28px,5vw,70px); align-items:center; }
+  .hero h1 { font-size:clamp(2.15rem,1.35rem + 3.1vw,3.7rem); max-width:16ch; }
   .hero .sub { margin-top:20px; font-size:clamp(1.08rem,1.02rem + .42vw,1.32rem);
     color:var(--ink-soft); max-width:34ch; }
   .hero .ctas { margin-top:30px; display:flex; align-items:center; gap:22px; flex-wrap:wrap; }
+  .hero .ctas .link-under { display:inline-flex; align-items:center; min-height:44px; }
   .hero .trust { margin-top:22px; font-family:var(--display); font-size:.96rem; color:var(--ink-soft); }
   /* The puppy and the real app screen share one stage: the puppy in front, the product behind and offset, so the
      page shows the character AND the actual thing being sold without a decorative frame around either. */
   /* Professor Paws stands BESIDE the product, overlapping only its lower-left corner: the app screen has to stay
      legible (it is the actual thing being sold) and the puppy must not be cropped by the overlap. */
-  .hero-stage { position:relative; display:flex; justify-content:flex-end; align-items:flex-end; padding-left:28%; }
-  .hero-shot { width:78%; margin:0; border-radius:22px; overflow:hidden;
+  .hero-stage { position:relative; display:flex; justify-content:flex-end; align-items:flex-end; }
+  .hero-shot { width:80%; margin:0; border-radius:22px; overflow:hidden; background:var(--paper);
     box-shadow:0 18px 44px rgba(20,33,61,.16), 0 0 0 1px rgba(20,33,61,.06); }
-  .hero-pup { position:absolute; left:0; bottom:-1%; width:46%; filter:drop-shadow(0 12px 22px rgba(20,33,61,.18)); }
+  .hero-pup { position:absolute; left:0; bottom:-3%; width:30%; filter:drop-shadow(0 12px 22px rgba(20,33,61,.20)); }
   @media (max-width:900px){
-    .hero-grid { grid-template-columns:1fr; gap:34px; }
+    .hero-grid { grid-template-columns:1fr; gap:30px; }
     .hero .sub { max-width:none; }
-    .hero-stage { margin-top:6px; padding-left:26%; max-width:520px; margin-inline:auto; }
-    .hero-shot { width:74%; }
-    .hero-pup { width:44%; }
+    .hero-stage { margin-top:4px; max-width:560px; margin-inline:auto; }
+    .hero-shot { width:80%; }
+    .hero-pup { width:30%; }
   }
+  /* The real screen stays the hero. Cropped to its top (the step, the hint, the blocks, the answer box) so the UI
+     reads at a glance instead of shrinking a whole iPad page — mostly empty below the task — to postage-stamp size. */
+  .hero-shot { aspect-ratio:915/860; }
+  .hero-shot img { width:100%; height:100%; object-fit:cover; object-position:top; }
 
   /* ── BANDS ──────────────────────────────────────────────────────────────────────────────────── */
   .band { padding-block:clamp(52px,7vw,96px); }
@@ -318,6 +325,42 @@
     50%      { translate: 0 -9px;  rotate:  0.6deg; }
   }
 
+  /* ── LAUNCH REFRESH (2026-10-01) ─────────────────────────────────────────────────────────────
+     The eyebrow labels a section's audience or subject; the ladder is a REAL sequence (what happens when a
+     child is stuck), which is why it is numbered and nothing else on the page is. */
+  .eyebrow { font-family:var(--display); font-weight:700; font-size:.84rem; letter-spacing:.09em;
+    text-transform:uppercase; color:var(--orange-deep); margin:0 0 14px; }
+  .ladder { list-style:none; counter-reset:step; margin:26px 0 0; padding:0; display:grid; gap:16px; max-width:46ch; }
+  .ladder li { counter-increment:step; display:grid; grid-template-columns:40px 1fr; gap:14px; align-items:start; }
+  .ladder li::before { content:counter(step); width:40px; height:40px; border-radius:50%; background:var(--paper);
+    border:1.5px solid var(--orange); color:var(--orange-deep); font-family:var(--display); font-weight:700;
+    display:grid; place-items:center; }
+  .ladder strong { display:block; font-family:var(--display); font-size:1.06rem; }
+  .ladder span { display:block; color:var(--ink-soft); margin-top:2px; }
+  .facts { list-style:none; margin:24px 0 0; padding:0; display:grid; gap:12px; }
+  .facts li { display:flex; gap:12px; align-items:flex-start; }
+  .facts svg { flex:0 0 22px; width:22px; height:22px; margin-top:3px; color:var(--orange-deep); }
+  .scholar { display:flex; gap:18px 32px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+    background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:clamp(22px,4vw,34px); }
+  .scholar h2 { font-size:clamp(1.3rem,1.12rem + .8vw,1.7rem); }
+  .scholar p { margin-top:8px; color:var(--ink-soft); max-width:54ch; }
+  .scholar .link-under { display:inline-flex; align-items:center; min-height:44px; }
+  .final .lede { max-width:40ch; margin-inline:auto; }
+  .access-note { margin-top:14px; font-family:var(--display); font-weight:600; color:#3A2A10; }
+  /* Step Up page: the price, the honest status notice, and the purchase-record checklist */
+  .price-card { background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:clamp(22px,4vw,32px);
+    margin-top:24px; box-shadow:0 10px 28px rgba(20,33,61,.08); }
+  .price-card h2, .page .price-card h2 { margin-top:0; font-size:1.3rem; }
+  .price-card .price { font-family:var(--heading); font-size:clamp(2rem,1.6rem + 1.6vw,2.6rem); font-weight:700; margin-top:6px; }
+  .price-card .price small { font-family:var(--body); font-size:1rem; font-weight:600; color:var(--ink-soft); }
+  .notice { border-left:4px solid var(--orange); background:var(--gold-tint); border-radius:0 14px 14px 0;
+    padding:18px 20px; margin-top:22px; }
+  .notice p:first-child { margin-top:0; }
+  .doc-list { margin:16px 0 0; display:grid; grid-template-columns:max-content 1fr; gap:8px 18px; max-width:var(--measure); }
+  .doc-list dt { font-weight:600; }
+  .doc-list dd { margin:0; }
+  @media (max-width:560px){ .doc-list { grid-template-columns:1fr; gap:2px; } .doc-list dd { margin-bottom:10px; } }
+
   /* ── SECONDARY-PAGE COMPONENTS ───────────────────────────────────────────────────────────────
      /about/, /how-it-works/, /safety/ and /faq/ take their whole shell from THIS file
      (scripts/build-pages.py lifts this stylesheet verbatim), but their bodies live in pages/*.html
@@ -439,126 +482,169 @@
 </header>
 <main id="main">
 
-<!-- ── HERO ─────────────────────────────────────────────────────────────────────────────────────
-     Cream. Copy left, the puppy + the real typed-input screen right. The headline is the parent's problem
-     in their own words; the subhead carries the differentiator (the child keeps doing the thinking). -->
+<!-- ── HERO (2026-10-01 launch refresh) ─────────────────────────────────────────────────────────
+     The owner's eyebrow, headline and subhead, verbatim. The real app screen is the largest thing on the
+     stage; Max (the site's existing puppy art, the same character the app screens show) stands beside it
+     and overlaps only its corner, so the product stays legible. -->
 <section class="hero wrap" aria-labelledby="hero-h1">
   <div class="hero-grid">
     <div class="hero-copy">
-      <h1 id="hero-h1">Homework help for kids who shut down, rush, or melt down over schoolwork.</h1>
-      <p class="sub">Professor Paws turns schoolwork into calm, step-by-step learning that keeps your child doing the thinking.</p>
+      <p class="eyebrow">Homework + reading support for ages 8–13</p>
+      <h1 id="hero-h1">Homework help that teaches — not just gives answers.</h1>
+      <p class="sub">Professor Paws helps kids work through the schoolwork they actually have, one calm step at a time — with guided hints, reading support, and encouragement while they keep doing the thinking.</p>
       <div class="ctas">
         <a class="btn btn-lg" href="#beta" data-cta="hero">Get Professor Paws</a>
-        <a class="link-under" href="/how-it-works/">See how it works</a>
+        <a class="link-under" href="#how">See how it works</a>
       </div>
       <p class="trust">Ages 8–13 · No ads · Parent-controlled</p>
     </div>
     <div class="hero-stage">
       <figure class="hero-shot fade in">
-        <picture><source type="image/webp" srcset="/assets/screen-entry.webp" /><img src="/assets/screen-entry.png" width="915" height="1240" fetchpriority="high"
-          alt="The Professor Paws home screen on iPad: the puppy asks &quot;What are we working on today?&quot;, with subjects from addition to reading, and this week's real homework pasted straight in — Calculate 426 × 38, a word problem about boxes of crayons, and two money questions about change." /></picture>
+        <picture><source type="image/webp" srcset="/assets/screen-times.webp" /><img src="/assets/screen-times.png" width="915" height="1220" fetchpriority="high"
+          alt="A times-tables step in the Professor Paws iPad app: &quot;Drill — 6 times 9&quot;, a hint that says &quot;Start with 10 sixes = 60&quot;, a grid of 6 rows of 9 the child is filling in by tapping, and an empty box for their answer." /></picture>
       </figure>
       <img class="hero-pup" src="/assets/max.png" width="620" height="806" alt="" aria-hidden="true" />
     </div>
   </div>
 </section>
 
-<!-- ── THE ORANGE STATEMENT ─────────────────────────────────────────────────────────────────────
-     One idea, full width, in the brand colour. Deep Ink on Professor Orange = 7.25:1. -->
+<!-- ── 2 · HELP WITHOUT HANDING OVER THE ANSWER — the orange statement ───────────────────────────── -->
 <section class="band band-orange on-orange" aria-labelledby="say-h2">
   <div class="wrap say">
     <div>
       <h2 id="say-h2" class="fade">Help without handing over the answer.</h2>
-      <p class="lede fade measure">Professor Paws guides kids one step at a time so they can understand the work, finish it, and build confidence.</p>
+      <p class="lede fade measure">Professor Paws breaks the work into manageable steps. When your child gets stuck, the help gets stronger a little at a time — a hint, then a smaller step, then something to move or count — but the answer is always theirs to give.</p>
     </div>
     <figure class="shot fade">
       <picture><source type="image/webp" srcset="/assets/screen-columns.webp" /><img src="/assets/screen-columns.png" width="915" height="1220" loading="lazy"
-        alt="A column-addition question on the iPad, worked one column at a time with the child entering each digit themselves." /></picture>
+        alt="A column-addition step on the iPad: &quot;Add the ones&quot; for 356 + 187, with 6 and 7 shown as blocks to slide together and the child setting the tens and ones digits themselves." /></picture>
     </figure>
   </div>
 </section>
 
-<!-- ── THREE PRODUCT STORIES — alternating, generous, real screens ─────────────────────────────── -->
+<!-- ── 3 · WORKS WITH THEIR REAL SCHOOLWORK ─────────────────────────────────────────────────────── -->
 <section class="band wrap story" id="how" aria-labelledby="s1-h2">
   <div class="copy">
-    <h2 id="s1-h2" class="fade">Learn it step by step</h2>
-    <p class="fade">Professor Paws breaks the work school actually sent home into one manageable step at a time — and the child does the thinking at every step, rather than watching an answer appear.</p>
-    <p class="fade"><a class="link-under more" href="/how-it-works/">More about how it works →</a></p>
+    <p class="eyebrow fade">Their real schoolwork</p>
+    <h2 id="s1-h2" class="fade">Works with the homework they already have.</h2>
+    <p class="fade">Photograph or enter the schoolwork your child already has — the worksheet, the spelling list, the reading passage that came home this week.</p>
+    <p class="fade">A photo doesn't reveal the answers. Professor Paws reads the task and turns it into guided, in-app learning that your child works through one step at a time.</p>
   </div>
   <figure class="art fade">
-    <div class="shot"><picture><source type="image/webp" srcset="/assets/screen-fractions.webp" /><img src="/assets/screen-fractions.png" width="915" height="1280" loading="lazy"
-      alt="An equivalent-fractions step on the iPad: &quot;Both numbers change the same way&quot;, one half shown as a shaded bar above eight empty parts, and the child choosing the missing top number themselves." /></picture></div>
+    <div class="shot"><picture><source type="image/webp" srcset="/assets/screen-entry.webp" /><img src="/assets/screen-entry.png" width="915" height="1240" loading="lazy"
+      alt="The Professor Paws start screen on iPad: the puppy asks &quot;What are we working on today?&quot;, with Photo and Write buttons for homework, subjects from addition to spelling and reading, and this week's homework typed in — Calculate 426 × 38, a crayons word problem, and two money questions." /></picture></div>
   </figure>
 </section>
 
+<!-- ── 4 · STEP-BY-STEP TEACHING — the help ladder, as a real sequence ──────────────────────────── -->
 <section class="band band-gold" aria-labelledby="s2-h2">
   <div class="wrap story flip">
     <div class="copy">
-      <h2 id="s2-h2" class="fade">Keep going with Professor Paws</h2>
-      <p class="fade">Professor Paws is there for the whole session — steady encouragement when a step is hard, and Bone Bucks and Worlds to come back to when it's done. Progress a child can see, without streak pressure or guilt for missing a day.</p>
+      <p class="eyebrow fade">Step-by-step teaching</p>
+      <h2 id="s2-h2" class="fade">Your child does the thinking. Professor Paws makes each step doable.</h2>
+      <ol class="ladder fade">
+        <li><div><strong>Your child has a go</strong><span>Every step asks them for something — a digit, a choice, a tap on the blocks.</span></div></li>
+        <li><div><strong>A hint</strong><span>If it isn't right yet, a short clue points at what to look at, not at the answer.</span></div></li>
+        <li><div><strong>More guided help, if needed</strong><span>The step gets smaller: something to move, shade, or count.</span></div></li>
+        <li><div><strong>They try again</strong><span>And finish the step themselves.</span></div></li>
+      </ol>
+      <p class="fade"><a class="link-under more" href="/how-it-works/">More about how it works →</a></p>
+    </div>
+    <figure class="art fade">
+      <div class="shot"><picture><source type="image/webp" srcset="/assets/screen-fractions.webp" /><img src="/assets/screen-fractions.png" width="915" height="1280" loading="lazy"
+        alt="An equivalent-fractions step on the iPad: &quot;Both numbers change the same way&quot;, one half shown as a shaded bar above eight empty parts, and the child choosing the missing top number themselves." /></picture></div>
+    </figure>
+  </div>
+</section>
+
+<!-- ── 5 · READING SUPPORT — no microphone claims: the shipping build does not listen ───────────── -->
+<section class="band wrap story" aria-labelledby="s3-h2">
+  <div class="copy">
+    <p class="eyebrow fade">Reading support</p>
+    <h2 id="s3-h2" class="fade">Reading practice built on their own reading.</h2>
+    <p class="fade">Add the passage your child was assigned, or practise with a short story. They read one page at a time, can have it read aloud whenever they want, and get help when a word is tricky.</p>
+    <p class="fade">Then come questions about what they just read — grounded in the passage, with the story right there to look back at when they're unsure.</p>
+  </div>
+  <figure class="art fade">
+    <div class="shot"><picture><source type="image/webp" srcset="/assets/screen-reading.webp" /><img src="/assets/screen-reading.png" width="915" height="1220" loading="lazy"
+      alt="A reading question on the iPad: &quot;What did Bailey win?&quot;, with the story page shown beneath it to look back at — &quot;The judge gave Bailey a blue ribbon.&quot; — a Read to me button, and a box for the child's answer." /></picture></div>
+  </figure>
+</section>
+
+<!-- ── 6 · MAX + MOTIVATION ─────────────────────────────────────────────────────────────────────── -->
+<section class="band band-gold" aria-labelledby="s4-h2">
+  <div class="wrap story flip">
+    <div class="copy">
+      <p class="eyebrow fade">Max is in their corner</p>
+      <h2 id="s4-h2" class="fade">Encouragement that's earned, not engineered.</h2>
+      <p class="fade">Max is there for the whole session — steady encouragement when a step is hard. Bone Bucks and new corners of Paws Village are earned by finishing real work, so the progress your child sees is progress they made. No streak pressure, and no guilt for a missed day.</p>
     </div>
     <figure class="art fade story-drift">
       <div class="max-say">
-        <!-- Professor Paws' OWN words, lifted from the app rather than written for the website:
-             this exact line is what he says when a child is working a step. -->
+        <!-- Max's OWN words, lifted from the app's lessons rather than written for the website. -->
         <p class="bubble">Let's work through this step together.</p>
         <img src="/assets/max.png" width="620" height="806" loading="lazy"
-          alt="Professor Paws, the puppy, saying &quot;Let&apos;s work through this step together.&quot;" />
+          alt="Max, the Professor Paws puppy, saying &quot;Let&apos;s work through this step together.&quot;" />
       </div>
     </figure>
   </div>
 </section>
 
-<section class="band wrap story" aria-labelledby="s3-h2">
-  <div class="copy">
-    <h2 id="s3-h2" class="fade">Help that adapts</h2>
-    <p class="fade">Reading, spelling, times tables, fractions, money, telling the time — the same calm, step-by-step approach across the schoolwork children ages 8–13 actually bring home.</p>
-  </div>
-  <figure class="art fade">
-    <div class="pair">
-      <div class="shot"><picture><source type="image/webp" srcset="/assets/screen-reading.webp" /><img src="/assets/screen-reading.png" width="915" height="1220" loading="lazy"
-        alt="A reading passage on the iPad with the current word highlighted as the child reads along." /></picture></div>
-      <div class="shot"><picture><source type="image/webp" srcset="/assets/screen-times.webp" /><img src="/assets/screen-times.png" width="915" height="1220" loading="lazy"
-        alt="A times-tables practice screen on the iPad." /></picture></div>
-    </div>
-  </figure>
-</section>
-
-<!-- ── PARENTS / TRUST — navy-dominant, calm, and it LINKS to the detail rather than dumping it ── -->
+<!-- ── 7 · FOR PARENTS ──────────────────────────────────────────────────────────────────────────── -->
 <section class="band band-paper" id="parents" aria-labelledby="tr-h2">
   <div class="wrap measure">
+    <p class="eyebrow fade">For parents</p>
     <h2 id="tr-h2" class="fade">Built for kids. Controlled by parents.</h2>
-    <p class="lede fade">You create the account, you decide what your child can reach, and you can delete their data whenever you want.</p>
-    <div class="trust-line fade" id="trust">
-      <span>No ads</span><span>Parent controls</span><span>Designed around real learning</span>
-    </div>
+    <p class="lede fade">You create the account and hold the controls. The Parent Summary shows what your child completed — and, where the app has real data for it, where they needed help.</p>
+    <ul class="facts fade" id="trust">
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg><span>Parent-created, parent-controlled account. Children can't make purchases.</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>No ads, no chat, no social features.</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg><span>Your child's data is never sold and never used to train AI.</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Delete your child's data from inside the app, any time.</span></li>
+    </ul>
     <p class="fade" style="margin-top:26px;"><a class="link-under" href="/safety/">Read about safety and privacy →</a></p>
   </div>
 </section>
 
-<!-- ── FINAL CTA — one orange band, one button, and the real beta request form ─────────────────── -->
+<!-- ── 8 · SOCIAL PROOF — OMITTED: no approved parent quote exists in the repo or project records. Never invent one. -->
+
+<!-- ── 9 · FLORIDA SCHOLARSHIP CALLOUT — secondary, and it implies no approval ─────────────────── -->
+<section class="band wrap" aria-labelledby="fl-h2">
+  <div class="scholar fade">
+    <div>
+      <h2 id="fl-h2">Using a Florida education scholarship?</h2>
+      <p>Professor Paws has been added to the Step Up For Students seller onboarding queue for future consideration.</p>
+    </div>
+    <a class="link-under" href="/stepup/">Learn about scholarship purchasing →</a>
+  </div>
+</section>
+
+<!-- ── 10 · FINAL CTA — the existing email mechanism, reframed for launch. It promises no access, approval or
+     date; the real App Store link replaces it when Phillip supplies one. Form ids/classes are unchanged: the
+     script below and the privacy policy's description of the form both depend on them. -->
 <section class="band band-orange on-orange final" id="beta" aria-labelledby="beta-h2">
   <div class="wrap">
-    <h2 class="fade" style="font-family:var(--heading);">Make homework feel possible again.</h2>
+    <h2 id="beta-h2" class="fade" style="font-family:var(--heading);">Make homework feel doable.</h2>
+    <p class="lede fade">Professor Paws is preparing for public App Store launch.</p>
     <form class="beta fade" action="https://formspree.io/f/xlgyqkaq" method="POST" novalidate aria-labelledby="beta-h2">
-        <p class="note">Free private beta for families of children ages 8–13. No payment required.</p>
+      <p class="note">Leave your email and we'll be in touch about getting Professor Paws for your family.</p>
 
     <label for="parent-email">Parent email</label>
     <input id="parent-email" type="email" name="email" required autocomplete="email" />
 
-    <input type="hidden" name="_subject" value="Professor Paws — beta request" />
+    <input type="hidden" name="_subject" value="Professor Paws — access request" />
     <!-- attribution only — populated from ?src= by the script below (sanitized, never personal data). Empty unless the visitor arrived via a tagged link. -->
     <input type="hidden" name="source" id="beta-source" value="" />
     <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
-    <button type="submit" class="btn">Request Free Beta Access</button>
-    <p class="note" style="margin:12px 0 0; font-size:.9rem;">We review requests and email beta access when the iPad app is ready to test.</p>
+    <button type="submit" class="btn">Get Professor Paws</button>
+    <p class="note" style="margin:12px 0 0; font-size:.9rem;">We'll only use your email to contact you about Professor Paws.</p>
     <p class="form-msg" role="status" aria-live="polite"></p>
   </form>
 
   <!-- OPTIONAL second step — hidden until step 1 succeeds; never required for the request to count. -->
   <form class="beta beta-2 fade" action="https://formspree.io/f/xlgyqkaq" method="POST" novalidate aria-labelledby="beta2-h3" hidden>
-    <h3 id="beta2-h3" tabindex="-1">Want to help us find the right beta families?</h3>
-    <p class="note">Optional — a few details help us invite a good mix. Skip it if you'd rather not.</p>
+    <h3 id="beta2-h3" tabindex="-1">Want to tell us a little about homework at your house?</h3>
+    <p class="note">Optional — it helps us understand the families we're building for. Skip it if you'd rather not.</p>
 
     <label for="country">Country</label>
     <select id="country" name="country">
@@ -580,7 +666,7 @@
     <textarea id="homework-life" name="homework_challenge" rows="3"></textarea>
 
     <input type="hidden" name="email" id="beta2-email" value="" />
-    <input type="hidden" name="_subject" value="Professor Paws — beta details" />
+    <input type="hidden" name="_subject" value="Professor Paws — access request details" />
     <input type="hidden" name="source" id="beta2-source" value="" />
     <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
     <button type="submit" class="btn">Send details</button>
@@ -604,6 +690,7 @@
       <a href="/how-it-works/">How it works</a><a href="/evidence/">Evidence</a>
       <a href="/safety/">Safety</a>
       <a href="/faq/">FAQ</a>
+      <a href="/stepup/">Florida scholarships</a>
       <a href="/privacy.html">Privacy</a>
       <a href="/terms.html">Terms</a>
       <a href="/support.html">Support</a>
@@ -653,7 +740,7 @@
   const io = new IntersectionObserver((es)=>{ for (const e of es) if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} },{threshold:.12});
   document.querySelectorAll('.fade').forEach(el=>io.observe(el));
 
-  // beta form, EMAIL-FIRST (ruling C): step 1 = email + button. On success the step-2 form (optional details) is
+  // access form (was the beta form until the 2026-10-01 launch refresh), EMAIL-FIRST (ruling C): step 1 = email + button. On success the step-2 form (optional details) is
   // revealed and posted separately, keyed by the same email. Loading / success / error states, double-submit guard,
   // focus landed on the live message. Analytics are bare counts — never the email, never the free text.
   const form = document.querySelector('form.beta:not(.beta-2)');
@@ -672,7 +759,7 @@
       const r = await fetch(form.action, { method:'POST', body:new FormData(form), headers:{ 'Accept':'application/json' } });
       if (!r.ok) throw new Error();
       form.querySelectorAll('label, input, button, .note').forEach(el=>el.style.display='none');
-      msg.textContent = "You're on the list. We review requests and email beta access when the iPad app is ready to test.";
+      msg.textContent = "Thank you — we'll be in touch about getting Professor Paws for your family.";
       msg.className = 'form-msg ok';
       msg.setAttribute('tabindex', '-1'); msg.focus();   // the submit button that held focus is now hidden — land focus on the message
       ppEvent('beta_form_submitted');
@@ -702,7 +789,7 @@
       const r = await fetch(form2.action, { method:'POST', body:new FormData(form2), headers:{ 'Accept':'application/json' } });
       if (!r.ok) throw new Error();
       form2.querySelectorAll('label, input, select, textarea, fieldset, button, .note, h3').forEach(el=>el.style.display='none');
-      msg2.textContent = "Thank you — that helps us invite a good mix of families.";
+      msg2.textContent = "Thank you — that helps us understand the families we're building for.";
       msg2.className = 'form-msg ok';
       msg2.setAttribute('tabindex', '-1'); msg2.focus();
     } catch {
