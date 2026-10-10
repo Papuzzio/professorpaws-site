@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://playprofessorpaws.com/assets/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Professor Paws — homework help that teaches, beside the iPad app's homework screen" />
+<meta property="og:image:alt" content="Professor Paws — homework help that teaches, beside the app's homework screen on iPad" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Privacy Policy — Professor Paws" />
 <meta name="twitter:description" content="What Professor Paws collects, what it does not, where the data lives, and how to delete it. Written for parents, in plain language." />
@@ -509,7 +509,7 @@
 <main id="main">
 <article class="wrap page">
 <h1>Privacy Policy</h1>
-<div class="updated">Last updated: October 2, 2026</div>
+<div class="updated">Last updated: October 10, 2026</div>
 <p class="lede">Professor Paws is operated by <strong>Professor Paws LLC</strong>, a Florida limited liability company ("we," "us"). This policy explains what we collect, why, and what control you have. It is written for parents, in plain language.</p>
 
 <h2>1. Who we are and where your data lives</h2>
@@ -530,7 +530,9 @@ Email: <a href="mailto:hello@playprofessorpaws.com">hello@playprofessorpaws.com<
 <li><strong>We do not ask for your child's real name.</strong> You create a nickname. We recommend you do not use your child's real name — a nickname or made-up name works perfectly.</li>
 <li><strong>We ask for your child's age once, when you set up their profile</strong>, to confirm the app is age-appropriate (Professor Paws is built for ages 8–13). We do not ask for a birthdate, and <strong>your child's age does not decide what they are taught</strong> — the app adapts to what your child can actually do.</li>
 <li><strong>We do not collect your child's photograph or location.</strong></li>
-<li><strong>Some families can turn on an optional feature where the app listens while your child reads aloud</strong>, so it can follow along and offer help. If you turn it on, listening happens entirely on your child's own device — nothing is ever recorded, saved, or sent anywhere, including to us. No audio and no transcript of what your child said is stored on the device either; it exists only for the moment it takes the app to follow along, then it's gone. Listening is off unless you turn it on, for each child, and you can turn it off again at any time.</li>
+<!-- LISTENING VARIANT (owner items 56-OFF / 56-ON, 2026-10-09). Exactly ONE of the two lines below is live; it must match production app_config.listening_gate.enabled (the app shows the same variant from the same switch). To flip, move the comment markers from one line to the other, change "Last updated", and publish at the same moment the switch changes. -->
+<li data-variant="listening-off"><strong>Listening while your child reads aloud is switched off in this version of Professor Paws.</strong> The app does not use the microphone. You may still see a "Reading out loud" setting for each child; while listening is switched off, turning it on does not start the microphone. Professor Paws does not store your child's raw reading audio or full speech transcript.</li>
+<!-- <li data-variant="listening-on"><strong>Some families can turn on an optional feature where the app listens while your child reads a book aloud</strong>, so it can follow along and offer help. Listening is off unless you turn it on, for each child, and you can turn it off again at any time. It only works when the phone or tablet can recognise speech on the device itself, in the same English as your child's reading; otherwise reading carries on without listening. The audio never leaves the device, and Professor Paws does not store your child's raw reading audio or full speech transcript.</li> -->
 <li><strong>We show no advertising.</strong> We do not sell, rent, or share personal information.</li>
 </ul>
 
@@ -539,7 +541,7 @@ Email: <a href="mailto:hello@playprofessorpaws.com">hello@playprofessorpaws.com<
 <li><strong>Account information:</strong> your email address and password (passwords are stored hashed; we never see them).</li>
 <li><strong>Consent records:</strong> the fact that you gave consent, what you were shown when you gave it, the date and time, and how it was verified.</li>
 <li><strong>Subscription information:</strong> if you subscribe, Apple processes the payment. <strong>We never receive your payment card details.</strong> We use RevenueCat to confirm whether your subscription is active (see Section 9).</li>
-<li><strong>Support correspondence:</strong> anything you email us.</li>
+<li><strong>Support correspondence:</strong> anything you email us, and problem reports you send from the parent area of the app: the reason you choose, any note you add, and the activity step the report is about, including the question and your child's answer.</li>
 </ul>
 
 <h2>4. Information we collect about your child</h2>
@@ -547,8 +549,11 @@ Email: <a href="mailto:hello@playprofessorpaws.com">hello@playprofessorpaws.com<
 <li><strong>A nickname</strong> you choose (not required to be a real name).</li>
 <li><strong>Your child's age</strong> — a number from 8 to 13, collected once at setup to confirm the app is age-appropriate. We do not collect a birthdate.</li>
 <li><strong>Learning activity:</strong> the words, problems, and tasks your child works on; what they answered; what support they used; and what they can do over time.</li>
+<li><strong>Your answers to the setup questions about how your child learns</strong> (for example how reading and maths usually go, focus, and things they love). Used to fit each lesson to your child.</li>
+<li><strong>Reading progress (if your child uses reading practice).</strong> A record of how each practice word went — read on their own, after a retry, with help, or supplied by Max — with the word shown on screen, the reading pattern it practises and the day, plus a summary of which reading patterns your child is learning and when each is due for review. If you use the Read-Aloud Check, the result you mark. We count a pattern as learned only after your child demonstrates it independently, including through an optional parent Read-Aloud Check when listening is turned off. Professor Paws does not store your child's raw reading audio or full speech transcript. The reading-progress record stores the word shown on screen and the resulting learning evidence, such as independent, retry, helped, told or not confirmed — not a recording of what your child said. It is used only to teach and review reading patterns and to show you progress; it is never a diagnosis, grade or score, never used for advertising, and never used to train AI. Only the reading patterns needed to create a lesson, and your child's age range (8–10 or 11–13), may be sent to our AI provider (Anthropic) with that lesson request, never your child's detailed reading record.</li>
 <li><strong>Schoolwork content you or your child enter:</strong> spelling words, homework tasks, reading assignments, and any notes you add.</li>
 <li><strong>Homework photographs, if you choose to use that feature:</strong> you may photograph homework so the app can read the task. These images are sent to our AI provider (Anthropic) to read the task and are not stored in your child's profile.</li>
+<li><strong>Usage and error records:</strong> which activities are started and finished in the app, and errors the app runs into (for example a lesson that could not be created), so we can keep the service working.</li>
 <li><strong>Puppy and in-app choices:</strong> the puppy's name, items earned, worlds opened, and progress.</li>
 </ul>
 <p>We do not build advertising profiles, we do not track your child across other apps or websites, and we do not assign IQ-style scores or diagnostic labels.</p>
@@ -558,7 +563,7 @@ Email: <a href="mailto:hello@playprofessorpaws.com">hello@playprofessorpaws.com<
 
 <h2>6. Artificial intelligence</h2>
 <p>Professor Paws uses AI (Anthropic's Claude) to generate teaching activities. When your child works on a task, the relevant task information is sent to Anthropic to produce the activity.</p>
-<p><strong>Your child's information is not used to train AI models.</strong> Anthropic processes this data as our service provider under a written agreement and does not train its models on it. We send only the task information needed to produce the activity.</p>
+<p><strong>Your child's information is not used to train AI models.</strong> Anthropic processes this data as our service provider under a written agreement and does not train its models on it. Our AI provider, Anthropic, may retain API inputs and outputs for up to 30 days under its standard API retention terms, subject to its applicable contractual, safety and legal exceptions. We send only what is needed to produce the activity: the task, and the setup answers that lesson uses (for example to shorten steps or use calmer wording). Only the reading patterns needed to create a lesson, and your child's age range (8–10 or 11–13), may be sent to our AI provider (Anthropic) with that lesson request, never your child's detailed reading record.</p>
 
 <h2>7. Parental consent (COPPA)</h2>
 <p>Professor Paws is intended for children under 13 and is <strong>designed to comply</strong> with the Children's Online Privacy Protection Act (COPPA).</p>
@@ -583,7 +588,7 @@ Email: <a href="mailto:hello@playprofessorpaws.com">hello@playprofessorpaws.com<
 <li><strong>Anthropic</strong> — AI processing for teaching activities.</li>
 <li><strong>Resend</strong> — sending consent and account emails.</li>
 <li><strong>RevenueCat</strong> — subscription management. If you subscribe, RevenueCat receives your parent account's identifier and the purchase records Apple provides (the product, dates and status of the subscription), along with the technical information that accompanies any online request, such as device type and IP address. It receives no information about your child.</li>
-<li><strong>Apple</strong> — subscription processing (Apple handles payment; we receive no card data), and TestFlight, which delivers the beta app to invited families.</li>
+<li><strong>Apple</strong> — subscription processing (Apple handles payment; we receive no card data).</li>
 <li><strong>Formspree</strong> — receives the access-request form from this website (see "Our website" below).</li>
 <li><strong>GitHub Pages</strong> — hosts this website (see "Our website" below).</li>
 </ul>
@@ -591,7 +596,7 @@ Email: <a href="mailto:hello@playprofessorpaws.com">hello@playprofessorpaws.com<
 <p>We do not sell personal information. We do not share personal information for advertising. We may disclose information if legally required, or to protect someone's safety.</p>
 
 <h2>10. How long we keep it</h2>
-<p>We keep your child's learning information while the account is active, because it is what lets the app pick up where your child left off. When you delete it, it is gone from our live systems. The table below is the summary:</p>
+<p>We keep your child's learning information while the account is active, because it is what lets the app pick up where your child left off — except where the table below gives a shorter period. When you delete it, it is removed from the active service. The table below is the summary:</p>
 <div class="rt-wrap">
 <table class="rt">
 <caption>Retention by category</caption>
@@ -599,21 +604,26 @@ Email: <a href="mailto:hello@playprofessorpaws.com">hello@playprofessorpaws.com<
 <tbody>
 <tr><th scope="row">Child nickname</th><td>Until you delete the child profile or close your account — then removed from live systems.</td></tr>
 <tr><th scope="row">Learning activity (answers, support used, progress)</th><td>Until you delete the child profile or close your account — then removed from live systems.</td></tr>
+<tr><th scope="row">Setup answers about how your child learns</th><td>Kept only while they are needed to personalize your child's active profile. Deleted when you delete the child profile, close your account or withdraw consent, or after 12 months with no activity on that child profile.</td></tr>
+<tr><th scope="row">Reading progress</th><td>Each word record: 12 months, then deleted. The summary of reading patterns: while your child is active; after 12 months with no activity, all reading progress is deleted and your child starts again with a short reading check. Deleted immediately when you delete the child profile, close your account, or withdraw consent — then removed from live systems.</td></tr>
 <tr><th scope="row">Schoolwork content you enter</th><td>Until you delete the child profile or close your account — then removed from live systems.</td></tr>
 <tr><th scope="row">Puppy, rewards, and worlds</th><td>Until you delete the child profile or close your account — then removed from live systems.</td></tr>
-<tr><th scope="row">Parent account (email)</th><td>Until you close your account — then deleted within 30 days.</td></tr>
+<tr><th scope="row">Usage and error records; problem reports</th><td>Until you close your account. Records about a child are also removed when you delete that child's profile.</td></tr>
+<tr><th scope="row">Parent account (email)</th><td>Until you close your account. When you delete your account in the app, it is deleted straight away; if you ask us by email, within 30 days.</td></tr>
 <tr><th scope="row">Consent record (proof you consented and how it was verified)</th><td>Kept for <strong>3 years after the account or child is deleted</strong>, because COPPA requires us to be able to demonstrate that consent was obtained. Then it is purged.</td></tr>
-<tr><th scope="row">Encrypted backups</th><td>Deleted information may persist in disaster-recovery backups for up to <strong>30 days</strong> before being overwritten in the ordinary backup cycle. It is not restored to the service and is not used for anything.</td></tr>
 <tr><th scope="row">Homework photographs</th><td>Not retained — processed to read the task, never stored in your child's profile. Temporary copies on your device are cleared by the app.</td></tr>
+<tr><th scope="row">Encrypted backups</th><td>Encrypted backups may be retained for up to 35 days before they are automatically deleted.</td></tr>
 </tbody>
 </table>
 </div>
+<p>When you delete data, it is removed from the active service. Copies may remain in encrypted backups until those backups expire, for up to 35 days.</p>
 
 <h2>11. Reviewing and deleting your child's information</h2>
 <ul>
-<li><strong>In the app:</strong> Parent area → Edit Child → Delete child data.</li>
+<li><strong>In the app:</strong> in the parent area, open your child's profile (Edit) and choose <strong>Withdraw consent &amp; delete data</strong>. To delete your whole account, open the Parent portal and choose <strong>Delete my data</strong>.</li>
 <li><strong>By email:</strong> write to <a href="mailto:hello@playprofessorpaws.com">hello@playprofessorpaws.com</a> from your account's email address to review, correct, or delete your child's information, or to close your account entirely. We will confirm when it's done.</li>
 </ul>
+<p>When you delete data, it is removed from the active service. Copies may remain in encrypted backups until those backups expire, for up to 35 days.</p>
 <p>Deleting your child's information means the app no longer knows what they've learned, so a fresh start begins from zero. Rewards and worlds are part of that record.</p>
 
 <h2>12. Refusing further collection</h2>
